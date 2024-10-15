@@ -20,5 +20,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Route::get('dashboard',[DashboardController::class,'index']);
 Route::get('apitest',function(){
-    return "Test";
+    // return "Test";
+    $testStatus=array(
+        "message" => "Test Successful",
+        "status" => "success"
+    );
+
+    // $checkinStatus = $routeplanitem['outlet_id'];
+
+    return response()->json($testStatus);
 });
