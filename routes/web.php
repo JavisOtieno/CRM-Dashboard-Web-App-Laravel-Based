@@ -5,6 +5,7 @@ use App\Models\Account;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DealController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -27,16 +28,37 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/accounts', [AccountController::class, 'index'])->middleware(['auth', 'verified'])->name('accounts');
-Route::get('/accountstest', 
-function () {
-    $accounts = Account::all();
-    return Inertia::render('Dashboard',['accounts' => $accounts]);
-}
-)->middleware(['auth', 'verified'])->name('accounts');
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+    Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
+    Route::get('/deals', [DealController::class, 'index'])->name('deals');
+    Route::get('/addaccount', [AccountController::class, 'showAddAccount'])->name('addaccount');
+    Route::get('/editaccount/{id}', [AccountController::class, 'showEditAccount']);
+    Route::put('/submiteditaccount/{id}', [AccountController::class, 'submitEditAccount']);
+    Route::delete('/deleteaccount/{id}', [AccountController::class, 'deleteAccount']);
+    Route::post('/submitaddaccount',[ AccountController::class, 'submitAddAccount']);
+    Route::get('/accountstest', 
+    function () {
+        $accounts = Account::all();
+        return Inertia::render('Dashboard',['accounts' => $accounts]);
+    }
+    )->name('accounts');
+
+    Route::get('/customers', 
+    function () {
+        $accounts = Account::all();
+        return Inertia::render('Customers',['accounts' => $accounts]);
+    }
+    )->name('customers');
+});
+
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

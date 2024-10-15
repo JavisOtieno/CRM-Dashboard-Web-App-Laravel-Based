@@ -51,8 +51,8 @@ import { Head } from '@inertiajs/vue3';
 
   <div class="flex-1 p-6">
     <!-- Your main content goes here -->
-    <h1 class="text-2xl font-bold">Main Content Area</h1>
-    <p class="mt-4">This is where you can add your main content.</p>
+    <h1 class="text-2xl font-bold">Accounts</h1>
+    <!-- <p class="mt-4">This is where you can add your main content.</p> -->
 
 
 

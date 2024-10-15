@@ -1,15 +1,16 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import Sidebar from '@/Pages/Sidebar.vue';
 </script>
 
 <template>
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
-        <template #header>
+        <!-- <template #header>
   <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-  <div class="flex justify-between items-start mt-4"> <!-- Added justify-between -->
+  <div class="flex justify-between items-start mt-4"> 
     <label for="HeadlineAct" class="block text-sm font-medium text-gray-900"> Headliner </label>
     
     <select
@@ -21,87 +22,13 @@ import { Head } from '@inertiajs/vue3';
       <option value="JM">John Mayer</option>
     </select>
   </div>
-</template>
+</template> -->
 
 
         <div class="flex h-screen">
   <!-- Sidebar -->
   <div class="flex h-screen flex-col justify-between border-e bg-white w-1/5"> <!-- 1/4 width -->
-    <div class="px-4 py-6">
-      <span class="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
-        Logo
-      </span>
-
-      <ul class="mt-6 space-y-1">
-        <li>
-          <a href="/dashboard" class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
-            Dashboard
-          </a>
-        </li>
-
-        <li>
-          <details class="group [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-              <span class="text-sm font-medium"> Teams </span>
-
-              <span class="shrink-0 transition duration-300 group-open:-rotate-180">
-                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-              </span>
-            </summary>
-
-            <ul class="mt-2 space-y-1 px-4">
-              <li>
-                <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Banned Users </a>
-              </li>
-
-              <li>
-                <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Calendar </a>
-              </li>
-            </ul>
-          </details>
-        </li>
-
-        <li>
-          <a href="/accounts" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Accounts </a>
-        </li>
-
-        <li>
-          <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Invoices </a>
-        </li>
-
-        <li>
-          <details class="group [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-              <span class="text-sm font-medium"> Account </span>
-
-              <span class="shrink-0 transition duration-300 group-open:-rotate-180">
-                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-              </span>
-            </summary>
-
-            <ul class="mt-2 space-y-1 px-4">
-              <li>
-                <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Details </a>
-              </li>
-
-              <li>
-                <a href="#" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Security </a>
-              </li>
-
-              <li>
-                <form action="#">
-                  <button type="submit" class="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"> Logout </button>
-                </form>
-              </li>
-            </ul>
-          </details>
-        </li>
-      </ul>
-    </div>
+    <Sidebar/>
 
     
 
