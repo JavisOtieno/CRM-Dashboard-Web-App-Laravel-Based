@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\AccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,5 @@ Route::get('apitest',function(){
 
     return response()->json($testStatus);
 });
+
+Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
