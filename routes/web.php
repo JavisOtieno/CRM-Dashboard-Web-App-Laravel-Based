@@ -4,8 +4,9 @@ use Inertia\Inertia;
 use App\Models\Account;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DealController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -35,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
     Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
+    Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
     Route::get('/deals', [DealController::class, 'index'])->name('deals');
     Route::get('/addaccount', [AccountController::class, 'showAddAccount'])->name('addaccount');
     Route::get('/editaccount/{id}', [AccountController::class, 'showEditAccount']);

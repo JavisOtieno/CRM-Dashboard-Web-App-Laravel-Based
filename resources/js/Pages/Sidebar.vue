@@ -33,6 +33,9 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
       <li>
         <a href="/deals" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Deals </a>
       </li>
+      <li>
+        <a href="/contacts" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Contacts </a>
+      </li>
       <!-- <li>
         <a href="/addaccount" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Add Account </a>
       </li> -->
