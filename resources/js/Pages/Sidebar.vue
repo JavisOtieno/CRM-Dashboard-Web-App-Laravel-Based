@@ -9,9 +9,9 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 </script>
 <template>
 <div class="px-4 py-6">
-    <span class="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
+    <!-- <span class="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
       Logo
-    </span>
+    </span> -->
 
     <ul class="mt-6 space-y-1">
       <li>
