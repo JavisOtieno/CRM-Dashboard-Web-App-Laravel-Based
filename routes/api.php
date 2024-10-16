@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\api\AccountController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\DealController;
+use App\Http\Controllers\api\AccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,5 @@ Route::get('apitest',function(){
     return response()->json($testStatus);
 });
 
-Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
+Route::get('/accounts', [AccountController::class, 'index']);
+Route::get('/deals', [DealController::class, 'index']);
