@@ -12,8 +12,8 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
     <!-- <span class="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
       Logo
     </span> -->
-
-    <ul class="mt-6 space-y-1">
+<!-- had mt-6 -->
+    <ul class="space-y-1">
       <li>
         <a href="/dashboard" class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
           Dashboard
