@@ -222,7 +222,11 @@ const deleteAccount = (accountId) => {
 
 .styled-table th,
 .styled-table td {
-    padding: 12px; /* Space around text */
+    /*padding: 12px;  Space around text */
+    padding-left: 12px; /* Space around text */
+    padding-right: 12px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     text-align: left; /* Align text to the left */
     border: 1px solid #dddddd; /* Light gray border */
 }

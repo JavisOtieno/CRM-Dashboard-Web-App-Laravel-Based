@@ -147,8 +147,7 @@ defineProps({
 
 .styled-table th,
 .styled-table td {
-    padding-left: 12px; /* Space around text */
-    padding-right: 12px;
+    padding: 12px; /* Space around text */
     text-align: left; /* Align text to the left */
     border: 1px solid #dddddd; /* Light gray border */
 }
