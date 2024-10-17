@@ -84,7 +84,7 @@ defineProps({
 
   <div class="flex-1 p-6">
     <!-- Your main content goes here -->
-    <h1 class="text-2xl font-bold">Calls</h1>
+    <h1 class="text-2xl font-bold">Calls fsds</h1>
     <!-- <p class="mt-4">This is where you can add your main content.</p> -->
 
 
