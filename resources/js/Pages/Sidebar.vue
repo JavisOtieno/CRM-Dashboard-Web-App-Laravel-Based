@@ -16,9 +16,9 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 <!-- had mt-6 -->
     <ul class="space-y-1">
       <li>
-        <a href="/dashboard" class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
+        <Link :href="route('dashboard')"  class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
           Dashboard
-        </a>
+        </Link>
       </li>
 
  
@@ -28,23 +28,23 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
       </li> -->
 
       <li>
-        <a href="/accounts" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Accounts </a>
+        <Link :href="route('accounts')"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Accounts </Link>
       </li>
 
       <li>
-        <a href="/deals" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Deals </a>
+        <Link :href="route('deals')"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Deals </Link>
       </li>
       <li>
-        <a href="/contacts" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Contacts </a>
+        <Link :href="route('contacts')" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Contacts </Link>
       </li>
       <li>
-        <a href="/calls" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Calls </a>
+        <Link :href="route('calls')"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Calls </Link>
       </li>
       <li>
-        <a href="/meetings" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Meetings </a>
+        <Link :href="route('meetings')"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Meetings </Link>
       </li>
       <li>
-        <a href="/visits" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Visits </a>
+        <Link :href="route('visits')" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Visits </Link>
       </li>
       <!-- <li>
         <a href="/addaccount" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Add Account </a>

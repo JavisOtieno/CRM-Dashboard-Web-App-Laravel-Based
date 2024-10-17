@@ -8,6 +8,10 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+
+// imageUrl: '{{ asset("images/example.jpg") }}',
+// import exampleImage from '@/assets/example.jpg'; 
+const imageUrl = '/images/logo-dark.png';
 </script>
 
 <template>
@@ -48,7 +52,7 @@ const showingNavigationDropdown = ref(false);
                                             >
                                                 {{ $page.props.auth.user.name }}
 
-                                                <svg
+                                                <!-- <svg
                                                     class="ms-2 -me-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
@@ -59,7 +63,8 @@ const showingNavigationDropdown = ref(false);
                                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                                         clip-rule="evenodd"
                                                     />
-                                                </svg>
+                                                </svg> -->
+                                                <!-- logo-dark.png -->
                                             </button>
                                         </span>
                                     </template>

@@ -59,7 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $accounts = Account::all();
         return Inertia::render('Dashboard',['accounts' => $accounts]);
     }
-    )->name('accounts');
+    )->name('accountstest');
 
     Route::get('/customers', 
     function () {
