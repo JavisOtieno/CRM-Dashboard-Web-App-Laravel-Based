@@ -6,6 +6,9 @@ import Sidebar from '@/Pages/Sidebar.vue';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
 import { Link } from '@inertiajs/vue3';
+import BaseComponent from '@/Pages/BaseTableComponent.vue';
+import BaseTableComponent from '@/Pages/BaseTableComponent.vue';
+
 
 DataTable.use(DataTablesCore);
 
@@ -29,6 +32,11 @@ const deleteAccount = (accountId) => {
     });
   }
 };
+
+
+
+
+
 
 // If you need to return values to the template, do it here
 // return { form, deleteUser, props };
@@ -59,6 +67,7 @@ const deleteAccount = (accountId) => {
 
 
 <template>
+  <BaseTableComponent>
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
@@ -81,25 +90,12 @@ const deleteAccount = (accountId) => {
 
         <div class="flex h-screen">
   <!-- Sidebar -->
-  <div class="flex h-screen flex-col justify-between border-e bg-white w-1/5"> <!-- 1/4 width -->
 
     <Sidebar/>
 
     
 
-    <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
-      <a href="#" class="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
-        <img alt="" src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" class="size-10 rounded-full object-cover" />
 
-        <div>
-          <p class="text-xs">
-            <strong class="block font-medium">Eric Frusciante</strong>
-            <span> eric@frusciante.com </span>
-          </p>
-        </div>
-      </a>
-    </div>
-  </div>
 
   <!-- Main Content -->
 
@@ -125,6 +121,7 @@ const deleteAccount = (accountId) => {
   
   <Link :href="route('addaccount')"  as="button"
     class="inline-block rounded border border-red-600 bg-red-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-red-600 focus:outline-none focus:ring active:text-red-500"
+    id="addbutton"
 
   >
     Add Account
@@ -134,7 +131,7 @@ const deleteAccount = (accountId) => {
   
    
 
-    <DataTable class="styled-table">
+    <DataTable class="styled-table" id="dataTable" @initComplete="onInitComplete">
         <thead>
             <tr>
                 <th>Name</th>
@@ -155,7 +152,7 @@ const deleteAccount = (accountId) => {
                 <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
     <a
     :href="`/editaccount/${account.id}`"
-      class="inline-block border-e p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+      class="inline-block border-e p-2 text-gray-700 hover:bg-gray-50 focus:relative"
       title="Edit Product"
     >
       <svg
@@ -175,7 +172,7 @@ const deleteAccount = (accountId) => {
     </a>
   
     <button
-      class="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+      class="inline-block p-2 text-gray-700 hover:bg-gray-50 focus:relative"
       title="Delete Product"
        @click="deleteAccount(account.id)" :disabled="form.processing"
     >
@@ -212,53 +209,6 @@ const deleteAccount = (accountId) => {
         
 
     </AuthenticatedLayout>
+  </BaseTableComponent>
 </template>
 
-<style scoped>
-.styled-table {
-    width: 100%;
-    border-collapse: collapse; /* Ensures borders are collapsed */
-}
-
-.styled-table th,
-.styled-table td {
-    /*padding: 12px;  Space around text */
-    padding-left: 12px; /* Space around text */
-    padding-right: 12px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    text-align: left; /* Align text to the left */
-    border: 1px solid #dddddd; /* Light gray border */
-}
-
-.styled-table th {
-    background-color: #4CAF50; /* Green background for header */
-    color: white; /* White text color */
-}
-
-.styled-table tr:nth-child(even) {
-    background-color: #f2f2f2; /* Light gray for even rows */
-}
-/* Move the search box to the right */
-.dt-search {
-    float: right; /* Aligns the search bar to the right */
-}
-
-.dt-search input {
-    margin-left: 10px; /* Aligns the search bar to the right */
-}
-
-.styled-table tr:hover {
-    background-color: #ddd; /* Darker gray on hover */
-}
-
-.styled-table td {
-    font-size: 14px; /* Font size for table cells */
-    color: #333; /* Text color */
-}
-
-.styled-table th {
-    font-size: 16px; /* Font size for header */
-    font-weight: bold; /* Bold header text */
-}
-</style>

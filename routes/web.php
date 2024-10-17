@@ -4,9 +4,12 @@ use Inertia\Inertia;
 use App\Models\Account;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\CallController;
 use App\Http\Controllers\DealController;
+use App\Http\Controllers\VisitController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -37,8 +40,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
     Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
+    Route::get('/addcontact', [ContactController::class, 'showAddContact'])->name('addcontact');
     Route::get('/deals', [DealController::class, 'index'])->name('deals');
+    Route::get('/calls', [CallController::class, 'index'])->name('calls');
+    Route::get('/visits', [VisitController::class, 'index'])->name('visits');
+    Route::get('/addvisit', [VisitController::class, 'showAddVisit'])->name('addvisit');
+    Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings');
+    Route::get('/addmeeting', [MeetingController::class, 'showAddMeeting'])->name('addmeeting');
     Route::get('/addaccount', [AccountController::class, 'showAddAccount'])->name('addaccount');
+    Route::get('/adddeal', [DealController::class, 'showAddDeal'])->name('adddeal');
+    Route::get('/addcall', [CallController::class, 'showAddCall'])->name('addcall');
     Route::get('/editaccount/{id}', [AccountController::class, 'showEditAccount']);
     Route::put('/submiteditaccount/{id}', [AccountController::class, 'submitEditAccount']);
     Route::delete('/deleteaccount/{id}', [AccountController::class, 'deleteAccount']);

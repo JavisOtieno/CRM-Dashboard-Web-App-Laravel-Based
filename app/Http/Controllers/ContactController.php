@@ -14,6 +14,9 @@ class ContactController extends Controller
 
         $contacts = Contact::all();
         return Inertia::render('Contacts',['contacts' => $contacts]);
-        
+
+    }
+    public function showAddContact() {
+        return Inertia::render('AddContact');
     }
 }
