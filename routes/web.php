@@ -53,8 +53,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/visits', [VisitController::class, 'index'])->name('visits');
     Route::get('/addvisit', [VisitController::class, 'showAddVisit'])->name('addvisit');
+
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
     Route::get('/addtask', [TaskController::class, 'showAddTask'])->name('addtask');
+    Route::get('/edittask/{id}', [TaskController::class, 'showEditMeeting']);
+    Route::put('/submitedittask/{id}', [TaskController::class, 'submitEditTask']);
+    Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask']);
+    Route::post('/submitaddtask',[ TaskController::class, 'submitAddTask']);
 
     Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings');
     Route::get('/addmeeting', [MeetingController::class, 'showAddMeeting'])->name('addmeeting');
