@@ -39,7 +39,7 @@ class CallController extends Controller
         
         //$incomingFields['image']='';
 
-        //return $request['image'];
+        // return $incomingFields;
         
 
         Call::create($incomingFields);

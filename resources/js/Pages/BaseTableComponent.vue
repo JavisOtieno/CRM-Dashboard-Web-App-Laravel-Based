@@ -10,6 +10,7 @@
   import 'datatables.net-vue3';
   import { onMounted, ref } from 'vue';
   import $ from 'jquery';
+  import { useForm } from '@inertiajs/vue3'; 
   // import any global styles here
 
   
@@ -21,6 +22,20 @@
   }
 
   const table = $('#dataTable').DataTable();
+
+  const form = useForm({});
+
+  const deleteAccount = (accountId) => {
+  if (confirm('Are you sure you want to delete this account?')) {
+    form.delete(`/deleteaccount/${accountId}`, {
+      onSuccess: () => {
+        alert('Account deleted successfully!');
+        window.location.reload(); // Reload the page on success
+      },
+    //   preserveState: true, 
+    });
+  }
+};
 
 // Add input elements to the footer for column search
 var index=0;

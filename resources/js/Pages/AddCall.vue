@@ -16,8 +16,8 @@ export default {
     });
 
     const submitForm = () => {
-      form.post('/submitaddaccount', {
-        onSuccess: () => alert('Account created successfully!'),
+      form.post('/submitaddcall', {
+        onSuccess: () => alert('Call created successfully!'),
       });
     };
 
@@ -120,17 +120,31 @@ export default {
   
       <form @submit.prevent="submitForm" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
         <p class="text-center text-lg font-medium" >Enter call details</p>
+
+        <template>
+  <div role="alert" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
+    <strong class="block font-medium text-red-800"> Errors  </strong>
+    <div v-for="(error, index) in errors" :key="index">
+        <p class="mt-2 text-sm text-red-700">
+      {{ error }}
+    </p>
+    </div>
+    <p class="mt-2 text-sm text-red-700">
+      Lorem ipsum dolor sit amet consectetur,
+    </p>
+  </div>
+</template>
         
         <div>
-          <label for="email" class="sr-only">Account Id</label>
+          <label for="account_id" class="sr-only">Account Id</label>
   
           <div class="relative">
             <input
-            name="name"
-             v-model="form.name"
+            name="account_id"
+             v-model="form.account_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter Account Id"
+              placeholder="Account Id"
             />
             <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
   
@@ -154,14 +168,14 @@ export default {
         </div>
   
         <div>
-          <label for="phone" class="sr-only">Contact Id</label>
+          <label for="contact_id" class="sr-only">Contact Id</label>
   
           <div class="relative">
             <input
              v-model="form.contact_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter phone"
+              placeholder="Contact Id"
             />
             <div v-if="form.errors.contact_id" class="error">{{ form.errors.contact_id }}</div>
   
@@ -191,14 +205,14 @@ export default {
         </div>
 
         <div>
-          <label for="website" class="sr-only">Status</label>
+          <label for="status" class="sr-only">Status</label>
   
           <div class="relative">
             <input
              v-model="form.status"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Website"
+              placeholder="Status"
             />
             <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
   
@@ -227,42 +241,7 @@ export default {
           </div>
         </div>
 
-        <div>
-          <label for="address" class="sr-only">Address</label>
   
-          <div class="relative">
-            <input
-             v-model="form.address"
-              type="text"
-              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Address"
-            />
-            <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
-  
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
   
         <button
           type="submit"

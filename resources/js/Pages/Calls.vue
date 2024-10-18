@@ -6,8 +6,10 @@ import { Head } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import BaseTableComponent from './BaseTableComponent.vue';
+import { useForm } from '@inertiajs/vue3'; 
  
 DataTable.use(DataTablesCore);
+const form = useForm({});
  
 // const data = [
 //   [1, 2],
@@ -15,7 +17,7 @@ DataTable.use(DataTablesCore);
 // ];
 
 defineProps({
-    deals: {
+    calls: {
       type: Array,
       default: () => [],
     },
@@ -84,7 +86,7 @@ defineProps({
 
   <div class="flex-1 p-6">
     <!-- Your main content goes here -->
-    <h1 class="text-2xl font-bold">Calls fsds</h1>
+    <h1 class="text-2xl font-bold">Calls</h1>
     <!-- <p class="mt-4">This is where you can add your main content.</p> -->
 
 
@@ -128,7 +130,7 @@ defineProps({
 
 <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
 <a
-:href="`/editcontact/${contact.id}`"
+:href="`/editcall/${call.id}`"
 class="inline-block border-e p-2 text-gray-700 hover:bg-gray-50 focus:relative"
 title="Edit Product"
 >

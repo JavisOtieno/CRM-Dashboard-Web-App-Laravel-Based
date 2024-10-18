@@ -6,7 +6,7 @@ import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is insta
 export default {
   components: { Sidebar },
   props: {
-    account: {
+    call: {
       type: Object,
       required: true, // Ensure the account data is passed as a prop
     },
@@ -14,16 +14,15 @@ export default {
   setup(props) {
     // Initialize form state with useForm
     const form = useForm({
-      name: props.account.name || '',
-      phone: props.account.phone || '',
-      website: props.account.website || '',
-      address: props.account.address || '',
+      account_id: props.call.account_id || '',
+      contact_id: props.call.contact_id || '',
+      status: props.account.status || '',
 
     });
 
     const submitForm = () => {
-      form.put(`/submiteditaccount/${props.account.id}`, {
-        onSuccess: () => alert('Account edited successfully!'),
+      form.put(`/submiteditcall/${props.call.id}`, {
+        onSuccess: () => alert('Call edited successfully!'),
       });
     };
 
