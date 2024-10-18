@@ -7,6 +7,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import BaseTableComponent from './BaseTableComponent.vue';
 import { useForm } from '@inertiajs/vue3'; 
+import { usePage } from '@inertiajs/vue3'; 
  
 DataTable.use(DataTablesCore);
 const form = useForm({});
@@ -21,7 +22,43 @@ defineProps({
       type: Array,
       default: () => [],
     },
+
   });
+
+  const { component } = usePage(); // Get the current component name
+
+  let actualComponent = component.slice(0, -1);
+  let lowerComponent = actualComponent.toLowerCase();; // Removes the last character
+  // alert(actualComponent); // Output: "exampl"
+
+
+  const deleteItem = (Id) => {
+    
+    if (confirm('Are you sure you want to delete this '+lowerComponent+'?')) {
+      form.delete(`/delete${lowerComponent}/${Id}`, {
+        onSuccess: () => {
+          alert(actualComponent+' deleted successfully!');
+          window.location.reload(); // Reload the page on success
+        },
+      //   preserveState: true, 
+      });
+    }
+  };
+
+
+
+
+//   const deleteCall = (callId) => {
+//   if (confirm('Are you sure you want to delete this account?')) {
+//     form.delete(`/deletecall/${callId}`, {
+//       onSuccess: () => {
+//         alert('Call deleted successfully!');
+//         window.on.reload(); // Reload the page on success
+//       },
+//     //   preserveState: true, 
+//     });
+//   }
+// };
 
 
 
@@ -152,8 +189,8 @@ d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 
 
 <button
 class="inline-block p-2 text-gray-700 hover:bg-gray-50 focus:relative"
-title="Delete Product"
-@click="deleteAccount(call.id)" :disabled="form.processing"
+title="Delete Call"
+@click="deleteItem(call.id)" :disabled="form.processing"
 >
 <svg
 xmlns="http://www.w3.org/2000/svg"

@@ -79,25 +79,12 @@ export default {
 
         <div class="flex h-screen">
   <!-- Sidebar -->
-  <div class="flex h-screen flex-col justify-between border-e bg-white w-1/5"> <!-- 1/4 width -->
 
     <Sidebar/>
 
     
 
-    <div class="sticky inset-x-0 bottom-0 border-t border-gray-100">
-      <a href="#" class="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
-        <img alt="" src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" class="size-10 rounded-full object-cover" />
 
-        <div>
-          <p class="text-xs">
-            <strong class="block font-medium">Eric Frusciante</strong>
-            <span> eric@frusciante.com </span>
-          </p>
-        </div>
-      </a>
-    </div>
-  </div>
 
   <!-- Main Content -->
 
@@ -137,7 +124,7 @@ export default {
       </p> -->
   
       <form @submit.prevent="submitForm" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-        <p class="text-center text-lg font-medium" >Change customer details</p>
+        <p class="text-center text-lg font-medium" >Change call details</p>
         
         <div>
           <label for="name" class="sr-only">Account Id</label>

@@ -11,7 +11,34 @@
   import { onMounted, ref } from 'vue';
   import $ from 'jquery';
   import { useForm } from '@inertiajs/vue3'; 
+  import { usePage } from '@inertiajs/vue3'; 
   // import any global styles here
+
+
+  const form = useForm({});
+
+
+// const { component } = usePage(); // Get the current component name
+
+//   let actualComponent = component.slice(0, -1);
+//   let lowerComponent = actualComponent.toLowerCase();; // Removes the last character
+//   // alert(actualComponent); // Output: "exampl"
+
+
+//   const deleteItem = (Id) => {
+  
+//   if (confirm('Are you sure you want to delete this '+lowerComponent+'?')) {
+//       form.delete(`/delete${lowerComponent}/${Id}`, {
+//       onSuccess: () => {
+//           alert(actualComponent+' deleted successfully!');
+//           window.location.reload(); // Reload the page on success
+//       },
+//       //   preserveState: true, 
+//       });
+//   }
+//   };
+
+
 
   
   onMounted(() => {
@@ -23,19 +50,8 @@
 
   const table = $('#dataTable').DataTable();
 
-  const form = useForm({});
 
-  const deleteAccount = (accountId) => {
-  if (confirm('Are you sure you want to delete this account?')) {
-    form.delete(`/deleteaccount/${accountId}`, {
-      onSuccess: () => {
-        alert('Account deleted successfully!');
-        window.location.reload(); // Reload the page on success
-      },
-    //   preserveState: true, 
-    });
-  }
-};
+
 
 // Add input elements to the footer for column search
 var index=0;

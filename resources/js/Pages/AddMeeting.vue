@@ -120,20 +120,20 @@ export default {
       </p> -->
   
       <form @submit.prevent="submitForm" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-        <p class="text-center text-lg font-medium" >Enter call details</p>
+        <p class="text-center text-lg font-medium" >Enter meeting details</p>
         
         <div>
-          <label for="email" class="sr-only">Name</label>
+          <label for="email" class="sr-only">Account Id</label>
   
           <div class="relative">
             <input
             name="name"
-             v-model="form.name"
+             v-model="form.account_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter name"
             />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -155,16 +155,16 @@ export default {
         </div>
   
         <div>
-          <label for="phone" class="sr-only">Phone</label>
+          <label for="phone" class="sr-only">Contact Id</label>
   
           <div class="relative">
             <input
-             v-model="form.phone"
+             v-model="form.contact_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter phone"
+              placeholder="Enter contact id"
             />
-            <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+            <div v-if="form.errors.contact_id" class="error">{{ form.errors.contact_id }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -192,16 +192,16 @@ export default {
         </div>
 
         <div>
-          <label for="website" class="sr-only">Website</label>
+          <label for="description" class="sr-only">Description</label>
   
           <div class="relative">
             <input
-             v-model="form.website"
+             v-model="form.description"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Website"
             />
-            <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
+            <div v-if="form.errors.description" class="error">{{ form.errors.description }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -229,16 +229,16 @@ export default {
         </div>
 
         <div>
-          <label for="address" class="sr-only">Address</label>
+          <label for="address" class="sr-only">Status</label>
   
           <div class="relative">
             <input
-             v-model="form.address"
+             v-model="form.status"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Address"
             />
-            <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
+            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg

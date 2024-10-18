@@ -21,6 +21,8 @@ defineProps({
     },
   });
 
+  
+
 
 
 
@@ -112,6 +114,7 @@ defineProps({
                 <th>ID</th>
                 <th>Account Id</th>
                 <th>Contact Id</th>
+                <th>Description</th>
                 <th>Status</th>
                 <!-- <th>Address</th> -->
             </tr>
@@ -121,6 +124,7 @@ defineProps({
                 <td>{{ meeting.id }}</td>
                 <td>{{ meeting.account_id }}</td>
                 <td>{{ meeting.contact_id }}</td>
+                <td>{{ meeting.description }}</td>
                 <td>{{ meeting.status }}</td>
                 <!-- <td>{{ deal.address }}</td> -->
             </tr>

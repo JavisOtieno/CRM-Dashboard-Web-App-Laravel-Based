@@ -122,7 +122,7 @@ export default {
         <p class="text-center text-lg font-medium" >Enter call details</p>
 
         <template>
-  <div role="alert" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
+  <!-- <div role="alert" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
     <strong class="block font-medium text-red-800"> Errors  </strong>
     <div v-for="(error, index) in errors" :key="index">
         <p class="mt-2 text-sm text-red-700">
@@ -132,7 +132,7 @@ export default {
     <p class="mt-2 text-sm text-red-700">
       Lorem ipsum dolor sit amet consectetur,
     </p>
-  </div>
+  </div> -->
 </template>
         
         <div>
