@@ -16,7 +16,7 @@ export default {
     const form = useForm({
       account_id: props.call.account_id || '',
       contact_id: props.call.contact_id || '',
-      status: props.account.status || '',
+      status: props.call.status || '',
 
     });
 
