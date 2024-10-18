@@ -25,7 +25,7 @@
 }
 </style> --}}
 
-<style>
+{{-- <style>
     .styled-table {
         width: 100%;
         border-collapse: collapse; /* Ensures borders are collapsed */
@@ -80,4 +80,4 @@
         font-size: 16px; /* Font size for header */
         font-weight: bold; /* Bold header text */
     }
-    </style>
+    </style> --}}

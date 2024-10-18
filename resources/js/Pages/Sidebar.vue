@@ -5,18 +5,21 @@
 import DropdownLink from '@/Components/DropdownLink.vue';
 // import NavLink from '@/Components/NavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3'; 
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+const { component } = usePage(); // Get the current component name
 </script>
 <template>
     <div class="flex h-screen flex-col justify-between border-e bg-white w-1/5"> <!-- 1/4 width -->
 <div class="px-4 py-6">
-    <!-- <span class="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600">
+    <!-- <span class="grid h-10 w-32 place-content-ce nter rounded-lg bg-gray-100 text-xs text-gray-600">
       Logo
     </span> -->
 <!-- had mt-6 -->
     <ul class="space-y-1">
       <li>
-        <Link :href="route('dashboard')"  class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700">
+        <!-- {{ component }} -->
+        <Link :href="route('dashboard')" :class="{'bg-gray-100 text-gray-700': component === 'Dashboard'}" class="block rounded-lg  px-4 py-2 text-sm font-medium text-gray-500">
           Dashboard
         </Link>
       </li>
@@ -28,23 +31,26 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
       </li> -->
 
       <li>
-        <Link :href="route('accounts')"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Accounts </Link>
+        <Link :href="route('accounts')" :class="{'bg-gray-100 text-gray-700': component === 'Accounts'}"   class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Accounts </Link>
       </li>
 
       <li>
-        <Link :href="route('deals')"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Deals </Link>
+        <Link :href="route('deals')"  :class="{'bg-gray-100 text-gray-700': component === 'Deals'}"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Deals </Link>
       </li>
       <li>
-        <Link :href="route('contacts')" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Contacts </Link>
+        <Link :href="route('contacts')" :class="{'bg-gray-100 text-gray-700': component === 'Contacts'}"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Contacts </Link>
       </li>
       <li>
-        <Link :href="route('calls')"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Calls </Link>
+        <Link :href="route('calls')" :class="{'bg-gray-100 text-gray-700': component === 'Calls'}"   class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Calls </Link>
       </li>
       <li>
-        <Link :href="route('meetings')"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Meetings </Link>
+        <Link :href="route('meetings')" :class="{'bg-gray-100 text-gray-700': component === 'Meetings'}"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Meetings </Link>
       </li>
       <li>
-        <Link :href="route('visits')" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Visits </Link>
+        <Link :href="route('visits')"  :class="{'bg-gray-100 text-gray-700': component === 'Visits'}" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Visits </Link>
+      </li>
+      <li>
+        <Link :href="route('tasks')"  :class="{'bg-gray-100 text-gray-700': component === 'Tasks'}" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Tasks </Link>
       </li>
       <!-- <li>
         <a href="/addaccount" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Add Account </a>

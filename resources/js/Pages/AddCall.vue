@@ -9,10 +9,9 @@ export default {
   setup() {
     // Initialize form state with useForm
     const form = useForm({
-      name: '',
-      phone: '',
-      website: '',
-      address: '',
+      account_id: '',
+      contact_id: '',
+      status: '',
 
     });
 
@@ -123,7 +122,7 @@ export default {
         <p class="text-center text-lg font-medium" >Enter call details</p>
         
         <div>
-          <label for="email" class="sr-only">Name</label>
+          <label for="email" class="sr-only">Account Id</label>
   
           <div class="relative">
             <input
@@ -131,9 +130,9 @@ export default {
              v-model="form.name"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter name"
+              placeholder="Enter Account Id"
             />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -155,16 +154,16 @@ export default {
         </div>
   
         <div>
-          <label for="phone" class="sr-only">Phone</label>
+          <label for="phone" class="sr-only">Contact Id</label>
   
           <div class="relative">
             <input
-             v-model="form.phone"
+             v-model="form.contact_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter phone"
             />
-            <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+            <div v-if="form.errors.contact_id" class="error">{{ form.errors.contact_id }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -192,16 +191,16 @@ export default {
         </div>
 
         <div>
-          <label for="website" class="sr-only">Website</label>
+          <label for="website" class="sr-only">Status</label>
   
           <div class="relative">
             <input
-             v-model="form.website"
+             v-model="form.status"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Website"
             />
-            <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
+            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg

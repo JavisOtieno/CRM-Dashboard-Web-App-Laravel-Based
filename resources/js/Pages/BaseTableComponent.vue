@@ -55,10 +55,11 @@ const onInitComplete = () => {
 
   </script>
   
-  <style scoped>
+  <style>
   .styled-table {
       width: 100%;
       border-collapse: collapse; /* Ensures borders are collapsed */
+      background-color: #ffffff;
   }
   
   .styled-table th,
@@ -73,7 +74,9 @@ const onInitComplete = () => {
   }
   
   .styled-table th {
-      background-color: #4CAF50; /* Green background for header */
+      /* background-color: #4CAF50; */
+      background-color:#DC2626;
+       /* Green background for header */
       color: white; /* White text color */
   }
   
