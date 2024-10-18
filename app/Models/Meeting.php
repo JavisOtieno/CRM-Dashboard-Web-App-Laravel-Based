@@ -12,6 +12,7 @@ class Meeting extends Model
     protected $fillable = [
         'account_id',
         'contact_id',
+        'description',
         'status'
     ];
 }

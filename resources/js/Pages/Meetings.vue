@@ -15,7 +15,7 @@ DataTable.use(DataTablesCore);
 // ];
 
 defineProps({
-    deals: {
+    meetings: {
       type: Array,
       default: () => [],
     },

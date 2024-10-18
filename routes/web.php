@@ -55,8 +55,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/addvisit', [VisitController::class, 'showAddVisit'])->name('addvisit');
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
     Route::get('/addtask', [TaskController::class, 'showAddTask'])->name('addtask');
+
     Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings');
     Route::get('/addmeeting', [MeetingController::class, 'showAddMeeting'])->name('addmeeting');
+    Route::get('/editmeeting/{id}', [MeetingController::class, 'showEditMeeting']);
+    Route::put('/submiteditmeeting/{id}', [MeetingController::class, 'submitEditMeeting']);
+    Route::delete('/deletemeeting/{id}', [MeetingController::class, 'deleteMeeting']);
+    Route::post('/submitaddmeeting',[ MeetingController::class, 'submitAddMeeting']);
+
+
     Route::get('/addaccount', [AccountController::class, 'showAddAccount'])->name('addaccount');
     Route::get('/adddeal', [DealController::class, 'showAddDeal'])->name('adddeal');
     Route::get('/addcall', [CallController::class, 'showAddCall'])->name('addcall');

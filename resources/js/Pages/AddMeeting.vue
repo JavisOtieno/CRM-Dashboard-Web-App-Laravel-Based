@@ -9,16 +9,16 @@ export default {
   setup() {
     // Initialize form state with useForm
     const form = useForm({
-      name: '',
-      phone: '',
-      website: '',
-      address: '',
+      account_id: '',
+      contact_id: '',
+      description: '',
+      status: '',
 
     });
 
     const submitForm = () => {
-      form.post('/submitaddaccount', {
-        onSuccess: () => alert('Account created successfully!'),
+      form.post('/submitaddmeeting', {
+        onSuccess: () => alert('Meeting created successfully!'),
       });
     };
 
@@ -131,7 +131,7 @@ export default {
              v-model="form.account_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter name"
+              placeholder="Account Id"
             />
             <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
   
@@ -162,7 +162,7 @@ export default {
              v-model="form.contact_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter contact id"
+              placeholder="Contact Id"
             />
             <div v-if="form.errors.contact_id" class="error">{{ form.errors.contact_id }}</div>
   
@@ -199,7 +199,7 @@ export default {
              v-model="form.description"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Website"
+              placeholder="Description"
             />
             <div v-if="form.errors.description" class="error">{{ form.errors.description }}</div>
   
@@ -229,14 +229,14 @@ export default {
         </div>
 
         <div>
-          <label for="address" class="sr-only">Status</label>
+          <label for="status" class="sr-only">Status</label>
   
           <div class="relative">
             <input
              v-model="form.status"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Address"
+              placeholder="Status"
             />
             <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
   
