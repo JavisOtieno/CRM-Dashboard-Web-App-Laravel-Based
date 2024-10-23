@@ -2,10 +2,20 @@
 import Sidebar from '@/Pages/Sidebar.vue';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
+import { ref, computed, watch } from 'vue'; 
 
 export default {
   components: { Sidebar },
   props: {
+    accounts: {
+      type: Array,
+      // required: true,
+      default: () => [],
+    },
+    contacts: {
+      type: Array,
+      default: () => [],
+    },
     call: {
       type: Object,
       required: true, // Ensure the account data is passed as a prop
@@ -16,8 +26,21 @@ export default {
     const form = useForm({
       account_id: props.call.account_id || '',
       contact_id: props.call.contact_id || '',
-      status: props.call.status || '',
+      status: props.call.status || ''
 
+    });
+
+    
+    // Compute filtered contacts based on selected account_id
+    const filteredContacts = computed(() =>
+      props.contacts.filter(contact => contact.account_id === form.account_id)
+    );
+
+
+    // Automatically select the first contact when account changes
+    watch(() => form.account_id, (newAccountId) => {
+      const firstContact = filteredContacts.value[0];
+      form.contact_id = firstContact ? firstContact.id : ''; // Set contact_id to first available contact
     });
 
     const submitForm = () => {
@@ -26,7 +49,7 @@ export default {
       });
     };
 
-    return { form, submitForm };
+    return { form, submitForm, filteredContacts };
     
   },
 };
@@ -127,71 +150,61 @@ export default {
         <p class="text-center text-lg font-medium" >Change call details</p>
         
         <div>
-          <label for="name" class="sr-only">Account Id</label>
+          <label for="name" class="sr-only">Account</label>
   
           <div class="relative">
-            <input
+            <!-- <input
             name="name"
              v-model="form.account_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter name"
-            />
+            /> -->
+            <select
+              name="account_id"
+              v-model="form.account_id"
+              id="HeadlineAct"
+              class="mt-1.5 w-full rounded-lg border-gray-300  p-4 pe-12  text-gray-700 sm:text-sm"
+              placeholder="Account Id"
+              
+            >
+
+
+            <option disabled value="">Select account</option>
+              <option  v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}</option>
+            </select>
             <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                />
-              </svg>
-            </span>
+         
           </div>
         </div>
   
         <div>
-          <label for="phone" class="sr-only">Contact Id</label>
+          <label for="phone" class="sr-only">Contact</label>
   
           <div class="relative">
-            <input
+            <!-- <input
              v-model="form.contact_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter phone"
-            />
+            /> -->
+            <select
+              name="contact_id"
+              v-model="form.contact_id"
+              id="HeadlineAct"
+              class="mt-1.5 w-full rounded-lg border-gray-300  p-4 pe-12  text-gray-700 sm:text-sm"
+              placeholder="Contact Id"
+              
+            >
+
+
+            <option disabled value="">Select contact</option>
+              <option  v-for="(contact, index)  in filteredContacts" :key="index" :value="contact.id">{{ contact.name }}</option>
+            </select>
             <div v-if="form.errors.contact_id" class="error">{{ form.errors.contact_id }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
+           
           </div>
         </div>
 
@@ -199,36 +212,28 @@ export default {
           <label for="website" class="sr-only">Status</label>
   
           <div class="relative">
-            <input
+            <!-- <input
              v-model="form.status"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Status"
-            />
+            /> -->
+          <select
+            name="status"
+            v-model="form.status"
+            id="HeadlineAct"
+            class="mt-1.5 w-full rounded-lg border-gray-300  p-4 pe-12  text-gray-700 sm:text-sm"
+            placeholder="Status"
+            
+          >
+          <option disabled value="">Select status</option>
+          <option value="complete">Complete</option>
+            <option value="pending">Pending</option>
+            <option value="cancelled">Cancelled</option> 
+
+          </select>
             <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
           </div>
         </div>
 

@@ -12,7 +12,20 @@ class Meeting extends Model
     protected $fillable = [
         'account_id',
         'contact_id',
+        'type',
+        'location',
+        'date',
+        'time',
         'description',
         'status'
     ];
+
+    public function account(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Account::class,'account_id');
+    }
+    public function contact(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Contact::class,'contact_id');
+    }
 }

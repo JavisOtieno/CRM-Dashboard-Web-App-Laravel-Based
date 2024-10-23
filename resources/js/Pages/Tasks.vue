@@ -6,8 +6,12 @@ import { Head } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import BaseTableComponent from './BaseTableComponent.vue';
+import { useForm } from '@inertiajs/vue3'; 
+
  
 DataTable.use(DataTablesCore);
+const form = useForm({});
+ 
  
 // const data = [
 //   [1, 2],
@@ -15,7 +19,7 @@ DataTable.use(DataTablesCore);
 // ];
 
 defineProps({
-    deals: {
+    tasks: {
       type: Array,
       default: () => [],
     },
@@ -111,8 +115,8 @@ defineProps({
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Account Id</th>
-                <th>Contact Id</th>
+                <th>Account</th>
+                <th>Contact</th>
                 <th>Task Name</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -121,16 +125,16 @@ defineProps({
         </thead>
         <tbody>
             <tr v-for="(task, index) in tasks" :key="index">
-                <td>{{ task.id }}</td>\
+                <td>{{ task.id }}</td>
                 <td>{{ task.name }}</td>
-                <td>{{ task.account_id }}</td>
-                <td>{{ task.contact_id }}</td>
+                <td>{{ task.account.name }}</td>
+                <td>{{ task.contact.name }}</td>
                 <td>{{ task.status }}</td>
                 <td>
 
 <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
 <a
-:href="`/editcontact/${contact.id}`"
+:href="`/edittask/${task.id}`"
 class="inline-block border-e p-2 text-gray-700 hover:bg-gray-50 focus:relative"
 title="Edit Product"
 >

@@ -3,26 +3,48 @@ import Sidebar from '@/Pages/Sidebar.vue';
 import { Head } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
+import { ref, computed, watch } from 'vue'; 
 
 export default {
   components: { Sidebar,AuthenticatedLayout },
-  setup() {
+  props: {
+    accounts: {
+      type: Array,
+      default: () => [],
+    },
+    locations: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  setup(props) {
     // Initialize form state with useForm
     const form = useForm({
-      name: '',
-      phone: '',
-      website: '',
-      address: '',
+      account_id: '',
+      location_id: '',
+      status: 'pending',
 
     });
 
+        // Compute filtered contacts based on selected account_id
+        const filteredLocations = computed(() =>
+      props.locations.filter(location => location.account_id === form.account_id)
+    );
+
+
+    // Automatically select the first contact when account changes
+    watch(() => form.account_id, (newAccountId) => {
+      const firstLocation = filteredLocations.value[0];
+      form.location_id = firstLocation ? firstLocation.id : ''; // Set contact_id to first available contact
+    });
+
     const submitForm = () => {
-      form.post('/submitaddaccount', {
-        onSuccess: () => alert('Account created successfully!'),
+      form.post('/submitaddvisit', {
+        onSuccess: () => alert('Visit created successfully!'),
       });
     };
 
-    return { form, submitForm };
+    return { form, submitForm , filteredLocations};
     
   },
 };
@@ -78,6 +100,10 @@ export default {
 
     <Sidebar/>
 
+    
+
+   
+
   <!-- Main Content -->
 
   <div class="flex-1 p-6">
@@ -116,150 +142,115 @@ export default {
       </p> -->
   
       <form @submit.prevent="submitForm" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-        <p class="text-center text-lg font-medium" >Enter call details</p>
-        
-        <div>
-          <label for="email" class="sr-only">Name</label>
+        <p class="text-center text-lg font-medium" >Enter visit details</p>
+
+        <template>
+  <!-- <div role="alert" class="rounded border-s-4 border-red-500 bg-red-50 p-4">
+    <strong class="block font-medium text-red-800"> Errors  </strong>
+    <div v-for="(error, index) in errors" :key="index">
+        <p class="mt-2 text-sm text-red-700">
+      {{ error }}
+    </p>
+    </div>
+    <p class="mt-2 text-sm text-red-700">
+      Lorem ipsum dolor sit amet consectetur,
+    </p>
+  </div> -->
+</template>
+
+<div>
+          <label for="account" class="sr-only">Account</label>
   
           <div class="relative">
-            <input
+            <!-- <input
             name="name"
-             v-model="form.name"
+             v-model="form.account_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter name"
-            />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+              placeholder="Account Id"
+            /> -->
+            <select
+              name="account_id"
+              v-model="form.account_id"
+              id="HeadlineAct"
+              class="mt-1.5 w-full rounded-lg border-gray-300  p-4 pe-12  text-gray-700 sm:text-sm"
+              placeholder="Account Id"
+              
+            >
+
+
+            <option disabled value="">Select account</option>
+              <option  v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}</option>
+            </select>
+            
+            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                />
-              </svg>
-            </span>
+  
           </div>
         </div>
   
         <div>
-          <label for="phone" class="sr-only">Phone</label>
+          <label for="contact" class="sr-only">Location</label>
   
           <div class="relative">
-            <input
-             v-model="form.phone"
+            <!-- <input
+             v-model="form.contact_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter phone"
-            />
-            <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+              placeholder="Contact Id"
+            /> -->
+            <select
+              name="location_id"
+              v-model="form.location_id"
+              id="HeadlineAct"
+              class="mt-1.5 w-full rounded-lg border-gray-300  p-4 pe-12  text-gray-700 sm:text-sm"
+              placeholder="Location Id"
+              
+            >
+
+
+            <option disabled value="">Select location</option>
+              <option  v-for="(location, index)  in filteredLocations" :key="index" :value="location.id">{{ location.name }}</option>
+            </select>
+            <div v-if="form.errors.location_id" class="error">{{ form.errors.location_id }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
+           
+          </div>
+        </div>
+        
+
+
+        <div>
+          <label for="status" class="sr-only">Status</label>
+  
+          <div class="relative">
+            <!-- <input
+             v-model="form.status"
+              type="text"
+              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              placeholder="Status"
+            /> -->
+            <select
+              name="status"
+              v-model="form.status"
+              id="HeadlineAct"
+              class="mt-1.5 w-full rounded-lg border-gray-300  p-4 pe-12  text-gray-700 sm:text-sm"
+              placeholder="Status"
+              
+            >
+            <!-- <option disabled value="">Select status</option> -->
+            <option value="complete">Complete</option>
+              <option value="pending">Pending</option>
+              <option value="cancelled">Cancelled</option> 
+
+            </select>
+            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
+  
+          
           </div>
         </div>
 
-        <div>
-          <label for="website" class="sr-only">Website</label>
   
-          <div class="relative">
-            <input
-             v-model="form.website"
-              type="text"
-              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Website"
-            />
-            <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
-  
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-
-        <div>
-          <label for="address" class="sr-only">Address</label>
-  
-          <div class="relative">
-            <input
-             v-model="form.address"
-              type="text"
-              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Address"
-            />
-            <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
-  
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
   
         <button
           type="submit"

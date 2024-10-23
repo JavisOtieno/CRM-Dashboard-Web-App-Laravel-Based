@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Call;
 use Inertia\Inertia;
+use App\Models\Account;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class CallController extends Controller
@@ -12,13 +14,16 @@ class CallController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $calls = Call::all();
+        $calls = Call::with('account','contact')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
+        // return $calls;
         return Inertia::render('Calls',['calls' => $calls]);
     }
     public function showAddCall() {
-        return Inertia::render('AddCall');
+        $accounts = Account::all();
+        $contacts = Contact::all();
+        return Inertia::render('AddCall',compact('contacts','accounts'));
     }
 
     public function submitAddCall(Request $request) {
@@ -55,7 +60,9 @@ class CallController extends Controller
 
     public function showEditCall($id) {
         $call = Call::find($id);
-        return Inertia::render('EditCall', ['call' => $call]);
+        $accounts = Account::all();
+        $contacts = Contact::all();
+        return Inertia::render('EditCall', compact('call','contacts','accounts'));
     }
 
     public function submitEditCall($id,Request $request) {

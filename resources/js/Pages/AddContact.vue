@@ -6,19 +6,24 @@ import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is insta
 
 export default {
   components: { Sidebar,AuthenticatedLayout },
+  props: {
+    accounts: {
+      type: Array,
+      default: () => [],
+    },
+  },
   setup() {
     // Initialize form state with useForm
     const form = useForm({
       name: '',
       phone: '',
-      website: '',
-      address: '',
+      account_id: '',
 
     });
 
     const submitForm = () => {
-      form.post('/submitaddaccount', {
-        onSuccess: () => alert('Account created successfully!'),
+      form.post('/submitaddcontact', {
+        onSuccess: () => alert('Contact created successfully!'),
       });
     };
 
@@ -118,7 +123,7 @@ export default {
       </p> -->
   
       <form @submit.prevent="submitForm" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-        <p class="text-center text-lg font-medium" >Enter customer details</p>
+        <p class="text-center text-lg font-medium" >Enter contact details</p>
         
         <div>
           <label for="email" class="sr-only">Name</label>
@@ -133,22 +138,7 @@ export default {
             />
             <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                />
-              </svg>
-            </span>
+          
           </div>
         </div>
   
@@ -160,108 +150,80 @@ export default {
              v-model="form.phone"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter phone"
+              placeholder="Phone"
             />
             <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
+          
           </div>
         </div>
 
         <div>
-          <label for="website" class="sr-only">Website</label>
+          <label for="website" class="sr-only">Account Id</label>
   
           <div class="relative">
-            <input
-             v-model="form.website"
+            <!-- <input
+             v-model="form.account_id"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Website"
-            />
-            <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
+              placeholder="Account Id"
+            /> -->
+            <!-- <div>
+
+  <div class="relative mt-1.5">
+    <input
+      type="text"
+      list="HeadlineActArtist"
+      id="HeadlineAct"
+      class="w-full p-4 rounded-lg border-gray-300 pe-10 text-gray-700 sm:text-sm [&::-webkit-calendar-picker-indicator]:opacity-0"
+      placeholder="Please select"
+    />
+
+    <span class="absolute inset-y-0 end-0 flex w-8 items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"g
+        class="size-5 text-gray-500"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+        />
+      </svg>
+    </span>
+  </div>
+
+  <datalist name="HeadlineAct" id="HeadlineActArtist">
+    <option  v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}</option>
+
+  </datalist>
+</div> -->
+
+
+            <select
+    name="account_id"
+    v-model="form.account_id"
+    id="HeadlineAct"
+    class="mt-1.5 w-full rounded-lg border-gray-300  p-4 pe-12  text-gray-700 sm:text-sm"
+    placeholder="Account Id"
+    
+  >
+
+
+  <option disabled value="">Select account</option>
+    <option  v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}</option>
+  </select>
+            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
+          
           </div>
         </div>
 
-        <div>
-          <label for="address" class="sr-only">Address</label>
-  
-          <div class="relative">
-            <input
-             v-model="form.address"
-              type="text"
-              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Address"
-            />
-            <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
-  
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
+
   
         <button
           type="submit"

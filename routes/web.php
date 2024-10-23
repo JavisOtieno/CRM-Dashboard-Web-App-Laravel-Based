@@ -12,6 +12,8 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,14 +38,32 @@ Route::get('/', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard',  [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
     
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
     Route::get('/addcontact', [ContactController::class, 'showAddContact'])->name('addcontact');
+    Route::get('/editcontact/{id}', [ContactController::class, 'showEditContact']);
+    Route::put('/submiteditcontact/{id}', [ContactController::class, 'submitEditContact']);
+    Route::delete('/deletecontact/{id}', [ContactController::class, 'deleteContact']);
+    Route::post('/submitaddcontact',[ ContactController::class, 'submitAddContact']);
+
+    Route::get('/locations', [LocationController::class, 'index'])->name('locations');
+    Route::get('/addlocation', [LocationController::class, 'showAddLocation'])->name('addlocation');
+    Route::get('/editlocation/{id}', [LocationController::class, 'showEditLocation']);
+    Route::put('/submiteditlocation/{id}', [LocationController::class, 'submitEditLocation']);
+    Route::delete('/deletelocation/{id}', [LocationController::class, 'deleteLocation']);
+    Route::post('/submitaddlocation',[ LocationController::class, 'submitAddLocation']);
+
+
+
+
     Route::get('/deals', [DealController::class, 'index'])->name('deals');
+    Route::get('/adddeal', [DealController::class, 'showAddDeal'])->name('adddeal');
+    Route::get('/editdeal/{id}', [DealController::class, 'showEditDeal']);
+    Route::put('/submiteditdeal/{id}', [DealController::class, 'submitEditDeal']);
+    Route::delete('/deletedeal/{id}', [DealController::class, 'deleteDeal']);
+    Route::post('/submitadddeal',[ DealController::class, 'submitAddDeal']);
 
     Route::get('/calls', [CallController::class, 'index'])->name('calls');
     Route::get('/editcall/{id}', [CallController::class, 'showEditCall']);
@@ -53,10 +73,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/visits', [VisitController::class, 'index'])->name('visits');
     Route::get('/addvisit', [VisitController::class, 'showAddVisit'])->name('addvisit');
+    Route::get('/editvisit/{id}', [VisitController::class, 'showEditVisit']);
+    Route::put('/submiteditvisit/{id}', [VisitController::class, 'submitEditVisit']);
+    Route::delete('/deletevisit/{id}', [VisitController::class, 'deleteVisit']);
+    Route::post('/submitaddvisit',[ VisitController::class, 'submitAddVisit']);
 
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
     Route::get('/addtask', [TaskController::class, 'showAddTask'])->name('addtask');
-    Route::get('/edittask/{id}', [TaskController::class, 'showEditMeeting']);
+    Route::get('/edittask/{id}', [TaskController::class, 'showEditTask']);
     Route::put('/submitedittask/{id}', [TaskController::class, 'submitEditTask']);
     Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask']);
     Route::post('/submitaddtask',[ TaskController::class, 'submitAddTask']);

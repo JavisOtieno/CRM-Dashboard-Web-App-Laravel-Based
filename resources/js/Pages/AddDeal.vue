@@ -6,19 +6,25 @@ import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is insta
 
 export default {
   components: { Sidebar,AuthenticatedLayout },
+  props: {
+    accounts: {
+      type: Array,
+      default: () => [],
+    },
+  },
   setup() {
     // Initialize form state with useForm
     const form = useForm({
+      account_id: '',
       name: '',
-      phone: '',
-      website: '',
-      address: '',
-
+      amount: '',
+      status: 'pending',
     });
+    
 
     const submitForm = () => {
-      form.post('/submitaddaccount', {
-        onSuccess: () => alert('Account created successfully!'),
+      form.post('/submitadddeal', {
+        onSuccess: () => alert('Deal created successfully!'),
       });
     };
 
@@ -118,7 +124,48 @@ export default {
       </p> -->
   
       <form @submit.prevent="submitForm" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-        <p class="text-center text-lg font-medium" >Enter call details</p>
+        <p class="text-center text-lg font-medium" >Enter deal details</p>
+
+        <div>
+          <label for="account_id" class="sr-only">Account Id</label>
+  
+          <div class="relative">
+            <!-- <input
+            name="account_id"
+              type="text"
+              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              placeholder="Account Id"
+            /> -->
+            <select
+    name="account_id"
+    v-model="form.account_id"
+    id="HeadlineAct"
+    class="mt-1.5 w-full rounded-lg border-gray-300  p-4 pe-12  text-gray-700 sm:text-sm"
+    placeholder="Account Id"
+    
+  >
+
+  <!-- <option v-for="(account, index) in accounts" :key="index" :value="account.id">
+    {{ account.name }}
+  </option> -->
+  <option disabled value="">Select account</option>
+    <option  v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}</option>
+    <!-- <option value="SRV">Stevie Ray Vaughn</option>
+    <option value="JH">Jimi Hendrix</option>
+    <option value="BBK">B.B King</option>
+    <option value="AK">Albert King</option>
+    <option value="BG">Buddy Guy</option>
+    <option value="EC">Eric Clapton</option> -->
+  </select>
+            <div>
+
+
+</div>
+            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
+  
+           
+          </div>
+        </div>
         
         <div>
           <label for="email" class="sr-only">Name</label>
@@ -129,139 +176,61 @@ export default {
              v-model="form.name"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter name"
+              placeholder="Name"
             />
             <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                />
-              </svg>
-            </span>
+         
           </div>
         </div>
   
         <div>
-          <label for="phone" class="sr-only">Phone</label>
+          <label for="phone" class="sr-only">Amount</label>
   
           <div class="relative">
             <input
-             v-model="form.phone"
+             v-model="form.amount"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Enter phone"
+              placeholder="Amount"
             />
-            <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+            <div v-if="form.errors.amount" class="error">{{ form.errors.amount }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
+         
           </div>
         </div>
 
         <div>
-          <label for="website" class="sr-only">Website</label>
+          <label for="website" class="sr-only">Status</label>
   
           <div class="relative">
-            <input
-             v-model="form.website"
+            <!-- <input
+             v-model="form.status"
               type="text"
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Website"
-            />
-            <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
+              placeholder="Status"
+            /> -->
+            <select
+    name="status"
+    v-model="form.status"
+    id="HeadlineAct"
+    class="mt-1.5 w-full rounded-lg border-gray-300  p-4 pe-12  text-gray-700 sm:text-sm"
+    placeholder="Status"
+    
+  >
+  <option disabled value="">Select status</option>
+   <option value="complete">Complete</option>
+    <option value="pending">Pending</option>
+    <option value="cancelled">Cancelled</option> 
+
+  </select>
+            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
   
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
+            
           </div>
         </div>
 
-        <div>
-          <label for="address" class="sr-only">Address</label>
   
-          <div class="relative">
-            <input
-             v-model="form.address"
-              type="text"
-              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Address"
-            />
-            <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
-  
-            <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
   
         <button
           type="submit"

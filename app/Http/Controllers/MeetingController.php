@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Models\Account;
+use App\Models\Contact;
 use App\Models\Meeting;
 use App\Rules\WordCount;
 use Illuminate\Http\Request;
@@ -13,14 +15,17 @@ class MeetingController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $meetings = Meeting::all();
+        $meetings = Meeting::with('account','contact')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
+        // return $meetings;
         return Inertia::render('Meetings',['meetings' => $meetings]);
     }
 
     public function showAddMeeting() {
-        return Inertia::render('AddMeeting');
+        $accounts = Account::all();
+        $contacts = Contact::all();
+        return Inertia::render('AddMeeting',compact('accounts','contacts'));
     }
 
     public function submitAddMeeting(Request $request) {
@@ -29,6 +34,10 @@ class MeetingController extends Controller
             // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
             'account_id'=>'required|numeric|digits_between:1,20',
             'contact_id'=>'required|numeric|digits_between:1,20',
+            'type'=>'required|string|max:255',
+            'location'=>'required|string|max:255',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255',
             'description' => ['required', 'string', new WordCount(300)], 
             'status'=>'required|string|max:255',
             // new PhoneNumber
@@ -48,14 +57,20 @@ class MeetingController extends Controller
 
     public function showEditMeeting($id) {
         $meeting = Meeting::find($id);
-        return Inertia::render('EditMeeting', ['meeting' => $meeting]);
+        $accounts = Account::all();
+        $contacts = Contact::all();
+        return Inertia::render('EditMeeting', compact('meeting','accounts','contacts'));
     }
 
     public function submitEditMeeting($id,Request $request) {
         $meeting = Meeting::find($id);
         $incomingFields=$request->validate([
             'account_id'=>'required|numeric|digits_between:1,20',
-            'contact_id'=>'required|numeric|digits_between:1,20',            
+            'contact_id'=>'required|numeric|digits_between:1,20',
+            'type'=>'required|string|max:255',
+            'location'=>'required|string|max:255',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255',           
             'description' => ['required', 'string', new WordCount(300)], 
             'status'=>'required|string|max:255',
             // new PhoneNumber

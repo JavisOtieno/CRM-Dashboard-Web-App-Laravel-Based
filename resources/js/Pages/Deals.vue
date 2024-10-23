@@ -7,6 +7,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
 import { Link } from '@inertiajs/vue3';
 import BaseTableComponent from './BaseTableComponent.vue';
+import { usePage } from '@inertiajs/vue3'; 
+
  
  
 DataTable.use(DataTablesCore);
@@ -25,7 +27,25 @@ defineProps({
 
   const form = useForm({});
 
+  const { component } = usePage(); // Get the current component name
 
+let actualComponent = component.slice(0, -1);
+let lowerComponent = actualComponent.toLowerCase();; // Removes the last character
+// alert(actualComponent); // Output: "exampl"
+
+
+const deleteItem = (Id) => {
+  
+  if (confirm('Are you sure you want to delete this '+lowerComponent+'?')) {
+    form.delete(`/delete${lowerComponent}/${Id}`, {
+      onSuccess: () => {
+        alert(actualComponent+' deleted successfully!');
+        window.location.reload(); // Reload the page on success
+      },
+    //   preserveState: true, 
+    });
+  }
+};
 
 
 </script>
@@ -115,6 +135,7 @@ defineProps({
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Account</th>
                 <th>Amount</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -123,13 +144,14 @@ defineProps({
         <tbody>
             <tr v-for="(deal, index) in deals" :key="index">
                 <td>{{ deal.name }}</td>
+                <td>{{ deal.account.name }}</td>
                 <td>{{ deal.amount }}</td>
                 <td>{{ deal.status }}</td>
                 <td>
 
 <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
 <a
-:href="`/editcontact/${deal.id}`"
+:href="`/editdeal/${deal.id}`"
 class="inline-block border-e p-2 text-gray-700 hover:bg-gray-50 focus:relative"
 title="Edit Product"
 >
@@ -152,7 +174,7 @@ d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 
 <button
 class="inline-block p-2 text-gray-700 hover:bg-gray-50 focus:relative"
 title="Delete Product"
-@click="deleteAccount(deal.id)" :disabled="form.processing"
+@click="deleteItem(deal.id)" :disabled="form.processing"
 >
 <svg
 xmlns="http://www.w3.org/2000/svg"

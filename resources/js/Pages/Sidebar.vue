@@ -41,6 +41,9 @@ const { component } = usePage(); // Get the current component name
         <Link :href="route('contacts')" :class="{'bg-gray-100 text-gray-700': component === 'Contacts'}"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Contacts </Link>
       </li>
       <li>
+        <Link :href="route('locations')" :class="{'bg-gray-100 text-gray-700': component === 'Locations'}"  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Locations </Link>
+      </li>
+      <li>
         <Link :href="route('calls')" :class="{'bg-gray-100 text-gray-700': component === 'Calls'}"   class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Calls </Link>
       </li>
       <li>

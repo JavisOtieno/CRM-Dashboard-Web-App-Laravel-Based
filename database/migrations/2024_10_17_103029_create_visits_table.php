@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('account_id');
-            $table->unsignedBigInteger('contact_id');
+            $table->unsignedBigInteger('location_id');
             $table->string('status');
             $table->timestamps();
         });

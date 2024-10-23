@@ -150,8 +150,8 @@ defineProps({
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Account Id</th>
-                <th>Contact Id</th>
+                <th>Account Name</th>
+                <th>Contact Name</th>
                 <th>Status</th>
                 <th>Actions</th>
                 <!-- <th>Address</th> -->
@@ -160,8 +160,8 @@ defineProps({
         <tbody>
             <tr v-for="(call, index) in calls" :key="index">
                 <td>{{ call.id }}</td>
-                <td>{{ call.account_id }}</td>
-                <td>{{ call.contact_id }}</td>
+                <td>{{ call.account.name }}</td>
+                <td>{{ call.contact.name }}</td>
                 <td>{{ call.status }}</td>
                 <td>
 

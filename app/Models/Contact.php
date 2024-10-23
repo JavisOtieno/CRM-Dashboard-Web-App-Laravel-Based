@@ -13,4 +13,10 @@ class Contact extends Model
         'phone',
         'account_id',
     ];
+
+    public function account(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Account::class,'account_id');
+    }
+
 }

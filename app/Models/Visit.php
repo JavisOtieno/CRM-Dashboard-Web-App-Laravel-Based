@@ -10,8 +10,17 @@ class Visit extends Model
     use HasFactory;
     protected $fillable = [
         'account_id',
-        'contact_id',
-        'location',
+        'location_id',
+        // 'location',
         'status'
     ];
+
+    public function account(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Account::class,'account_id');
+    }
+    public function location(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Location::class,'location_id');
+    }
 }

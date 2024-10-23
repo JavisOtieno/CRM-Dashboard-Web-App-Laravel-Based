@@ -14,4 +14,15 @@ class Call extends Model
         'duration',
         'status'
     ];
+
+    public function account(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Account::class,'account_id');
+    }
+    public function contact(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Contact::class,'contact_id');
+    }
+    
+
 }
