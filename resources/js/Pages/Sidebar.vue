@@ -23,6 +23,12 @@ const { component } = usePage(); // Get the current component name
           Dashboard
         </Link>
       </li>
+      <li>
+        <!-- {{ component }} -->
+        <Link :href="route('newdashboard')" :class="{'bg-gray-100 text-gray-700': component === 'Dashboard'}" class="block rounded-lg  px-4 py-2 text-sm font-medium text-gray-500">
+          New Dashboard
+        </Link>
+      </li>
 
  
 
@@ -54,6 +60,9 @@ const { component } = usePage(); // Get the current component name
       </li>
       <li>
         <Link :href="route('tasks')"  :class="{'bg-gray-100 text-gray-700': component === 'Tasks'}" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Tasks </Link>
+      </li>
+      <li>
+        <Link :href="route('sellers')"  :class="{'bg-gray-100 text-gray-700': component === 'Sellers'}" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Sellers </Link>
       </li>
       <!-- <li>
         <a href="/addaccount" class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"> Add Account </a>

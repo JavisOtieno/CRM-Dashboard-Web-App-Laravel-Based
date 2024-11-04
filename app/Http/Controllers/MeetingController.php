@@ -19,13 +19,20 @@ class MeetingController extends Controller
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
         // return $meetings;
+        return Inertia::render('Meeting/Index',['meetings' => $meetings]);
+    }
+
+    public function newindex() {
+        //$competitors = Competitor::all();
+
+        $meetings = Meeting::with('account','contact')->get();
         return Inertia::render('Meetings',['meetings' => $meetings]);
     }
 
     public function showAddMeeting() {
         $accounts = Account::all();
         $contacts = Contact::all();
-        return Inertia::render('AddMeeting',compact('accounts','contacts'));
+        return Inertia::render('Meeting/Add',compact('accounts','contacts'));
     }
 
     public function submitAddMeeting(Request $request) {
@@ -59,7 +66,7 @@ class MeetingController extends Controller
         $meeting = Meeting::find($id);
         $accounts = Account::all();
         $contacts = Contact::all();
-        return Inertia::render('EditMeeting', compact('meeting','accounts','contacts'));
+        return Inertia::render('Meeting/Edit', compact('meeting','accounts','contacts'));
     }
 
     public function submitEditMeeting($id,Request $request) {

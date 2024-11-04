@@ -14,9 +14,17 @@ class DealController extends Controller
         $deals = Deal::with('account')->get();
         return Inertia::render('Deals',['deals' => $deals]);
     }
+    public function newindex() {
+        //$competitors = Competitor::all();
+
+        $deals = Deal::with('account')->get();
+        // return view('com', ['competitors'=>$competitors]);-
+        // return $accounts[0]['name'];
+        return Inertia::render('Deal/Index',['deals' => $deals]);
+    }
     public function showAddDeal() {
         $accounts = Account::all();
-        return Inertia::render('AddDeal',compact('accounts'));
+        return Inertia::render('Deal/Add',compact('accounts'));
     }
 
 
@@ -36,19 +44,19 @@ class DealController extends Controller
 
         Deal::create($incomingFields);
 
-        return redirect('/deals');
+        return redirect('/newdeals');
     }
 
     public function deleteDeal($id) {
         $deal = Deal::find($id);
         $deal->delete();
-        return redirect('/deals');
+        return redirect('/newdeals');
     }
 
     public function showEditDeal($id) {
         $deal = Deal::find($id);
         $accounts = Account::all();
-        return Inertia::render('EditDeal', compact('deal','accounts'));
+        return Inertia::render('Deal/Edit', compact('deal','accounts'));
     }
 
     public function submitEditDeal($id,Request $request) {
@@ -66,6 +74,6 @@ class DealController extends Controller
         //return $request['image'];
         $deal->update($incomingFields);
 
-        return redirect('/deals');
+        return redirect('/newdeals');
     }
 }

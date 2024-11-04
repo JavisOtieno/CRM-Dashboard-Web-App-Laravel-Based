@@ -14,12 +14,21 @@ class ContactController extends Controller
         //$competitors = Competitor::all();
 
         $contacts = Contact::with('account')->get();
-        return Inertia::render('Contacts',['contacts' => $contacts]);
+        // return Inertia::render('Contacts',['contacts' => $contacts]);
+        return Inertia::render('Contact/Index',['contacts' => $contacts]);
 
+    }
+    public function newindex() {
+        //$competitors = Competitor::all();
+
+        $contacts = Contact::with('account')->get();
+        // return view('com', ['competitors'=>$competitors]);-
+        // return $accounts[0]['name'];
+        return Inertia::render('Contact/Index',['contacts' => $contacts]);
     }
     public function showAddContact() {
         $accounts = Account::all();
-        return Inertia::render('AddContact',compact('accounts'));
+        return Inertia::render('Contact/Add',compact('accounts'));
     }
 
 
@@ -49,6 +58,12 @@ class ContactController extends Controller
     }
 
     public function showEditContact($id) {
+        $contact = Contact::find($id);
+        $accounts = Account::all();
+        return Inertia::render('Contact/Edit',compact('contact','accounts'));
+    }
+
+    public function showOldEditContact($id) {
         $contact = Contact::find($id);
         $accounts = Account::all();
         return Inertia::render('EditContact',compact('contact','accounts'));

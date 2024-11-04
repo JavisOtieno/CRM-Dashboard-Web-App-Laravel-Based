@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class CallController extends Controller
 {
     //
-    public function index() {
+    public function oldindex() {
         //$competitors = Competitor::all();
 
         $calls = Call::with('account','contact')->get();
@@ -20,10 +20,16 @@ class CallController extends Controller
         // return $calls;
         return Inertia::render('Calls',['calls' => $calls]);
     }
+    public function index() {
+
+        $calls = Call::with('account','contact')->get();
+
+        return Inertia::render('Call/Index',['calls' => $calls]);
+    }
     public function showAddCall() {
         $accounts = Account::all();
         $contacts = Contact::all();
-        return Inertia::render('AddCall',compact('contacts','accounts'));
+        return Inertia::render('Call/Add',compact('contacts','accounts'));
     }
 
     public function submitAddCall(Request $request) {
@@ -62,7 +68,7 @@ class CallController extends Controller
         $call = Call::find($id);
         $accounts = Account::all();
         $contacts = Contact::all();
-        return Inertia::render('EditCall', compact('call','contacts','accounts'));
+        return Inertia::render('Call/Edit', compact('call','contacts','accounts'));
     }
 
     public function submitEditCall($id,Request $request) {

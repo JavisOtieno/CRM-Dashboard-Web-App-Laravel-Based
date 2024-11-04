@@ -19,8 +19,17 @@ class AccountController extends Controller
         return Inertia::render('Accounts',['accounts' => $accounts]);
     }
 
+    public function newindex() {
+        //$competitors = Competitor::all();
+
+        $accounts = Account::all();
+        // return view('com', ['competitors'=>$competitors]);-
+        // return $accounts[0]['name'];
+        return Inertia::render('Account/Index',['accounts' => $accounts]);
+    }
+
     public function showAddAccount() {
-        return Inertia::render('AddAccount');
+        return Inertia::render('Account/Add');
     }
 
     public function submitAddAccount(Request $request) {
@@ -59,7 +68,7 @@ class AccountController extends Controller
 
     public function showEditAccount($id) {
         $account = Account::find($id);
-        return Inertia::render('EditAccount', ['account' => $account]);
+        return Inertia::render('Account/Edit', ['account' => $account]);
     }
 
     public function submitEditAccount($id,Request $request) {

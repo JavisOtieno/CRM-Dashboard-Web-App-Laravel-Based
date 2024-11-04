@@ -19,9 +19,28 @@ class LocationController extends Controller
         return Inertia::render('Locations',['locations' => $locations]);
 
     }
+
+    public function newindex() {
+        //$competitors = Competitor::all();
+
+        $locations = Location::with('account')->get();
+        return Inertia::render('Location/Index',['locations' => $locations]);
+
+    }
+
+    public function showNewEditLocation($id) {
+        $location = Location::find($id);
+        $accounts = Account::all();
+        return Inertia::render('Location/Edit',compact('location','accounts'));
+    }
+
     public function showAddLocation() {
         $accounts = Account::all();
         return Inertia::render('AddLocation',compact('accounts'));
+    }
+    public function showAddNewLocation() {
+        $accounts = Account::all();
+        return Inertia::render('Location/Add',compact('accounts'));
     }
 
 
@@ -43,13 +62,13 @@ class LocationController extends Controller
 
         Location::create($incomingFields);
 
-        return redirect('/locations');
+        return redirect('/listlocations');
     }
 
     public function deleteLocation($id) {
         $location = Location::find($id);
         $location->delete();
-        return redirect('/locations');
+        return redirect('/listlocations');
     }
 
     public function showEditLocation($id) {
@@ -78,6 +97,6 @@ class LocationController extends Controller
         //return $request['image'];
         $location->update($incomingFields);
 
-        return redirect('/locations');
+        return redirect('/listlocations');
     }
 }

@@ -2,9 +2,10 @@
 import Sidebar from '@/Pages/Sidebar.vue';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
+import MapComponent from '@/Pages/MapComponent.vue'; 
 
 export default {
-  components: { Sidebar },
+  components: { Sidebar, MapComponent },
   props: {
     location: {
       type: Object,
@@ -248,6 +249,9 @@ export default {
           <a class="underline" href="#">Sign up</a>
         </p> -->
       </form>
+
+      <!-- <MapComponent  /> -->
+      <MapComponent :location="{ lat: location.lat, lng: location.long }" />
     </div>
   </div>
 

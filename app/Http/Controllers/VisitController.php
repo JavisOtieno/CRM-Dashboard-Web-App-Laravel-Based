@@ -19,11 +19,17 @@ class VisitController extends Controller
         // return $accounts[0]['name'];
         return Inertia::render('Visits',['visits' => $visits]);
     }
+    
+    public function newindex() {
+        $visits = Visit::with('account','location')->get();
+        return Inertia::render('Visit/Index',['visits' => $visits]);
+    }
+
     public function showAddVisit() {
         $accounts = Account::all();
         $locations = Location::all();
         // return $locations;
-        return Inertia::render('AddVisit',compact('locations','accounts'));
+        return Inertia::render('Visit/Add',compact('locations','accounts'));
     }
     public function submitAddVisit(Request $request) {
 
@@ -61,7 +67,7 @@ class VisitController extends Controller
         $visit = Visit::find($id);
         $accounts = Account::all();
         $locations = Location::all();
-        return Inertia::render('EditVisit', compact('accounts','locations','visit'));
+        return Inertia::render('Visit/Edit', compact('accounts','locations','visit'));
     }
 
     public function submitEditVisit($id,Request $request) {

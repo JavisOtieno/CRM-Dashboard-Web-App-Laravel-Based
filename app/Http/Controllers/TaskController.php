@@ -13,20 +13,20 @@ class TaskController extends Controller
 {
     //
     public function index() {
-        //$competitors = Competitor::all();
-
         $tasks = Task::with('account','contact')->get();
-        // return view('com', ['competitors'=>$competitors]);-
-        // return $accounts[0]['name'];
-        return Inertia::render('Tasks',['tasks' => $tasks]);
+        return Inertia::render('Task/Index',['tasks' => $tasks]);
     }
 
+    public function newindex() {
+        $tasks = Task::with('account','contact')->get();
+        return Inertia::render('Tasks',['tasks' => $tasks]);
+    }
 
     
     public function showAddTask() {
         $accounts = Account::all();
         $contacts = Contact::all();
-        return Inertia::render('AddTask', compact('accounts','contacts'));
+        return Inertia::render('Task/Add', compact('accounts','contacts'));
     }
 
     public function submitAddTask(Request $request) {
@@ -58,7 +58,7 @@ class TaskController extends Controller
         $task = Task::find($id);
         $accounts = Account::all();
         $contacts = Contact::all();
-        return Inertia::render('EditTask',compact('task','accounts','contacts'));
+        return Inertia::render('Task/Edit',compact('task','accounts','contacts'));
     }
 
     public function submitEditTask($id,Request $request) {

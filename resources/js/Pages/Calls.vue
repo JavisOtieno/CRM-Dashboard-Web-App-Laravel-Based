@@ -45,6 +45,11 @@ defineProps({
     }
   };
 
+  const capitalizeFirstLetter= (string) => {
+      if (!string) return '';
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
 
 
 
@@ -162,7 +167,7 @@ defineProps({
                 <td>{{ call.id }}</td>
                 <td>{{ call.account.name }}</td>
                 <td>{{ call.contact.name }}</td>
-                <td>{{ call.status }}</td>
+                <td>{{ capitalizeFirstLetter(call.status) }}</td>
                 <td>
 
 <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
