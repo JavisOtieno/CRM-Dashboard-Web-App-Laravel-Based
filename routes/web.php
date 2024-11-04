@@ -28,20 +28,21 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
 Route::get('/login',  [AuthController::class, 'index'])->name('login');
 Route::post('dologin', [AuthController::class, 'doLogin'])
 ->name('dologin');
 
 Route::middleware(['auth','verified'])->group(function () {
+    Route::get('/',  [DashboardController::class, 'newindex'])->name('home');
     Route::get('/dashboard',  [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/newdashboard',  [DashboardController::class, 'newindex'])->name('newdashboard');
     Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
