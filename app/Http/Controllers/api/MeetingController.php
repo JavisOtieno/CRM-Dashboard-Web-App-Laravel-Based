@@ -10,7 +10,7 @@ class meetingcontroller extends Controller
 {
     //
     public function index(){
-        $meetings = Meeting::all();
+        $meetings = Meeting::with('contact','account')->get();
         return response()->json(['meetings'=>$meetings]);
     }
 }
