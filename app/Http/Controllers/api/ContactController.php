@@ -11,7 +11,7 @@ class ContactController extends Controller
     //
     public function index(){
 
-        $contacts = Contact::all();
+        $contacts = Contact::with('account')->get();
         return response()->json(['contacts'=>$contacts]);
     }
 }
