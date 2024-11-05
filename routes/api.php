@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\CallController;
 use App\Http\Controllers\api\DealController;
 use App\Http\Controllers\api\AccountController;
 use App\Http\Controllers\api\ContactController;
@@ -37,3 +38,4 @@ Route::get('apitest',function(){
 Route::get('/accounts', [AccountController::class, 'index']);
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/deals', [DealController::class, 'index']);
+Route::get('/calls', [CallController::class, 'index']);

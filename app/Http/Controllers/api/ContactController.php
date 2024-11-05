@@ -13,5 +13,6 @@ class ContactController extends Controller
 
         $contacts = Contact::with('account')->get();
         return response()->json(['contacts'=>$contacts]);
+        
     }
 }
