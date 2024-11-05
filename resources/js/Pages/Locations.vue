@@ -6,13 +6,9 @@ import { Head } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import BaseTableComponent from './BaseTableComponent.vue';
-import { usePage } from '@inertiajs/vue3'; 
-
-
-import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
+import { usePage, useForm } from '@inertiajs/vue3'; 
 
 import BaseComponent from '@/Pages/BaseTableComponent.vue';
-;
  
 DataTable.use(DataTablesCore);
  
