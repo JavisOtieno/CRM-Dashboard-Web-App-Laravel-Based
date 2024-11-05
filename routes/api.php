@@ -6,6 +6,7 @@ use App\Http\Controllers\api\CallController;
 use App\Http\Controllers\api\DealController;
 use App\Http\Controllers\api\AccountController;
 use App\Http\Controllers\api\ContactController;
+use App\Http\Controllers\api\MeetingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,4 @@ Route::get('/accounts', [AccountController::class, 'index']);
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/deals', [DealController::class, 'index']);
 Route::get('/calls', [CallController::class, 'index']);
+Route::get('/meetings', [MeetingController::class, 'index']);

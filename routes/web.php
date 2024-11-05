@@ -140,6 +140,8 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('newlogout', [AuthController::class, 'destroy'])
     ->name('newlogout');
 
+    
+
 
 
 
