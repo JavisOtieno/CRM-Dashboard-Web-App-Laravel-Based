@@ -9,7 +9,8 @@ use App\Http\Controllers\Controller;
 class DealController extends Controller
 {
     public function index(){
-        $deals = Deal::all();
+        // $deals = Deal::all();
+        $deals = Deal::with('account')->get();
         return response()->json(['deals'=>$deals]);
     }
     //
