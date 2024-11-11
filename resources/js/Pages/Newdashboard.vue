@@ -312,9 +312,9 @@ import { Link } from '@inertiajs/vue3';
             <tr class="bg-white dark:bg-gray-800" v-for="(contact, index) in contacts" :key="index">
                 <th scope="row" 
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >{{ contact.name }}</th>
+                >{{ contact.id }}</th>
+                <td  class="px-6 py-4">{{ contact.name }}</td>
                 <td  class="px-6 py-4">{{ contact.account.name }}</td>
-                <td  class="px-6 py-4">{{ contact.status }}</td>
        
             </tr>
 
