@@ -20,6 +20,11 @@ class AccountController extends Controller
         return response()->json(['accounts'=>$accounts]);
     }
 
+    public function showAccount($id){
+        $account = Account::find($id);
+        return response()->json(['account'=>$account]);
+    }
+
     public function addAccount(Request $request){
 
        

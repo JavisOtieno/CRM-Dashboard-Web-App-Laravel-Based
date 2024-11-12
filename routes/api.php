@@ -40,6 +40,7 @@ Route::get('apitest',function(){
 
 Route::get('/accounts', [AccountController::class, 'index']);
 Route::post('addaccount',[AccountController::class,'addAccount']);
+Route::get('/account/{id}', [AccountController::class, 'showAccount']);
 
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/deals', [DealController::class, 'index']);
