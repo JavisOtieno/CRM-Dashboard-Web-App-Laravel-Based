@@ -20,7 +20,7 @@ class AccountController extends Controller
         return response()->json(['accounts'=>$accounts]);
     }
 
-    public function Account(Request $request){
+    public function addAccount(Request $request){
 
        
         $incomingFields=$request->validate([
