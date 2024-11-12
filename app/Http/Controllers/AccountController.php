@@ -36,9 +36,7 @@ class AccountController extends Controller
 
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
-            'phone'=>['required','string','min:10','max:255', 
-            // new PhoneNumber
-        ],
+            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
             'website'=>'required|string|max:255',
             'address' => 'required|string|max:255',
             
@@ -76,9 +74,7 @@ class AccountController extends Controller
 
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
-            'phone'=>['required','string','min:10','max:255', 
-            // new PhoneNumber
-        ],
+            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
             'website'=>'required|string|max:255',
             'address' => 'required|string|max:255',
             

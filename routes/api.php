@@ -39,9 +39,13 @@ Route::get('apitest',function(){
 });
 
 Route::get('/accounts', [AccountController::class, 'index']);
+Route::post('addaccount',[AccountController::class,'addAccount']);
+
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/deals', [DealController::class, 'index']);
 Route::get('/calls', [CallController::class, 'index']);
 Route::get('/meetings', [MeetingController::class, 'index']);
 Route::get('/visits', [VisitController::class, 'index']);
 Route::get('/tasks', [TaskController::class, 'index']);
+
+
