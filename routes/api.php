@@ -43,6 +43,8 @@ Route::post('addaccount',[AccountController::class,'addAccount']);
 
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::get('/deals', [DealController::class, 'index']);
+Route::post('adddeal',[DealController::class,'submitAddDeal']);
+
 Route::get('/calls', [CallController::class, 'index']);
 Route::get('/meetings', [MeetingController::class, 'index']);
 Route::get('/visits', [VisitController::class, 'index']);
