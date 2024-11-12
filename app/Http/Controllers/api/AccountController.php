@@ -16,7 +16,7 @@ class AccountController extends Controller
         // $userId = auth()->id();
         // $accounts = Account::where('user_id',$userId)
         // ->orderBy('id', 'DESC')->with('user','outlet')->get();
-        $accounts = Account::all();
+        $accounts = Account::orderBy('id', 'DESC')->get();
         return response()->json(['accounts'=>$accounts]);
     }
 
@@ -33,7 +33,7 @@ class AccountController extends Controller
         Account::create($incomingFields);
 
         $accountStatus=array(
-            "message" => "Account Saved Successfully",
+            "message" => "Account Added Successfully",
             "status" => "success");
 
         return response()->json($accountStatus);
