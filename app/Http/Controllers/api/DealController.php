@@ -13,6 +13,11 @@ class DealController extends Controller
         $deals = Deal::with('account')->get();
         return response()->json(['deals'=>$deals]);
     }
+
+    public function showDeal($id){
+        $deal = Deal::with('account')->find($id);
+        return response()->json(['deal'=>$deal]);
+    }
     //
     public function submitAddDeal(Request $request) {
 

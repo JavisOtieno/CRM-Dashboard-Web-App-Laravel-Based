@@ -43,12 +43,28 @@ Route::post('addaccount',[AccountController::class,'addAccount']);
 Route::get('/account/{id}', [AccountController::class, 'showAccount']);
 
 Route::get('/contacts', [ContactController::class, 'index']);
+Route::post('addcontact',[AccountController::class,'addAccount']);
+Route::get('/contact/{id}', [AccountController::class, 'showAccount']);
+
+
 Route::get('/deals', [DealController::class, 'index']);
 Route::post('adddeal',[DealController::class,'submitAddDeal']);
+Route::get('/deal/{id}', [DealController::class, 'showDeal']);
 
 Route::get('/calls', [CallController::class, 'index']);
+Route::post('addcall',[CallController::class,'submitAddCall']);
+Route::get('/call/{id}', [CallController::class, 'showCall']);
+
 Route::get('/meetings', [MeetingController::class, 'index']);
+Route::post('addmeeting',[MeetingController::class,'submitAddMeeting']);
+Route::get('/meeting/{id}', [MeetingController::class, 'showMeeting']);
+
 Route::get('/visits', [VisitController::class, 'index']);
+Route::post('addvisit',[VisitController::class,'submitAddVisit']);
+Route::get('/visit/{id}', [VisitController::class, 'showVisit']);
+
 Route::get('/tasks', [TaskController::class, 'index']);
+Route::post('addtask',[TaskController::class,'submitAddTask']);
+Route::get('/visit/{id}', [TaskController::class, 'showTask']);
 
 

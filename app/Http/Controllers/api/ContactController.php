@@ -15,4 +15,27 @@ class ContactController extends Controller
         return response()->json(['contacts'=>$contacts]);
         
     }
+
+    public function showContact($id){
+        $contact = Contact::find($id);
+        return response()->json(['contact'=>$contact]);
+    }
+
+    public function addContact(Request $request){
+
+       
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'phone'=>'required|string|max:255',
+            'account_id'=>'required|numeric|digits_between:1,20',  
+        ]);
+
+        Contact::create($incomingFields);
+
+        $contactStatus=array(
+            "message" => "Contact Added Successfully",
+            "status" => "success");
+
+        return response()->json($contactStatus);
+    }
 }

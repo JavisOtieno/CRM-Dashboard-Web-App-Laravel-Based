@@ -14,4 +14,29 @@ class CallController extends Controller
         $calls = Call::with('contact','account')->get();
         return response()->json(['calls'=>$calls]);
     }
+
+    public function showCall($id){
+        $call = Call::find($id);
+        return response()->json(['call'=>$call]);
+    }
+
+    public function addCall(Request $request){
+
+       
+        $incomingFields=$request->validate([
+            'account_id'=>'required|numeric|digits_between:1,20',
+            'contact_id'=>'required|numeric|digits_between:1,20',
+            'status'=>'required|string|max:255',
+        ]);
+
+        Call::create($incomingFields);
+
+        $callStatus=array(
+            "message" => "Call Added Successfully",
+            "status" => "success");
+
+        return response()->json($callStatus);
+    }
+        
+    
 }
