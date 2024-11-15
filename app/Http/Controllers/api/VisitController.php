@@ -15,7 +15,7 @@ class VisitController extends Controller
     }
 
     public function showVisit($id){
-        $visit = Visit::find($id);
+        $visit = Visit::with('location','account')->find($id);
         return response()->json(['visit'=>$visit]);
     }
 
