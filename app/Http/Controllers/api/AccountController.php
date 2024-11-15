@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Account;
+use App\Models\Contact;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,6 +19,14 @@ class AccountController extends Controller
         // ->orderBy('id', 'DESC')->with('user','outlet')->get();
         $accounts = Account::orderBy('id', 'DESC')->get();
         return response()->json(['accounts'=>$accounts]);
+    }
+
+    public function accountsandcontacts(){
+
+        $accounts = Account::orderBy('id', 'DESC')->get();
+        $contacts = Contact::orderBy('id', 'DESC')->get();
+        return response()->json([compact('accounts','contacts')]);
+        
     }
 
     public function showAccount($id){
