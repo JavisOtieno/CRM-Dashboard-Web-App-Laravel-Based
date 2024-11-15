@@ -65,6 +65,6 @@ Route::get('/visit/{id}', [VisitController::class, 'showVisit']);
 
 Route::get('/tasks', [TaskController::class, 'index']);
 Route::post('addtask',[TaskController::class,'submitAddTask']);
-Route::get('/visit/{id}', [TaskController::class, 'showTask']);
+Route::get('/task/{id}', [TaskController::class, 'showTask']);
 
 

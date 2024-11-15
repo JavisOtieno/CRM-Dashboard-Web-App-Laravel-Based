@@ -13,7 +13,7 @@ class TaskController extends Controller
         $tasks = Task::with('account','contact')->get();
         return response()->json(['tasks'=>$tasks]);
     }
-    public function showMeeting($id){
+    public function showTask($id){
         $task = Task::find($id);
         return response()->json(['task'=>$task]);
     }
