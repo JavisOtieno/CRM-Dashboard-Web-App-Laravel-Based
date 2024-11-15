@@ -16,7 +16,7 @@ class CallController extends Controller
     }
 
     public function showCall($id){
-        $call = Call::find($id);
+        $call = Call::with('contact','account')->find($id);
         return response()->json(['call'=>$call]);
     }
 
