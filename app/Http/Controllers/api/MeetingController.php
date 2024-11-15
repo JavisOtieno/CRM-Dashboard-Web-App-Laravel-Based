@@ -15,7 +15,7 @@ class meetingcontroller extends Controller
     }
 
     public function showMeeting($id){
-        $meeting = Meeting::find($id);
+        $meeting = Meeting::with('contact','account')->find($id);
         return response()->json(['meeting'=>$meeting]);
     }
 
