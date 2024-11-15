@@ -6,7 +6,7 @@
         "build": "vite build"
     },
     "devDependencies": {
-        "@inertiajs/vue3": "^1.0.0",
+        "@inertiajs/vue3": "^1.2.0",
         "@tailwindcss/forms": "^0.5.3",
         "@vitejs/plugin-vue": "^5.0.0",
         "autoprefixer": "^10.4.20",
@@ -22,6 +22,7 @@
         "datatables.net-vue3": "^3.0.2",
         "flowbite": "^2.5.2",
         "jquery": "^3.7.1",
-        "simple-datatables": "^9.2.1"
+        "simple-datatables": "^9.2.1",
+        "vuex": "^4.0.2"
     }
 }

@@ -4,6 +4,8 @@ import { Link } from '@inertiajs/vue3';
 import { onMounted, onBeforeUnmount, ref  } from 'vue'
 import { useForm } from '@inertiajs/vue3'
 import SidebarNew from '@/Pages/Sidebarnew.vue';
+import { computed } from 'vue';
+
 import { 
     initAccordions, 
     initCarousels, 
@@ -106,6 +108,16 @@ const capitalizeFirstLetter= (string) => {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    import { useStore } from 'vuex';
+    const store = useStore();
+    const message = computed(() => store.state.message);
+    const changeMessage = () => {
+    var message = " textadd";
+    store.dispatch('updateMessage', 'Updated message from Vuex!'+message);
+    };
+
+
+
 </script>
 <template>
 
@@ -123,6 +135,10 @@ const capitalizeFirstLetter= (string) => {
               </svg>
            </p>
         </div> -->
+        <div>
+    <h1>{{ message }}</h1>
+    <button @click="changeMessage">Change Message</button>
+  </div>
 
 
 

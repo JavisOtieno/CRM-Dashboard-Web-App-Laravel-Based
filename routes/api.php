@@ -43,8 +43,8 @@ Route::post('addaccount',[AccountController::class,'addAccount']);
 Route::get('/account/{id}', [AccountController::class, 'showAccount']);
 
 Route::get('/contacts', [ContactController::class, 'index']);
-Route::post('addcontact',[AccountController::class,'addAccount']);
-Route::get('/contact/{id}', [AccountController::class, 'showAccount']);
+Route::post('addcontact',[ContactController::class,'addContact']);
+Route::get('/contact/{id}', [ContactController::class, 'showContact']);
 
 
 Route::get('/deals', [DealController::class, 'index']);

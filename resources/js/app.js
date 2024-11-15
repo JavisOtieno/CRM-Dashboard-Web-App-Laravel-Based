@@ -6,6 +6,7 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import store from './store'; // Import Vuex store
 
 import axios from 'axios'
 
@@ -21,6 +22,7 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(store) // Use Vuex store
             .mount(el);
     },
     progress: {

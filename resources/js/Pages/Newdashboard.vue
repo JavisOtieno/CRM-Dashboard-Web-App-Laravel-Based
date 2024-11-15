@@ -1,6 +1,24 @@
 <script setup>
 import { onMounted } from 'vue'
 import SidebarNew from '@/Pages/Sidebarnew.vue';
+import { mapState, mapGetters } from 'vuex';
+import { computed, toRefs } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const message = computed(() => store.state.message);
+
+const changeMessage = () => {
+  store.dispatch('updateMessage', 'Updated message from Vuex!');
+};
+
+// Access the user state and isAuthenticated getter from the store
+const { user } = toRefs(store.state);
+const isAuthenticated = computed(() => store.getters.isAuthenticated);
+
+// console.log("test"+user.name);
+
 import { 
     initAccordions, 
     initCarousels, 
@@ -60,6 +78,11 @@ import { Link } from '@inertiajs/vue3';
   <div class="p-4 sm:ml-64">
      <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg
       dark:border-gray-700 mt-14">
+
+  <div>
+    <h1>{{ message }}</h1>
+    <button @click="changeMessage">Change Message</button>
+  </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
 

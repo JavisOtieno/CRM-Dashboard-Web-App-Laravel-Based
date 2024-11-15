@@ -8,6 +8,24 @@ import { Link } from '@inertiajs/vue3';
 import BaseTableComponent from './BaseTableComponent.vue';
 import { useForm } from '@inertiajs/vue3'; 
 import { usePage } from '@inertiajs/vue3'; 
+
+// import { useStore } from 'vuex';
+import { computed, toRefs } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
+
+const message = computed(() => store.state.message);
+
+const changeMessage = () => {
+  store.dispatch('updateMessage', 'Updated message from Vuex!');
+};
+
+
+
+
+
+
  
 DataTable.use(DataTablesCore);
 
@@ -109,8 +127,12 @@ defineProps({
 
   <div class="flex-1 p-6">
     <!-- Your main content goes here -->
+
+
+  
     <h1 class="text-2xl font-bold">Meetings</h1>
     <!-- <p class="mt-4">This is where you can add your main content.</p> -->
+     
 
 
 

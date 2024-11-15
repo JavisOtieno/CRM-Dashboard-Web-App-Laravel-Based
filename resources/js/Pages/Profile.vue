@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import SidebarNew from '@/Pages/Sidebarnew.vue';
+
 import { 
     initAccordions, 
     initCarousels, 
@@ -50,14 +51,23 @@ const props = defineProps({
 });
 
 import { Link } from '@inertiajs/vue3';
+
+
 </script>
 <template>
 
 <SidebarNew/>
 
+
 <div class="p-4 sm:ml-64">
      <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg
       dark:border-gray-700 mt-14">
+
+      <div>
+    <h1>{{ message }}</h1>
+    <button @click="changeMessage">Change Message</button>
+  </div>
+
 
 <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-3 xl:gap-4 dark:bg-gray-900">
     <!-- <div class="mb-4 col-span-full xl:mb-2">
