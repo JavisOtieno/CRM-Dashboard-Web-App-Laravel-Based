@@ -15,13 +15,13 @@ class ActivityController extends Controller
 
     public function index(){
 
-        $calls = Call::with('contact', 'account')->get();
-        $meetings = Meeting::with('contact', 'account')->get();
-        $visits = Visit::with('location', 'account')->get();
-        $tasks = Task::with('contact', 'account')->get();
+        $calls = Call::with('contact', 'account')->orderBy('id', 'DESC')->get();
+        $meetings = Meeting::with('contact', 'account')->orderBy('id', 'DESC')->get();
+        // $visits = Visit::with('location', 'account')->orderBy('id', 'DESC')->get();
+        $tasks = Task::with('contact', 'account')->orderBy('id', 'DESC')->get();
 
         // Merge and sort
-        $activities = $calls->merge($meetings)->merge($visits)->merge($tasks);
+        $activities = $calls->merge($meetings)->merge($tasks);
         $activities = $activities->sortByDesc('created_at')->values();
 
         return response()->json(['activities'=>$activities]);
