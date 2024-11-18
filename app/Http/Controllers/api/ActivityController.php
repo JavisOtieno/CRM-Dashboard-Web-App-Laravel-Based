@@ -22,7 +22,7 @@ class ActivityController extends Controller
         // ->merge($visits);
         $activities = $activities->sortByDesc('created_at')->values();
 
-        return response()->json(['activitities'=>$activities]);
+        return response()->json(['activities'=>$activities]);
 
 
     }
