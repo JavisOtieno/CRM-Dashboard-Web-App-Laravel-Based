@@ -23,6 +23,8 @@ class ActivityController extends Controller
         // Merge and sort
         $activities = $tasks->merge($calls);
         $activities = $activities->sortByDesc('created_at')->values();
+        // Reset the keys
+        $activities = $activities->values();
 
         return response()->json(['activities'=>$activities]);
 
