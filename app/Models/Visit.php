@@ -23,4 +23,12 @@ class Visit extends Model
         //return $this->belongsTo(User::class);
         return $this->belongsTo(Location::class,'location_id');
     }
+
+    protected $appends = ['type'];
+
+    public function getTypeAttribute()
+    {
+        return 'meeting';
+    }
+    
 }
