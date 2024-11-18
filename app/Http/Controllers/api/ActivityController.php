@@ -21,7 +21,7 @@ class ActivityController extends Controller
         $tasks = Task::with('contact', 'account')->orderBy('id', 'DESC')->get();
 
         // Merge and sort
-        $activities = $tasks->merge($visits);
+        $activities = $tasks;
         $activities = $activities->sortByDesc('created_at')->values();
 
         return response()->json(['activities'=>$activities]);
