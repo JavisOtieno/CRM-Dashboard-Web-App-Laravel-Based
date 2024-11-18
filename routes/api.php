@@ -10,6 +10,7 @@ use App\Http\Controllers\api\AccountController;
 use App\Http\Controllers\api\ContactController;
 use App\Http\Controllers\api\MeetingController;
 use App\Http\Controllers\api\ActivityController;
+use App\Http\Controllers\api\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,9 @@ Route::get('apitest',function(){
 
     return response()->json($testStatus);
 });
+
+
+Route::get('/dashboard', [DashboardController::class, 'dashboard']);
 
 Route::get('/activities', [ActivityController::class, 'index']);
 
