@@ -22,13 +22,11 @@ class meetingcontroller extends Controller
     public function addMeeting(Request $request){
        
         $incomingFields=$request->validate([
-            'name'=>'required|string|max:255',
-            'phone'=>'required|string|max:255',
             'account_id'=>'required|numeric|digits_between:1,20', 
             'contact_id'=>'required|numeric|digits_between:1,20', 
+            'location'=>'required|string|max:255',
             'description'=>'required|string|max:1500',
             'type'=>'required|string|max:255', 
-            'location'=>'required|string|max:255', 
             'status'=>'required|string|max:255',
             'date'=>'required|string|max:255',
             'time'=>'required|string|max:255',
