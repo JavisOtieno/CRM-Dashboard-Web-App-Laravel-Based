@@ -17,11 +17,11 @@ class ActivityController extends Controller
 
         $calls = Call::with('contact', 'account')->orderBy('id', 'DESC')->get();
         $meetings = Meeting::with('contact', 'account')->orderBy('id', 'DESC')->get();
-        // $visits = Visit::with('location', 'account')->orderBy('id', 'DESC')->get();
+        $visits = Visit::with('location', 'account')->orderBy('id', 'DESC')->get();
         $tasks = Task::with('contact', 'account')->orderBy('id', 'DESC')->get();
 
         // Merge and sort
-        $activities = $tasks;
+        $activities = $tasks->merge($visits)->merge($meetings)->merge($calls);
         $activities = $activities->sortByDesc('created_at')->values();
 
         return response()->json(['activities'=>$activities]);

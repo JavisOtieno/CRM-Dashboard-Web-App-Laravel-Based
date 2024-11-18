@@ -28,7 +28,7 @@ class Visit extends Model
 
     public function getTypeAttribute()
     {
-        return 'meeting';
+        return 'visit';
     }
-    
+
 }
