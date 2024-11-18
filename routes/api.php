@@ -9,6 +9,7 @@ use App\Http\Controllers\api\VisitController;
 use App\Http\Controllers\api\AccountController;
 use App\Http\Controllers\api\ContactController;
 use App\Http\Controllers\api\MeetingController;
+use App\Http\Controllers\api\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,8 @@ Route::get('apitest',function(){
 
     return response()->json($testStatus);
 });
+
+Route::get('/activities', [ActivityController::class, 'index']);
 
 Route::get('/accounts', [AccountController::class, 'index']);
 Route::post('addaccount',[AccountController::class,'addAccount']);
