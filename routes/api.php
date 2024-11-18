@@ -41,7 +41,7 @@ Route::get('apitest',function(){
 });
 
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/activities', [ActivityController::class, 'index']);
 
