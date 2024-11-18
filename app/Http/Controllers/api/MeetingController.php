@@ -10,7 +10,7 @@ class meetingcontroller extends Controller
 {
     //
     public function index(){
-        $meetings = Meeting::with('contact','account')->get();
+        $meetings = Meeting::with('contact','account')->orderBy('id', 'DESC')->get();
         return response()->json(['meetings'=>$meetings]);
     }
 

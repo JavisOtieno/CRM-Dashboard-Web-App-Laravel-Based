@@ -10,7 +10,7 @@ class DealController extends Controller
 {
     public function index(){
         // $deals = Deal::all();
-        $deals = Deal::with('account')->get();
+        $deals = Deal::with('account')->orderBy('id', 'DESC')->get();
         return response()->json(['deals'=>$deals]);
     }
 

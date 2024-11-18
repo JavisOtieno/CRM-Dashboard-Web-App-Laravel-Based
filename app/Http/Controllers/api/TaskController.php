@@ -10,7 +10,7 @@ class TaskController extends Controller
 {
     //
     public function index(){
-        $tasks = Task::with('account','contact')->get();
+        $tasks = Task::with('account','contact')->orderBy('id', 'DESC')->get();
         return response()->json(['tasks'=>$tasks]);
     }
     public function showTask($id){
