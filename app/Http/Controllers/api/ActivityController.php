@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Call;
+use App\Models\Visit;
 use App\Models\Meeting;
+use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,11 +17,11 @@ class ActivityController extends Controller
 
         $calls = Call::with('contact', 'account')->get();
         $meetings = Meeting::with('contact', 'account')->get();
-        // $visits = Visit::with('location', 'account')->get();
+        $visits = Visit::with('location', 'account')->get();
+        $tasks = Task::with('contact', 'account')->get();
 
         // Merge and sort
-        $activities = $calls->merge($meetings);
-        // ->merge($visits);
+        $activities = $calls->merge($meetings)->merge($visits)->merge($tasks);
         $activities = $activities->sortByDesc('created_at')->values();
 
         return response()->json(['activities'=>$activities]);
