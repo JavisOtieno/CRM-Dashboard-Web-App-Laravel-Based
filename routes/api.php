@@ -42,6 +42,7 @@ Route::get('/accounts', [AccountController::class, 'index']);
 Route::post('addaccount',[AccountController::class,'addAccount']);
 Route::get('/account/{id}', [AccountController::class, 'showAccount']);
 Route::get('/accountscontacts', [AccountController::class, 'accountsandcontacts']);
+Route::get('/accountslocations', [AccountController::class, 'accountsandlocations']);
 
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::post('addcontact',[ContactController::class,'addContact']);
