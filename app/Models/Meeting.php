@@ -28,4 +28,12 @@ class Meeting extends Model
         //return $this->belongsTo(User::class);
         return $this->belongsTo(Contact::class,'contact_id');
     }
+
+    protected $appends = ['type'];
+
+    public function getTypeAttribute()
+    {
+        return 'meeting';
+    }
+    
 }
