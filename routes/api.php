@@ -10,6 +10,7 @@ use App\Http\Controllers\api\VisitController;
 use App\Http\Controllers\api\AccountController;
 use App\Http\Controllers\api\ContactController;
 use App\Http\Controllers\api\MeetingController;
+use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\ActivityController;
 use App\Http\Controllers\api\DashboardController;
 
@@ -45,6 +46,8 @@ Route::post('/login', [AuthController::class, 'doLogin']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
 Route::get('/dashboard', [DashboardController::class, 'index']);
+
+Route::get('/profile', [ProfileController::class, 'index']);
 
 Route::get('/activities', [ActivityController::class, 'index']);
 
