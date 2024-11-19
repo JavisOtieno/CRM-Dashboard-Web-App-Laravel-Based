@@ -19,7 +19,7 @@ class DealController extends Controller
         return response()->json(['deal'=>$deal]);
     }
     //
-    public function submitAddDeal(Request $request) {
+    public function addDeal(Request $request) {
 
         $incomingFields=$request->validate([
             // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
