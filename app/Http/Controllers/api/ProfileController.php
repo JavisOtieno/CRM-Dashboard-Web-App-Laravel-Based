@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Deal;
+use App\Models\Account;
+use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
     //
     public function index(){
         // $calls = Call::all();
+        $accounts = Account::orderBy('id', 'DESC')->get();
+        $contacts = Contact::orderBy('id', 'DESC')->get();
+        $deals = Deal::orderBy('id', 'DESC')->get();
         $user = auth()->user();
-        return response()->json(['user'=>$user]);
+        return response()->json(compact('user','accounts','contacts','deals'));
     }
 }
