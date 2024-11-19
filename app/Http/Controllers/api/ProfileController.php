@@ -13,9 +13,9 @@ class ProfileController extends Controller
     //
     public function index(){
         // $calls = Call::all();
-        $accounts = Account::orderBy('id', 'DESC')->get();
-        $contacts = Contact::orderBy('id', 'DESC')->get();
-        $deals = Deal::orderBy('id', 'DESC')->get();
+        $accounts = Account::orderBy('id', 'DESC')->count();
+        $contacts = Contact::orderBy('id', 'DESC')->count();
+        $deals = Deal::orderBy('id', 'DESC')->count();
         $user = auth()->user();
         return response()->json(compact('user','accounts','contacts','deals'));
     }
