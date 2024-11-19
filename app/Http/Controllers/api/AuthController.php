@@ -23,7 +23,9 @@ class AuthController extends Controller
 
             $userId = auth()->user()->id;
 
-            $user = User::inOrganization()->where('email',$request->email)->first();
+            $user = User::
+            // inOrganization()->
+            where('email',$request->email)->first();
             
 
             // $request->session()->regenerate();
@@ -37,7 +39,9 @@ class AuthController extends Controller
                 'authToken' =>  $user->createToken('AuthToken')->plainTextToken,
                 "userId"=>$userId);
 
-                if($user->organization->status=="inactive"){
+                if($user
+                // ->organization
+                ->status=="inactive"){
                     $loginStatus=array(
                         "message" => "Organization Suspended",
                         "status" => "failed",
