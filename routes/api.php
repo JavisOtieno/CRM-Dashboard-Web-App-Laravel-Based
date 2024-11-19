@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\CallController;
 use App\Http\Controllers\api\DealController;
 use App\Http\Controllers\api\TaskController;
@@ -40,6 +41,7 @@ Route::get('apitest',function(){
     return response()->json($testStatus);
 });
 
+Route::post('/login', [AuthController::class, 'doLogin']);
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
