@@ -43,6 +43,7 @@ Route::get('apitest',function(){
 
 Route::post('/login', [AuthController::class, 'doLogin']);
 
+Route::middleware(['auth:sanctum'])->group(function(){
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/activities', [ActivityController::class, 'index']);
@@ -77,5 +78,7 @@ Route::get('/visit/{id}', [VisitController::class, 'showVisit']);
 Route::get('/tasks', [TaskController::class, 'index']);
 Route::post('addtask',[TaskController::class,'addTask']);
 Route::get('/task/{id}', [TaskController::class, 'showTask']);
+
+});
 
 
