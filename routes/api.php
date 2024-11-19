@@ -50,6 +50,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/profile', [ProfileController::class, 'index']);
 
 Route::get('/activities', [ActivityController::class, 'index']);
+Route::get('/activitiesdate', [ActivityController::class, 'activitiesOnThisDate']);
 
 Route::get('/accounts', [AccountController::class, 'index']);
 Route::post('addaccount',[AccountController::class,'addAccount']);
