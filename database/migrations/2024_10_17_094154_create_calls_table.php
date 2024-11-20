@@ -17,6 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('contact_id');
             // $table->string('description');
+            $table->string('date');
+            $table->string('time');
             $table->string('status');
             $table->timestamps();
         });
