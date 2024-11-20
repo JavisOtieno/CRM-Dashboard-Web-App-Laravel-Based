@@ -12,7 +12,9 @@ class Visit extends Model
         'account_id',
         'location_id',
         // 'location',
-        'status'
+        'status',
+        'date',
+        'time'
     ];
 
     public function account(){

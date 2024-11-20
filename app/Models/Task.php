@@ -14,7 +14,9 @@ class Task extends Model
         'contact_id',
         'name',
         'description',
-        'status'
+        'status',
+        'date',
+        'time'
     ];
 
     public function account(){
