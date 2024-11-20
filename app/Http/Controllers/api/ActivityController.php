@@ -49,7 +49,7 @@ class ActivityController extends Controller
         // Merge and sort
         $activities = $tasks->concat($calls)->concat($visits)->concat($meetings);
         // sortByDesc
-        $activities = $activities->sortBy('date', 'time')->values();
+        $activities = $activities->sortBy('time')->values();
         // Reset the keys
         $activities = $activities->values();
 
