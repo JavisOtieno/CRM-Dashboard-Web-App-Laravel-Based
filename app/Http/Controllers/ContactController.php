@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Account;
 use App\Models\Contact;
+use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -38,7 +39,7 @@ class ContactController extends Controller
             // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
             
             'name'=>'required|string|max:255',
-            'phone'=>'required|string|max:255',
+            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
             'account_id'=>'required|numeric|digits_between:1,20',
            
             // new PhoneNumber
@@ -73,7 +74,7 @@ class ContactController extends Controller
         $contact = Contact::find($id);
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
-            'phone'=>'required|string|max:255',
+            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
             'account_id'=>'required|numeric|digits_between:1,20',
             
         ]);

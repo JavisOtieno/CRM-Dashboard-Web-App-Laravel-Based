@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Contact;
+use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +25,7 @@ class ContactController extends Controller
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
-            'phone'=>'required|string|max:255',
+            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
             'account_id'=>'required|numeric|digits_between:1,20',  
         ]);
 
