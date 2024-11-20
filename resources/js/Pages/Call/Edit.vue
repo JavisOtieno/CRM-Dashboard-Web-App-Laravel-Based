@@ -54,6 +54,8 @@ export default {
 
     const form = useForm({
       status: props.call.status || '',
+      date: props.call.date || '',
+      time: props.call.time || '',
       account_id: props.call.account_id || '',
       contact_id: props.call.contact_id || '',
 
@@ -231,6 +233,32 @@ export default {
 
   </select>
   </div>
+  </div>
+
+  <div class="mb-5">
+    <label for="date" class="block mb-2 text-sm 
+    font-medium text-gray-900 dark:text-white">Date</label>
+    <input type="date" id="date" 
+    v-model="form.date"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+    w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+     dark:focus:border-blue-500" placeholder="Date" required />
+     <div v-if="form.errors.date" class="error">{{ form.errors.date }}</div>
+  </div>
+
+  <div class="mb-5">
+    <label for="time" class="block mb-2 text-sm 
+    font-medium text-gray-900 dark:text-white">Time</label>
+    <input type="time" id="time" 
+    v-model="form.time"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+    w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+     dark:focus:border-blue-500" placeholder="Time" required />
+     <div v-if="form.errors.time" class="error">{{ form.errors.time }}</div>
   </div>
 
  

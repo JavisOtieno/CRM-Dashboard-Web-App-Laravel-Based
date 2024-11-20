@@ -38,6 +38,8 @@ class CallController extends Controller
             // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
             'account_id'=>'required|numeric|digits_between:1,20',
             'contact_id'=>'required|numeric|digits_between:1,20',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
             'status'=>'required|string|max:255',
             // new PhoneNumber
             
@@ -76,6 +78,8 @@ class CallController extends Controller
         $incomingFields=$request->validate([
             'account_id'=>'required|numeric|digits_between:1,20',
             'contact_id'=>'required|numeric|digits_between:1,20',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
             'status'=>'required|string|max:255',
             // new PhoneNumber
             

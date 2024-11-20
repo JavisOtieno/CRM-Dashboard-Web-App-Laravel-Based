@@ -12,6 +12,8 @@ class Call extends Model
         'account_id',
         'contact_id',
         'duration',
+        'date',
+        'time',
         'status'
     ];
 
