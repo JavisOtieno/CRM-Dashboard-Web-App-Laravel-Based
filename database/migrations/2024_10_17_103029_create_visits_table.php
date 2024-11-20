@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('location_id');
             $table->string('status');
+            $table->string('date');
+            $table->string('time');
             $table->timestamps();
         });
     }

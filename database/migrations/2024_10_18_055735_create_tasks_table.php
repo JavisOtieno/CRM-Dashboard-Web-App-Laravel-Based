@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('contact_id');
             $table->longText('description');
             $table->string('status');
+            $table->string('date');
+            $table->string('time');
             $table->timestamps();
         });
     }

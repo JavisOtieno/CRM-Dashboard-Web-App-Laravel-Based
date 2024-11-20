@@ -26,6 +26,8 @@ class TaskController extends Controller
             'name'=>'required|string|max:255', 
             'description'=>'required|string|max:1500',
             'status'=>'required|string|max:255', 
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
 
             // date - time
         ]);

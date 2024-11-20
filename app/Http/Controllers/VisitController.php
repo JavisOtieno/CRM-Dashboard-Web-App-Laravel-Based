@@ -37,6 +37,8 @@ class VisitController extends Controller
             // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
             'account_id'=>'required|numeric|digits_between:1,20',
             'location_id'=>'required|numeric|digits_between:1,20',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
             'status'=>'required|string|max:255',
             // new PhoneNumber
             
@@ -46,6 +48,8 @@ class VisitController extends Controller
         $incomingFields['account_id']=strip_tags($incomingFields['account_id']);
         $incomingFields['location_id']=strip_tags($incomingFields['location_id']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
+        $incomingFields['date']=strip_tags($incomingFields['date']);
+        $incomingFields['time']=strip_tags($incomingFields['time']);
         
         //$incomingFields['image']='';
 
@@ -74,16 +78,20 @@ class VisitController extends Controller
         $visit = Visit::find($id);
         $incomingFields=$request->validate([
             'account_id'=>'required|numeric|digits_between:1,20',
-            // 'contact_id'=>'required|numeric|digits_between:1,20',
+            'location_id'=>'required|numeric|digits_between:1,20',
             'status'=>'required|string|max:255',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
             // new PhoneNumber
             
         ]);
         //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 
         $incomingFields['account_id']=strip_tags($incomingFields['account_id']);
-        // $incomingFields['contact_id']=strip_tags($incomingFields['contact_id']);
+        $incomingFields['location_id']=strip_tags($incomingFields['location_id']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
+        $incomingFields['date']=strip_tags($incomingFields['date']);
+        $incomingFields['time']=strip_tags($incomingFields['time']);
 
        
          

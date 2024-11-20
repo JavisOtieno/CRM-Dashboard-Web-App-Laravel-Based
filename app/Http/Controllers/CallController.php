@@ -48,6 +48,8 @@ class CallController extends Controller
 
         $incomingFields['account_id']=strip_tags($incomingFields['account_id']);
         $incomingFields['contact_id']=strip_tags($incomingFields['contact_id']);
+        $incomingFields['date']=strip_tags($incomingFields['date']);
+        $incomingFields['time']=strip_tags($incomingFields['time']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
         
         //$incomingFields['image']='';
@@ -88,6 +90,8 @@ class CallController extends Controller
 
         $incomingFields['account_id']=strip_tags($incomingFields['account_id']);
         $incomingFields['contact_id']=strip_tags($incomingFields['contact_id']);
+        $incomingFields['date']=strip_tags($incomingFields['date']);
+        $incomingFields['time']=strip_tags($incomingFields['time']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
 
        

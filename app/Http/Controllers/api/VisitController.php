@@ -25,6 +25,8 @@ class VisitController extends Controller
             'account_id'=>'required|numeric|digits_between:1,20', 
             'location_id'=>'required|numeric|digits_between:1,20', 
             'status'=>'required|string|max:255', 
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
 
             // date - time
         ]);

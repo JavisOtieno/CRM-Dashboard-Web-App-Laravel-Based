@@ -38,6 +38,8 @@ class TaskController extends Controller
             'name'=>'required|string|max:255',
             'description' => ['required', 'string', new WordCount(300)], 
             'status'=>'required|string|max:255',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
             // new PhoneNumber
             
         ]);
@@ -69,6 +71,8 @@ class TaskController extends Controller
             'name'=>'required|string|max:255',           
             'description' => ['required', 'string', new WordCount(300)], 
             'status'=>'required|string|max:255',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
             // new PhoneNumber
             
         ]);
