@@ -38,13 +38,13 @@ class ActivityController extends Controller
         
 
         $calls = Call::with('contact', 'account')
-        ->whereDate('created_at', '=', $date)->orderBy('id', 'ASC')->get();
+        ->whereDate('date', '=', $date)->orderBy('id', 'ASC')->get();
         $meetings = Meeting::with('contact', 'account')
-        ->whereDate('created_at', '=', $date)->orderBy('id', 'ASC')->get();
+        ->whereDate('date', '=', $date)->orderBy('id', 'ASC')->get();
         $visits = Visit::with('location', 'account')
-        ->whereDate('created_at', '=', $date)->orderBy('id', 'ASC')->get();
+        ->whereDate('date', '=', $date)->orderBy('id', 'ASC')->get();
         $tasks = Task::with('contact', 'account')
-        ->whereDate('created_at', '=', $date)->orderBy('id', 'ASC')->get();
+        ->whereDate('date', '=', $date)->orderBy('id', 'ASC')->get();
 
         // Merge and sort
         $activities = $tasks->concat($calls)->concat($visits)->concat($meetings);
