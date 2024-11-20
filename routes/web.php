@@ -43,8 +43,9 @@ Route::post('dologin', [AuthController::class, 'doLogin'])
 
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/',  [DashboardController::class, 'newindex'])->name('home');
-    Route::get('/newdashboard',  [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard',  [DashboardController::class, 'newindex'])->name('newdashboard');
+    // Route::get('/dashboard',  [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard',  [DashboardController::class, 'newindex'])->name('dashboard');
+    Route::get('/newdashboard',  [DashboardController::class, 'newindex'])->name('newdashboard');
     Route::get('/newaccounts', [AccountController::class, 'index'])->name('newaccounts');
     Route::get('/accounts',  [AccountController::class, 'newindex'])->name('accounts');
 
