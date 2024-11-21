@@ -135,10 +135,11 @@ const capitalizeFirstLetter= (string) => {
               </svg>
            </p>
         </div> -->
-        <div>
+
+        <!-- <div>
     <h1>{{ message }}</h1>
     <button @click="changeMessage">Change Message</button>
-  </div>
+  </div> -->
 
 
 
