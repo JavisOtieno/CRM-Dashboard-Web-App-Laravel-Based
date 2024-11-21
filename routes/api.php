@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\CallController;
 use App\Http\Controllers\api\DealController;
+use App\Http\Controllers\api\LeadController;
 use App\Http\Controllers\api\TaskController;
 use App\Http\Controllers\api\VisitController;
 use App\Http\Controllers\api\AccountController;
@@ -63,7 +64,7 @@ Route::get('/contacts', [ContactController::class, 'index']);
 Route::post('addcontact',[ContactController::class,'addContact']);
 Route::get('/contact/{id}', [ContactController::class, 'showContact']);
 
-Route::get('/leads', [ContactController::class, 'leads']);
+Route::get('/leads', [LeadController::class, 'leads']);
 
 Route::get('/locations', [LocationController::class, 'index']);
 Route::post('addlocation',[LocationController::class,'addLocation']);
