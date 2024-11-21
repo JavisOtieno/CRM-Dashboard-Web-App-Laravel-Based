@@ -12,6 +12,7 @@ use App\Http\Controllers\api\ContactController;
 use App\Http\Controllers\api\MeetingController;
 use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\ActivityController;
+use App\Http\Controllers\api\LocationController;
 use App\Http\Controllers\api\DashboardController;
 
 /*
@@ -61,6 +62,10 @@ Route::get('/accountslocations', [AccountController::class, 'accountsandlocation
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::post('addcontact',[ContactController::class,'addContact']);
 Route::get('/contact/{id}', [ContactController::class, 'showContact']);
+
+Route::get('/locations', [LocationController::class, 'index']);
+Route::post('addlocation',[LocationController::class,'addLocation']);
+Route::get('/location/{id}', [LocationController::class, 'showLocation']);
 
 
 Route::get('/deals', [DealController::class, 'index']);
