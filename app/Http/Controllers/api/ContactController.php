@@ -11,7 +11,8 @@ class ContactController extends Controller
 {
     //
     public function index(){
-        $contacts = Contact::with('account')->orderBy('id', 'DESC')->get();;
+        $contacts = Contact::with('account')->where('status','contact')
+        ->orderBy('id', 'DESC')->get();;
         return response()->json(['contacts'=>$contacts]); 
     }
 
