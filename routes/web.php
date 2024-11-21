@@ -139,6 +139,8 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/submitaddaccount',[ AccountController::class, 'submitAddAccount']);
 
     Route::get('/leads', [LeadController::class, 'index'])->name('leads');
+    Route::get('/addlead', [LeadController::class, 'showAddLead'])->name('addlead');
+    Route::get('/editlead/{id}', [LeadController::class, 'showEditLead']);
 
 
     Route::post('newlogout', [AuthController::class, 'destroy'])
