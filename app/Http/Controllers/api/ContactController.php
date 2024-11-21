@@ -45,4 +45,24 @@ class ContactController extends Controller
 
         return response()->json($contactStatus);
     }
+
+    public function addLead(Request $request){
+
+       
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
+            'account_id'=>'required|numeric|digits_between:1,20',  
+        ]);
+
+        $incomingFields['status']='lead';
+
+        Contact::create($incomingFields);
+
+        $leadStatus=array(
+            "message" => "Contact Added Successfully",
+            "status" => "success");
+
+        return response()->json($leadStatus);
+    }
 }

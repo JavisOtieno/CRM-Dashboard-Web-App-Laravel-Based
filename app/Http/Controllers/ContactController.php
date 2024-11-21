@@ -45,6 +45,7 @@ class ContactController extends Controller
             // new PhoneNumber
             
         ]);
+        $incomingFields['status']='contact';
         //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'        
 
         Contact::create($incomingFields);
@@ -78,6 +79,8 @@ class ContactController extends Controller
             'account_id'=>'required|numeric|digits_between:1,20',
             
         ]);
+        
+
         //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'        
         //$incomingFields['image']='';
 
