@@ -76,7 +76,7 @@ import { Link } from '@inertiajs/vue3';
   
   
   <div class="p-4 sm:ml-64">
-     <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg
+     <div class="p-4 border-gray-200 border-dashed rounded-lg
       dark:border-gray-700 mt-14">
 
   <!-- <div>
@@ -149,7 +149,7 @@ import { Link } from '@inertiajs/vue3';
         </div> -->
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4" style="background:#ffffff">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <caption class=" pl-6 pt-3 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="text-align:left;font-weight:bold;">Recent Accounts</caption>
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -204,8 +204,8 @@ import { Link } from '@inertiajs/vue3';
         </tbody>
     </table>
 </div>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4" style="background:#ffffff">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" >
         <caption class=" pl-6 pt-3 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="text-align:left;font-weight:bold;">Recent Deals</caption>
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -258,7 +258,7 @@ import { Link } from '@inertiajs/vue3';
     </table>
 </div>
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4" style="background:#ffffff">
     
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <caption class=" pl-6 pt-3 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="text-align:left;font-weight:bold;">Recent Visits</caption>
@@ -312,7 +312,7 @@ import { Link } from '@inertiajs/vue3';
         </tbody>
     </table>
 </div>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4" style="background:#ffffff">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <caption class=" pl-6 pt-3 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="text-align:left;font-weight:bold;">Recent Contacts</caption>
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
