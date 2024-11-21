@@ -20,7 +20,7 @@ class LeadController extends Controller
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'phone' => ['nullable', 'string', 'min:10', 'max:13', new PhoneNumber],
-            'account_name' => 'required|string|max:255',
+            'account_name' => 'nullable|string|max:255',
         ]);
 
     
