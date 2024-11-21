@@ -33,4 +33,8 @@ class LeadController extends Controller
 
         return response()->json($leadStatus);
     }
+    public function showLead($id){
+        $lead = Lead::with('account')->find($id);
+        return response()->json(['lead'=>$lead]);
+    }
 }
