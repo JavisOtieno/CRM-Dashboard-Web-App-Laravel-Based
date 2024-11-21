@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Location;
-use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -25,7 +24,9 @@ class LocationController extends Controller
        
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
-            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
+            'lat' => 'required|numeric|between:-90,90',
+            'long' => 'required|numeric|between:-180,180',
+            'description' =>'required|string|max:1500',
             'account_id'=>'required|numeric|digits_between:1,20',  
         ]);
 
