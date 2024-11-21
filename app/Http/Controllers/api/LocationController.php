@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Location;
-use App\Models\Location;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
