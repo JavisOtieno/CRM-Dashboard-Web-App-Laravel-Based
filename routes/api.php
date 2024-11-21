@@ -65,6 +65,7 @@ Route::post('addcontact',[ContactController::class,'addContact']);
 Route::get('/contact/{id}', [ContactController::class, 'showContact']);
 
 Route::get('/leads', [LeadController::class, 'index']);
+Route::post('addlead',[LeadController::class,'addLead']);
 
 Route::get('/locations', [LocationController::class, 'index']);
 Route::post('addlocation',[LocationController::class,'addLocation']);
