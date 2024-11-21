@@ -7,6 +7,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CallController;
 use App\Http\Controllers\DealController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\SellerController;
@@ -136,6 +137,8 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::put('/submiteditaccount/{id}', [AccountController::class, 'submitEditAccount']);
     Route::delete('/deleteaccount/{id}', [AccountController::class, 'deleteAccount']);
     Route::post('/submitaddaccount',[ AccountController::class, 'submitAddAccount']);
+
+    Route::get('/leads', [LeadController::class, 'index'])->name('leads');
 
 
     Route::post('newlogout', [AuthController::class, 'destroy'])
