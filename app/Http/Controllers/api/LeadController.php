@@ -23,7 +23,7 @@ class LeadController extends Controller
             'account_name' => 'nullable|string|max:255',
         ]);
 
-        $incomingFields['status']='lead';
+    
 
         Lead::create($incomingFields);
 
