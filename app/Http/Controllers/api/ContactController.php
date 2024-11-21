@@ -15,6 +15,12 @@ class ContactController extends Controller
         return response()->json(['contacts'=>$contacts]); 
     }
 
+    public function leads(){
+        $contacts = Contact::with('account')->where('status','lead')
+        ->orderBy('id', 'DESC')->get();
+        return response()->json(['contacts'=>$contacts]); 
+    }
+
     public function showContact($id){
         $contact = Contact::with('account')->find($id);
         return response()->json(['contact'=>$contact]);
@@ -28,6 +34,8 @@ class ContactController extends Controller
             'phone'=>['required','string','min:10','max:13', new PhoneNumber],
             'account_id'=>'required|numeric|digits_between:1,20',  
         ]);
+
+        $incomingFields['status']='contact';
 
         Contact::create($incomingFields);
 

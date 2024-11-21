@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('website');
             $table->longText('address');
+            // $table->string('status');
             $table->timestamps();
         });
     }
