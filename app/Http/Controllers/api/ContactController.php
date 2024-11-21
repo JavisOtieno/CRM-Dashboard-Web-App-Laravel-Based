@@ -18,7 +18,7 @@ class ContactController extends Controller
     public function leads(){
         $contacts = Contact::with('account')->where('status','lead')
         ->orderBy('id', 'DESC')->get();
-        return response()->json(['contacts'=>$contacts]); 
+        return response()->json(['leads'=>$contacts]); 
     }
 
     public function showContact($id){
