@@ -28,7 +28,7 @@ class CallController extends Controller
             'contact_id'=>'required|numeric|digits_between:1,20',
             'date'=>'required|string|max:255',
             'time'=>'required|string|max:255', 
-            'status'=>'required|string|max:255',
+            // 'status'=>'required|string|max:255',
         ]);
 
         Call::create($incomingFields);
