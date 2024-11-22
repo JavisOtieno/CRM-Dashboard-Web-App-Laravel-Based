@@ -48,8 +48,7 @@ export default {
     const form = useForm({
       name: '',
       phone: '',
-      website: '',
-      address: '',
+      account_name: '',
 
     });
     
@@ -173,29 +172,18 @@ export default {
 
   <div class="mb-5">
     <label for="lat" class="block mb-2 text-sm 
-    font-medium text-gray-900 dark:text-white">Website</label>
-    <input type="text" id="website" 
-    v-model="form.website"
+    font-medium text-gray-900 dark:text-white">Account Name</label>
+    <input type="text" id="account_name" 
+    v-model="form.account_name"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
     rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Website" required />
-     <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
+     dark:focus:border-blue-500" placeholder="Account Name" required />
+     <div v-if="form.errors.account_name" class="error">{{ form.errors.account_name }}</div>
   </div>
 
-  <div class="mb-5">
-    <label for="lat" class="block mb-2 text-sm 
-    font-medium text-gray-900 dark:text-white">Address</label>
-    <input type="text" id="address" 
-    v-model="form.address"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
-    w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Address" required />
-     <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
-  </div>
+
 
 
 
