@@ -141,6 +141,9 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/leads', [LeadController::class, 'index'])->name('leads');
     Route::get('/addlead', [LeadController::class, 'showAddLead'])->name('addlead');
     Route::get('/editlead/{id}', [LeadController::class, 'showEditLead']);
+    Route::put('/submiteditlead/{id}', [LeadController::class, 'submitEditLead']);
+    Route::delete('/deletelead/{id}', [LeadController::class, 'deleteLead']);
+    Route::post('/submitaddlead',[ LeadController::class, 'submitAddLead']);
 
 
     Route::post('newlogout', [AuthController::class, 'destroy'])
