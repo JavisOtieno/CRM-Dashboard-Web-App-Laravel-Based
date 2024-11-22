@@ -34,7 +34,7 @@ class ContactController extends Controller
             'account_id'=>'required|numeric|digits_between:1,20',  
         ]);
 
-        $incomingFields['status']='contact';
+        // $incomingFields['status']='contact';
 
         Contact::create($incomingFields);
 
