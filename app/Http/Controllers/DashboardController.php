@@ -34,12 +34,13 @@ class DashboardController extends Controller
         $dealsCount = Deal::count();
         $accountsCount = Account::count();
         $leadsCount = Lead::count();
+        $contactsCount = Contact::count();
 
         // return $dealsCount;
         
         // return $accounts;
         // return Inertia::render('Index',['deals' => $deals]);
         return Inertia::render('Newdashboard',compact('deals','accounts','visits','contacts',
-    'dealsCount','accountsCount','leadsCount'));
+    'dealsCount','accountsCount','leadsCount','contactsCount'));
     }
 }

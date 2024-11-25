@@ -20,8 +20,9 @@ class AuthController extends Controller
     public function profile() {
         //$competitors = Competitor::all();
         // $contacts = Contact::with('account')->get();
+        $user = auth()->user();
 
-        return Inertia::render('Profile');
+        return Inertia::render('Profile',compact('user'));
 
     }
 
