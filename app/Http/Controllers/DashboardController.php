@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deal;
+use App\Models\Lead;
 use Inertia\Inertia;
 use App\Models\Visit;
 use App\Models\Account;
@@ -30,8 +31,15 @@ class DashboardController extends Controller
         $accounts = Account::orderBy('id', 'desc')->take(5)->get();
         $visits = Visit::with('account','location')->take(5)->get();
         $contacts = Contact::with('account')->take(5)->get();
+        $dealsCount = Deal::count();
+        $accountsCount = Account::count();
+        $leadsCount = Lead::count();
+
+        // return $dealsCount;
+        
         // return $accounts;
         // return Inertia::render('Index',['deals' => $deals]);
-        return Inertia::render('Newdashboard',compact('deals','accounts','visits','contacts'));
+        return Inertia::render('Newdashboard',compact('deals','accounts','visits','contacts',
+    'dealsCount','accountsCount','leadsCount'));
     }
 }
