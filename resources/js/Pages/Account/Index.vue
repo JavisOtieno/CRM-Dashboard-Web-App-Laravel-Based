@@ -85,7 +85,7 @@ const deleteAccount = () => {
 //   if (confirm('Are you sure you want to delete this account?')) {
     form.delete(`/deleteaccount/${selectedAccount.value}`, {
       onSuccess: () => {
-        alert('Account deleted successfully!');
+        // alert('Account deleted successfully!');
         window.location.reload(); // Reload the page on success
       },
     //   preserveState: true, 

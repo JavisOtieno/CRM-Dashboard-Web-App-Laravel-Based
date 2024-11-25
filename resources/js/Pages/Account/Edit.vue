@@ -1,5 +1,6 @@
 <script>
 import SidebarNew from '@/Pages/Sidebarnew.vue';
+import Help from '@/Pages/Help.vue';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
 import MapComponent from '@/Pages/MapComponent.vue'; 
@@ -20,7 +21,7 @@ import {
  } from 'flowbite'
 
 export default {
-  components: { SidebarNew, MapComponent },
+  components: { SidebarNew, MapComponent, Help },
   props: {
     account: {
       type: Object,
@@ -57,7 +58,9 @@ export default {
 
     const submitForm = () => {
       form.put(`/submiteditaccount/${props.account.id}`, {
-        onSuccess: () => alert('Account edited successfully!'),
+        onSuccess: () => {
+          
+        },
         onError: (errors) => {
             // Handle errors here
             // You can customize the error message as per your needs
@@ -103,7 +106,8 @@ export default {
       
       
       <div class="p-4 sm:ml-64">
-         <div class="p-4 bg-white border-gray-200 border-dashed rounded-lg 
+        <div class="flex">
+         <div class="mr-4 pr-6 pl-6 w-full md:w-3/4 lg:w-2/3 p-4 bg-white border-gray-200 border-dashed rounded-lg 
          dark:border-gray-700 mt-14">
             
             <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
@@ -143,7 +147,7 @@ export default {
         
         </div>
 
-<form class="w-full md:w-3/4 lg:w-2/3  bg-white rounded"
+<form class="bg-white rounded"
 @submit.prevent="submitForm" >
   <div class="mb-5">
     <label for="name" class="block mb-2 text-sm 
@@ -230,6 +234,9 @@ export default {
             </div>
            </div>
          </div>
+         <Help/>
+        </div>
+        
       </div>
       
     

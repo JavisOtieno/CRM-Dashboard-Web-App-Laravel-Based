@@ -12,7 +12,6 @@ class Contact extends Model
         'name',
         'phone',
         'account_id',
-        'status'
     ];
 
     public function account(){
