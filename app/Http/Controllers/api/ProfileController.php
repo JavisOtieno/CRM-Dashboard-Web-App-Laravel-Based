@@ -14,11 +14,11 @@ class ProfileController extends Controller
     //
     public function index(){
         // $calls = Call::all();
-        $accounts = Account::orderBy('id', 'DESC')->count();
-        $contacts = Contact::orderBy('id', 'DESC')->count();
-        $deals = Deal::orderBy('id', 'DESC')->count();
-        $leads = Lead::orderBy('id', 'DESC')->count();
-        
+        $accountsCount = Account::orderBy('id', 'DESC')->count();
+        $contactsCount = Contact::orderBy('id', 'DESC')->count();
+        $dealsCount = Deal::orderBy('id', 'DESC')->count();
+        $leadsCount = Lead::orderBy('id', 'DESC')->count();
+
         $user = auth()->user();
         return response()->json(compact('user',
         'accountsCount','contactsCount','dealsCount','leadsCount'));
