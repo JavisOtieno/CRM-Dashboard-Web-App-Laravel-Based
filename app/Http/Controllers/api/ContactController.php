@@ -18,8 +18,6 @@ class ContactController extends Controller
         return response()->json(['contacts'=>$contacts]); 
     }
 
-
-
     public function showContact($id){
         $contact = Contact::with('account')->find($id);
         return response()->json(['contact'=>$contact]);

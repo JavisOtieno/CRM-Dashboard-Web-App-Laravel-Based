@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Deal;
+use App\Models\Account;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,6 +19,13 @@ class DealController extends Controller
         $deal = Deal::with('account')->find($id);
         return response()->json(['deal'=>$deal]);
     }
+
+    public function showEditDeal($id){
+        $deal = Deal::with('account')->find($id);
+        $accounts = Account::orderBy('id', 'DESC')->get();
+        return response()->json(compact('accounts','deal'));
+    }
+
     //
     public function addDeal(Request $request) {
 

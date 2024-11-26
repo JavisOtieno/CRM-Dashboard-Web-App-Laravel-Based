@@ -7,13 +7,14 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import store from './store'; // Import Vuex store
+import VueApexCharts from "vue3-apexcharts";
 
 import axios from 'axios'
 
 // axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').content
 
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'SCG CRM';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -22,6 +23,8 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(VueApexCharts)
+            .component("apexchart", VueApexCharts)
             .use(store) // Use Vuex store
             .mount(el);
     },
@@ -29,3 +32,8 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
+
+
+
+
+

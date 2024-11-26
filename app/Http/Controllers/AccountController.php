@@ -55,13 +55,27 @@ class AccountController extends Controller
 
         Account::create($incomingFields);
 
-        return redirect('/accounts');
+        // return redirect('/accounts');
+        
+        return redirect('/accounts')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Account added successfully'
+            ]
+        ]);
+
     }
 
     public function deleteAccount($id) {
         $account = Account::find($id);
         $account->delete();
-        return redirect('/accounts');
+        // return redirect('/accounts');
+        return redirect('/accounts')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Account deleted successfully'
+            ]
+        ]);
     }
 
     public function showEditAccount($id) {
@@ -91,7 +105,15 @@ class AccountController extends Controller
         //return $request['image'];
         $account->update($incomingFields);
 
-        return redirect('/accounts');
+        // return redirect('/accounts');
+
+        return redirect('/accounts')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Account edited successfully'
+            ]
+        ]);
+        
     }
     
 
