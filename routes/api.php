@@ -77,6 +77,7 @@ Route::get('/location/{id}', [LocationController::class, 'showLocation']);
 Route::get('/deals', [DealController::class, 'index']);
 Route::post('adddeal',[DealController::class,'addDeal']);
 Route::get('editdeal/{id}',[DealController::class,'showEditDeal']);
+Route::post('submiteditdeal/{id}',[DealController::class,'submitEditDeal']);
 Route::get('/deal/{id}', [DealController::class, 'showDeal']);
 
 Route::get('/calls', [CallController::class, 'index']);
