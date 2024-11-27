@@ -50,13 +50,25 @@ class ContactController extends Controller
 
         Contact::create($incomingFields);
 
-        return redirect('/contacts');
+        // return redirect('/contacts');
+        return redirect('/contacts')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Contact added successfully'
+            ]
+        ]);
     }
 
     public function deleteContact($id) {
         $contact = Contact::find($id);
         $contact->delete();
-        return redirect('/contacts');
+        // return redirect('/contacts');
+        return redirect('/contacts')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Contact deleted successfully'
+            ]
+        ]);
     }
 
     public function showEditContact($id) {
@@ -87,6 +99,13 @@ class ContactController extends Controller
         //return $request['image'];
         $contact->update($incomingFields);
 
-        return redirect('/contacts');
+        // return redirect('/contacts');
+
+        return redirect('/contacts')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Contact edited successfully'
+            ]
+        ]);
     }
 }

@@ -63,13 +63,23 @@ class SellerController extends Controller
 
         User::create($incomingFields);
 
-        return redirect('/sellers');
+        return redirect('/sellers')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Seller added successfully'
+            ]
+        ]);
     }
 
     public function deleteSeller($id) {
         $seller = User::find($id);
         $seller->delete();
-        return redirect('/sellers');
+        return redirect('/sellers')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Seller deleted successfully'
+            ]
+        ]);
     }
 
     public function showEditSeller($id) {
@@ -105,7 +115,12 @@ class SellerController extends Controller
         //return $request['image'];
         $seller->update($incomingFields);
 
-        return redirect('/sellers');
+        return redirect('/sellers')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Seller edited successfully'
+            ]
+        ]);
     }
     
 

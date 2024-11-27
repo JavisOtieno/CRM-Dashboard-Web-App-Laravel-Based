@@ -53,13 +53,26 @@ class MeetingController extends Controller
         
         Meeting::create($incomingFields);
 
-        return redirect('/meetings');
+        // return redirect('/meetings');
+
+        return redirect('/meetings')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Meeting added successfully'
+            ]
+        ]);
     }
 
     public function deleteMeeting($id) {
         $meeting = Meeting::find($id);
         $meeting->delete();
-        return redirect('/meetings');
+        // return redirect('/meetings');
+        return redirect('/meetings')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Meeting deleted successfully'
+            ]
+        ]);
     }
 
     public function showEditMeeting($id) {
@@ -87,6 +100,12 @@ class MeetingController extends Controller
 
         $meeting->update($incomingFields);
 
-        return redirect('/meetings');
+        // return redirect('/meetings');
+        return redirect('/meetings')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Meeting added successfully'
+            ]
+        ]);
     }
 }

@@ -110,8 +110,8 @@ const chartOptions = ref({
     gradient: {
       opacityFrom: 0.55,
       opacityTo: 0,
-      shade: "#1C64F2",
-      gradientToColors: ["#1C64F2"],
+      shade: "#EC1F27",
+      gradientToColors: ["#EC1F27"],
     },
   },
   dataLabels: {
@@ -133,7 +133,7 @@ const chartOptions = ref({
     {
       name: "New users",
       data: [6500, 6418, 6456, 6526, 6356, 6456],
-      color: "#1A56DB",
+      color: "#EC1F27",
     },
   ],
   xaxis: {

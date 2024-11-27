@@ -62,13 +62,26 @@ class LocationController extends Controller
 
         Location::create($incomingFields);
 
-        return redirect('/listlocations');
+        // return redirect('/listlocations');
+        return redirect('/listlocations')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Location added successfully'
+            ]
+        ]);
+
     }
 
     public function deleteLocation($id) {
         $location = Location::find($id);
         $location->delete();
-        return redirect('/listlocations');
+        // return redirect('/listlocations');
+        return redirect('/listlocations')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Location deleted successfully'
+            ]
+        ]);
     }
 
     public function showEditLocation($id) {
@@ -97,6 +110,12 @@ class LocationController extends Controller
         //return $request['image'];
         $location->update($incomingFields);
 
-        return redirect('/listlocations');
+        // return redirect('/listlocations');
+        return redirect('/listlocations')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Location edited successfully'
+            ]
+        ]);
     }
 }

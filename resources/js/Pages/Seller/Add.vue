@@ -1,5 +1,5 @@
 <script>
-import SidebarNew from '@/Pages/Sidebarnew.vue';
+import FormWrapper from '@/Pages/FormWrapper.vue';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
 import { onMounted  } from 'vue'
@@ -19,7 +19,7 @@ import {
  } from 'flowbite'
 
 export default {
-  components: { SidebarNew },
+  components: { FormWrapper },
   props: {
 
     accounts: {
@@ -114,34 +114,10 @@ export default {
 
 <template>
 
-    <SidebarNew/>
-      
-      
-      <div class="p-4 sm:ml-64">
-         <div class="p-4 bg-white border-gray-200 border-dashed rounded-lg 
-         dark:border-gray-700 mt-14">
-            
-            <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-               <p class="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                  </svg>
-               </p>
-            </div> -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    <FormWrapper>
+
             <h3 class="text-3xl font-bold dark:text-white mb-4">Sellers</h3>
             
-    
             <div class="flex items-center justify-center  mb-4 rounded">
                 
                 <div class="container mx-auto mt-5">
@@ -158,7 +134,7 @@ export default {
         
         </div>
 
-<form class="w-full md:w-3/4 lg:w-2/3  bg-white rounded"
+<form class="w-full bg-white rounded"
 @submit.prevent="submitForm" >
   <div class="mb-5">
     <label for="name" class="block mb-2 text-sm 
@@ -268,18 +244,18 @@ export default {
   </div> -->
   <button type="submit" 
   :disabled="form.processing"
-  class="text-white bg-blue-700 hover:bg-blue-800 
-  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg
-   text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 
-   dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+  class="text-white bg-primary-600 hover:bg-primary-700 
+  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg
+   text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-500 
+   dark:hover:bg-primary-600 dark:focus:ring-primary-700">Submit</button>
 </form>
 
     
     
             </div>
            </div>
-         </div>
-      </div>
+      
+      </FormWrapper>
       
     
     

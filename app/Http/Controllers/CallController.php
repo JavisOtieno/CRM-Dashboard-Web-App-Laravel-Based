@@ -59,13 +59,24 @@ class CallController extends Controller
 
         Call::create($incomingFields);
 
-        return redirect('/calls');
+        return redirect('/calls')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Call added successfully'
+            ]
+        ]);
     }
 
     public function deleteCall($id) {
         $call = Call::find($id);
         $call->delete();
-        return redirect('/calls');
+
+        return redirect('/calls')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Call deleted successfully'
+            ]
+        ]);
     }
 
     public function showEditCall($id) {
@@ -102,7 +113,12 @@ class CallController extends Controller
         //return $request['image'];
         $call->update($incomingFields);
 
-        return redirect('/calls');
+        return redirect('/calls')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Call edited successfully'
+            ]
+        ]);
     }
     
 }

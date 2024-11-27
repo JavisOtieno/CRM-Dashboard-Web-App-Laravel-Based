@@ -3,7 +3,8 @@ import { DataTable } from "simple-datatables";
 import { Link } from '@inertiajs/vue3';
 import { onMounted, onBeforeUnmount, ref, computed  } from 'vue'
 import { useForm, usePage } from '@inertiajs/vue3'
-import SidebarNew from '@/Pages/Sidebarnew.vue';
+// import SidebarNew from '@/Pages/Sidebarnew.vue';
+import TableWrapper from '@/Pages/TableWrapper.vue';
 
 import { 
     initAccordions, 
@@ -101,6 +102,7 @@ const sortedAccounts = computed(() => {
 const { props2 } = usePage();
 
 const isModalOpen = ref(false);
+const modalMessage = ref(null);
 
 // Access the Laravel flash message
 // const successMessage = computed(() => props2.value?.flash?.success);
@@ -115,6 +117,7 @@ const closeModal = () => {
 
 const flashStatus = props.flash.status;
 const flashMessage = props.flash.message;
+modalMessage.value = props.flash.message;
 // alert(flashStatus);
 
 if (flashStatus === 'success') {
@@ -131,8 +134,10 @@ const deleteAccount = () => {
 //   if (confirm('Are you sure you want to delete this account?')) {
     form.delete(`/deleteaccount/${selectedAccount.value}`, {
       onSuccess: () => {
+        isModalOpen.value = true;
+        modalMessage.value = 'Account deleted successfully';
         // alert('Account deleted successfully!');
-        window.location.reload(); // Reload the page on success
+        // window.location.reload(); // Reload the page on success
       },
     //   preserveState: true, 
     });
@@ -156,12 +161,13 @@ const capitalizeFirstLetter= (string) => {
 </script>
 <template>
 
-<SidebarNew/>
+
   
   
-  <div class="p-4 sm:ml-64">
-     <div class="p-4 pr-6 pl-6 bg-white border-gray-200 border-dashed rounded-lg 
-     dark:border-gray-700 mt-14">
+<TableWrapper>
+
+     <div>
+  
         
         <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
            <p class="text-2xl text-gray-400 dark:text-gray-500">
@@ -170,15 +176,6 @@ const capitalizeFirstLetter= (string) => {
               </svg>
            </p>
         </div> -->
-
-
-
-
-
-
-
-
-
 
 
         <h3 class="text-3xl font-bold dark:text-white mb-4">Accounts</h3>
@@ -198,8 +195,8 @@ const capitalizeFirstLetter= (string) => {
         
         
         
-        <Link :href="route('addaccount')"  as="button"  class="bg-blue-500 text-white w-1/3 px-4 py-2 
-            rounded hover:bg-blue-600">
+        <Link :href="route('addaccount')"  as="button"  class="bg-primary-600 text-white w-1/3 px-4 py-2 
+            rounded hover:bg-primary-700">
                 Add Account
 
         </Link>
@@ -340,7 +337,8 @@ d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022
            </div>
         </div> -->
      </div>
-  </div>
+
+</TableWrapper>
   
 
 
@@ -398,7 +396,7 @@ d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022
 
 
 
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">{{ flashMessage }}</h3>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">{{ modalMessage }}</h3>
                 
                 <!-- <button  @click="closeModal" data-modal-hide="popup-modal" type="button" class="w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                     Close

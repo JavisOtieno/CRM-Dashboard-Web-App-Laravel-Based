@@ -1,27 +1,28 @@
 <script>
-import SidebarNew from '@/Pages/Sidebarnew.vue';
-import Help from '@/Pages/Help.vue';
+// import SidebarNew from '@/Pages/Sidebarnew.vue';
+// import Help from '@/Pages/Help.vue';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
-import MapComponent from '@/Pages/MapComponent.vue'; 
-import { onMounted  } from 'vue'
-import { 
-    initAccordions, 
-    initCarousels, 
-    initCollapses, 
-    initDials, 
-    initDismisses, 
-    initDrawers, 
-    initDropdowns, 
-    initModals, 
-    Modal,
-    initPopovers, 
-    initTabs, 
-    initTooltips
- } from 'flowbite'
+import MapComponent from '@/Pages/MapComponent.vue';
+import { onMounted } from 'vue'
+import FormWrapper from '@/Pages/FormWrapper.vue';
+import {
+  initAccordions,
+  initCarousels,
+  initCollapses,
+  initDials,
+  initDismisses,
+  initDrawers,
+  initDropdowns,
+  initModals,
+  Modal,
+  initPopovers,
+  initTabs,
+  initTooltips
+} from 'flowbite'
 
 export default {
-  components: { SidebarNew, MapComponent, Help },
+  components: { MapComponent, FormWrapper },
   props: {
     account: {
       type: Object,
@@ -36,17 +37,17 @@ export default {
 
     onMounted(() => {
       // Initialization code for the profile pop-up
-    initAccordions();
-    initCarousels();
-    initCollapses();
-    initDials();
-    initDismisses();
-    initDrawers();
-    initDropdowns();
-    initModals();
-    initPopovers();
-    initTabs();
-    initTooltips();
+      initAccordions();
+      initCarousels();
+      initCollapses();
+      initDials();
+      initDismisses();
+      initDrawers();
+      initDropdowns();
+      initModals();
+      initPopovers();
+      initTabs();
+      initTooltips();
     });
     // Initialize form state with useForm
     const form = useForm({
@@ -59,24 +60,24 @@ export default {
     const submitForm = () => {
       form.put(`/submiteditaccount/${props.account.id}`, {
         onSuccess: () => {
-          
+
         },
         onError: (errors) => {
-            // Handle errors here
-            // You can customize the error message as per your needs
-            const errorMessages = Object.values(errors).flat().join(', ');
-            alert(`Error(s): ${errorMessages}`);
+          // Handle errors here
+          // You can customize the error message as per your needs
+          const errorMessages = Object.values(errors).flat().join(', ');
+          alert(`Error(s): ${errorMessages}`);
         },
       });
     };
 
     return { form, submitForm };
-    
+
   },
 };
 </script>
 
- 
+
 <!-- <template>
 
     <DataTable :data="data" class="display">
@@ -102,104 +103,80 @@ export default {
 
 <template>
 
-    <SidebarNew/>
-      
-      
-      <div class="p-4 sm:ml-64">
-        <div class="flex">
-         <div class="mr-4 pr-6 pl-6 w-full md:w-3/4 lg:w-2/3 p-4 bg-white border-gray-200 border-dashed rounded-lg 
-         dark:border-gray-700 mt-14">
-            
-            <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+      <FormWrapper>
+
+        <div>
+
+          <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
                <p class="text-2xl text-gray-400 dark:text-gray-500">
                   <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
                   </svg>
                </p>
             </div> -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-            <h3 class="text-3xl font-bold dark:text-white mb-4">Accounts</h3>
-            
-    
-            <div class="flex items-center justify-center  mb-4 rounded">
-                
-                <div class="container mx-auto mt-5">
-        <!-- Add User button aligned to the right -->
-        <div class="flex justify-between mb-4">
-        <div class="text-lg font-semibold">Edit Account</div>
-        
-            <!-- <button @click="openAddUserModal" 
+
+          <h3 class="text-3xl font-bold dark:text-white mb-4">Accounts</h3>
+
+          <div class="flex items-center justify-center  mb-4 rounded">
+
+            <div class="container mx-auto mt-5">
+              <!-- Add User button aligned to the right -->
+              <div class="flex justify-between mb-4">
+                <div class="text-lg font-semibold">Edit Account</div>
+
+                <!-- <button @click="openAddUserModal" 
           
             class="bg-blue-500 text-white w-1/3 px-4 py-2 
             rounded hover:bg-blue-600">
                 Add Account
             </button> -->
-        
-        </div>
 
-<form class="bg-white rounded"
-@submit.prevent="submitForm" >
-  <div class="mb-5">
-    <label for="name" class="block mb-2 text-sm 
+              </div>
+
+              <form class="bg-white rounded" @submit.prevent="submitForm">
+                <div class="mb-5">
+                  <label for="name" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Name</label>
-    <input type="text" id="name" 
-    v-model="form.name"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+                  <input type="text" id="name" v-model="form.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
     rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
      dark:focus:border-blue-500" placeholder="Name" required />
-     <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
-  </div>
+                  <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+                </div>
 
-  <div class="mb-5">
-    <label for="lat" class="block mb-2 text-sm 
+                <div class="mb-5">
+                  <label for="lat" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Phone</label>
-    <input type="text" id="phone" 
-    v-model="form.phone"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+                  <input type="text" id="phone" v-model="form.phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
     rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
      dark:focus:border-blue-500" placeholder="Phone" required />
-     <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
-  </div>
+                  <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+                </div>
 
-  <div class="mb-5">
-    <label for="website" class="block mb-2 text-sm 
+                <div class="mb-5">
+                  <label for="website" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Website</label>
-    <input type="text" id="website" 
-    v-model="form.website"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+                  <input type="text" id="website" v-model="form.website" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
     rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
      dark:focus:border-blue-500" placeholder="Website" required />
-     <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
-  </div>
+                  <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
+                </div>
 
-  <div class="mb-5">
-    <label for="website" class="block mb-2 text-sm 
+                <div class="mb-5">
+                  <label for="website" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Address</label>
-    <input type="text" id="address" 
-    v-model="form.address"
-    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+                  <input type="text" id="address" v-model="form.address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
     rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
      dark:focus:border-blue-500" placeholder="Address" required />
-     <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
-  </div>
+                  <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
+                </div>
 
 
 
@@ -207,40 +184,33 @@ export default {
 
 
 
-            
-  <!-- <div class="mb-5">
+
+                <!-- <div class="mb-5">
     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
     <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
   </div> -->
-  <!-- <div class="flex items-start mb-5">
+                <!-- <div class="flex items-start mb-5">
     <div class="flex items-center h-5">
       <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
     </div>
     <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
   </div> -->
-  <button type="submit" 
-  :disabled="form.processing"
-  class="text-white bg-blue-700 hover:bg-blue-800 
+                <button type="submit" :disabled="form.processing" class="text-white bg-blue-700 hover:bg-blue-800 
   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg
    text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 
    dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-</form>
+              </form>
 
 
 
 
-    
-    
+
+
             </div>
-           </div>
-         </div>
-         <Help/>
+          </div>
         </div>
-        
-      </div>
-      
-    
-    
 
-    
-    </template>
+      </FormWrapper>
+
+
+</template>

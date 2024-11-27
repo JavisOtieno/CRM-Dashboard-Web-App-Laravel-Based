@@ -58,13 +58,23 @@ class VisitController extends Controller
 
         Visit::create($incomingFields);
 
-        return redirect('/visits');
+        return redirect('/visits')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Visit added successfully'
+            ]
+        ]);
     }
 
     public function deleteVisit($id) {
         $visit = Visit::find($id);
         $visit->delete();
-        return redirect('/visits');
+        return redirect('/visits')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Visit deleted successfully'
+            ]
+        ]);
     }
 
     public function showEditVisit($id) {
@@ -101,6 +111,11 @@ class VisitController extends Controller
         //return $request['image'];
         $visit->update($incomingFields);
 
-        return redirect('/visits');
+        return redirect('/visits')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Visit edited successfully'
+            ]
+        ]);
     }
 }

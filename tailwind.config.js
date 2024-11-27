@@ -24,8 +24,27 @@ export default {
         "./node_modules/flowbite/**/*.js"
     ],
 
+
     theme: {
         extend: {
+            colors: {
+              
+                primary: {
+                    DEFAULT: '#EC1F27', // Base color
+                    light: '#F5626B',  // Light variant
+                    dark: '#A6171C',   // Dark variant
+                    50: '#FDE8E8',   // Very light variant
+                    100: '#FBD4D4',  // Light variant
+                    200: '#F8B1B2',  // Softer light
+                    300: '#F4898A',  // Lighter red
+                    400: '#F05A5B',  // Bright red
+                    500: '#EC1F27',  // Base color
+                    600: '#C71A20',  // Slightly darker
+                    700: '#A3171A',  // Darker
+                    800: '#7F1214',  // Very dark
+                    900: '#5C0D0E',  // Deep dark
+                },
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

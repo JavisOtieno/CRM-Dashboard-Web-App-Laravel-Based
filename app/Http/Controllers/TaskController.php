@@ -47,13 +47,23 @@ class TaskController extends Controller
         
         Task::create($incomingFields);
 
-        return redirect('/tasks');
+        return redirect('/tasks')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Task added successfully'
+            ]
+        ]);
     }
 
     public function deleteTask($id) {
         $task = Task::find($id);
         $task->delete();
-        return redirect('/meetings');
+        return redirect('/tasks')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Task deleted successfully'
+            ]
+        ]);
     }
 
     public function showEditTask($id) {
@@ -81,6 +91,11 @@ class TaskController extends Controller
 
         $task->update($incomingFields);
 
-        return redirect('/tasks');
+        return redirect('/tasks')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Task edited successfully'
+            ]
+        ]);
     }
 }

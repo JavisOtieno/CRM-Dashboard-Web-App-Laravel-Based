@@ -45,13 +45,27 @@ class LeadController extends Controller
 
         Lead::create($incomingFields);
 
-        return redirect('/leads');
+        // return redirect('/leads');
+
+        return redirect('/leads')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Lead added successfully'
+            ]
+        ]);
     }
 
     public function deleteLead($id) {
         $lead = Lead::find($id);
         $lead->delete();
-        return redirect('/leads');
+        // return redirect('/leads');
+
+        return redirect('/leads')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Lead deleted successfully'
+            ]
+        ]);
     }
 
     public function showEditLead($id) {
@@ -79,7 +93,14 @@ class LeadController extends Controller
         //return $request['image'];
         $lead->update($incomingFields);
 
-        return redirect('/leads');
+        // return redirect('/leads');
+        return redirect('/leads')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Lead edited successfully'
+            ]
+        ]);
+
     }
     
 }

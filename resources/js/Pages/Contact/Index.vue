@@ -1,9 +1,11 @@
 <script setup>
 import { DataTable } from "simple-datatables";
 import { Link } from '@inertiajs/vue3';
-import { onMounted, onBeforeUnmount, ref  } from 'vue'
+import { onMounted, onBeforeUnmount, ref, computed  } from 'vue'
 import { useForm } from '@inertiajs/vue3'
-import SidebarNew from '@/Pages/Sidebarnew.vue';
+import { usePage } from '@inertiajs/vue3'
+import TableWrapper from '@/Pages/TableWrapper.vue';
+import FormWrapper from '@/Pages/FormWrapper.vue';
 import { 
     initAccordions, 
     initCarousels, 
@@ -17,6 +19,7 @@ import {
     initPopovers, 
     initTabs, 
     initTooltips } from 'flowbite'
+
 
     const people = ref([
   { name: "John Doe", age: 30, city: "New York" },
@@ -85,13 +88,18 @@ const deleteContact = () => {
 //   if (confirm('Are you sure you want to delete this contact?')) {
     form.delete(`/deletecontact/${selectedContact.value}`, {
       onSuccess: () => {
-        alert('Contact deleted successfully!');
-        window.location.reload(); // Reload the page on success
+        // alert('Contact deleted successfully!');
+        // window.location.reload(); // Reload the page on success
       },
     //   preserveState: true, 
     });
 //   }
 };
+
+const dynamicFlash = ref(null); // For dynamically updated flash messages
+// Access the flash message from the Inertia props
+const page = usePage();
+const flash = computed(() => dynamicFlash.value || page.props.flash || null);
 
 
 if (document.getElementById("search-table") && typeof simpleDatatables.DataTable !== 'undefined') {
@@ -104,12 +112,7 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
 </script>
 <template>
 
-<SidebarNew/>
-  
-  
-  <div class="p-4 sm:ml-64">
-     <div class="p-4 bg-white border-gray-200 border-dashed rounded-lg 
-     dark:border-gray-700 mt-14">
+<TableWrapper :flash="flash">
         
         <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
            <p class="text-2xl text-gray-400 dark:text-gray-500">
@@ -142,8 +145,8 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
         
         
         
-             <Link :href="route('addcontact')"  as="button"  class="bg-blue-500 text-white w-1/3 px-4 py-2 
-            rounded hover:bg-blue-600">
+             <Link :href="route('addcontact')"  as="button"  class="bg-primary-600 text-white w-1/3 px-4 py-2 
+            rounded hover:bg-primary-700">
                 Add Contact
 
         </Link>
@@ -248,38 +251,9 @@ d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022
 
 
         </div>
-        <!-- <div class="grid grid-cols-2 gap-4">
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-        </div> -->
-     </div>
-  </div>
+    
+    </TableWrapper>
+
   
 
 

@@ -44,13 +44,34 @@ class DealController extends Controller
 
         Deal::create($incomingFields);
 
-        return redirect('/newdeals');
+        // return redirect('/newdeals');
+        return redirect('/newdeals')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Deal added successfully'
+            ]
+        ]);
+
+  
     }
 
     public function deleteDeal($id) {
         $deal = Deal::find($id);
         $deal->delete();
-        return redirect('/newdeals');
+        // return redirect('/newdeals');
+        return redirect('/newdeals')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Deal deleted successfully'
+            ]
+        ]);
+
+        // $dealStatus=array(
+        //     "message" => "Deal Deleted Successfully",
+        //     "status" => "success");
+
+        // return response()->json($dealStatus);
+
     }
 
     public function showEditDeal($id) {
@@ -74,6 +95,12 @@ class DealController extends Controller
         //return $request['image'];
         $deal->update($incomingFields);
 
-        return redirect('/newdeals');
+        // return redirect('/newdeals');
+        return redirect('/newdeals')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Deal edited successfully'
+            ]
+        ]);
     }
 }
