@@ -310,7 +310,7 @@ class="size-4"
 </button>
 <Link
 :href="`/editlocation/${location.id}`"
-class="inline-block border-e p-2 text-gray-700 hover:bg-gray-50 focus:relative"
+class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
 title="Edit Product"
 >
 <svg
@@ -330,7 +330,7 @@ d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 
 </Link>
 
 <button
-class="inline-block p-2 text-gray-700 hover:bg-gray-50 focus:relative"
+class="inline-block p-2 text-primary-700 hover:bg-primary-50 focus:relative"
 title="Delete Location"
 :disabled="form.processing"
 

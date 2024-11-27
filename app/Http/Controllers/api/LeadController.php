@@ -33,6 +33,26 @@ class LeadController extends Controller
 
         return response()->json($leadStatus);
     }
+    public function submitEditLead($id,Request $request){
+       
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'phone' => ['nullable', 'string', 'min:10', 'max:13', new PhoneNumber],
+            'account_name' => 'nullable|string|max:255',
+        ]);
+
+    
+        $lead = Lead::find($id);
+
+        $lead->update($incomingFields);
+
+        $leadStatus=array(
+            "message" => "Lead Edited Successfully",
+            "status" => "success");
+
+        return response()->json($leadStatus);
+        
+    }
     public function showLead($id){
         $lead = Lead::find($id);
         return response()->json(['lead'=>$lead]);

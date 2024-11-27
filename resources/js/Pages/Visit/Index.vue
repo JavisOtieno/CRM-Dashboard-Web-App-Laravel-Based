@@ -186,7 +186,7 @@ const flash = computed(() => page.props.flash || null);
 <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
 <Link
 :href="`/editvisit/${visit.id}`"
-class="inline-block border-e p-2 text-gray-700 hover:bg-gray-50 focus:relative"
+class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
 title="Edit Visit"
 >
 <svg

@@ -206,7 +206,7 @@ const flash = computed(() => page.props.flash || null);
 
                                     <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
                                         <Link :href="`/editcall/${call.id}`"
-                                            class="inline-block border-e p-2 text-gray-700 hover:bg-gray-50 focus:relative"
+                                            class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
                                             title="Edit Call">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -215,7 +215,7 @@ const flash = computed(() => page.props.flash || null);
                                         </svg>
                                         </Link>
 
-                                        <button class="inline-block p-2 text-gray-700 hover:bg-gray-50 focus:relative"
+                                        <button class="inline-block p-2 text-primary-700 hover:bg-primary-50 focus:relative"
                                             title="Delete Call" :disabled="form.processing" @click="openModal(call)"
                                             data-modal-target="popup-modal" data-modal-toggle="popup-modal">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

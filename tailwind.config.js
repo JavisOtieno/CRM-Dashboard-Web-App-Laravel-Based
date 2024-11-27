@@ -44,6 +44,18 @@ export default {
                     800: '#7F1214',  // Very dark
                     900: '#5C0D0E',  // Deep dark
                 },
+                defaultbackground: {
+                    50: '#fce9ec',  // Base color
+                    100: '#fad2d8',
+                    200: '#f7bcc5',
+                    300: '#f4a5b2',
+                    400: '#f28fa0',
+                    500: '#ef798e', // Primary tone
+                    600: '#dc576d',
+                    700: '#b54456',
+                    800: '#8f323f',
+                    900: '#682129',
+                  },
             },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
