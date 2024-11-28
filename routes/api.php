@@ -94,6 +94,7 @@ Route::put('/submiteditmeeting/{id}', [MeetingController::class, 'submitEditMeet
 Route::get('/visits', [VisitController::class, 'index']);
 Route::post('addvisit',[VisitController::class,'addVisit']);
 Route::get('/visit/{id}', [VisitController::class, 'showVisit']);
+Route::put('/submiteditvisit/{id}', [VisitController::class, 'submitEditVisit']);
 
 Route::get('/tasks', [TaskController::class, 'index']);
 Route::post('addtask',[TaskController::class,'addTask']);
