@@ -40,4 +40,27 @@ class meetingcontroller extends Controller
 
         return response()->json($meetingStatus);
     }
+
+    public function submitEditMeeting($id,Request $request){
+       
+        $incomingFields=$request->validate([
+            'account_id'=>'required|numeric|digits_between:1,20', 
+            'contact_id'=>'required|numeric|digits_between:1,20', 
+            'location'=>'required|string|max:255',
+            'description'=>'required|string|max:1500',
+            'type'=>'required|string|max:255', 
+            'status'=>'required|string|max:255',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255',
+        ]);
+
+        $meeting = Meeting::find($id);
+        $meeting::update($incomingFields);
+
+        $meetingStatus=array(
+            "message" => "Meeting Edited Successfully",
+            "status" => "success");
+
+        return response()->json($meetingStatus);
+    }
 }
