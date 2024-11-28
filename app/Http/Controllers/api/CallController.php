@@ -40,5 +40,26 @@ class CallController extends Controller
         return response()->json($callStatus);
     }
         
+    public function submitEditCall($id,Request $request){
+
+       
+        $incomingFields=$request->validate([
+            'account_id'=>'required|numeric|digits_between:1,20',
+            'contact_id'=>'required|numeric|digits_between:1,20',
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
+            'status'=>'required|string|max:255',
+        ]);
+
+        $call = Call::find($id);
+        $call->update($incomingFields);
+
+        $callStatus=array(
+            "message" => "Call Added Successfully",
+            "status" => "success");
+
+        return response()->json($callStatus);
+    }
+        
     
 }
