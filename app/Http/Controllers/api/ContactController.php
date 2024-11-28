@@ -43,7 +43,8 @@ class ContactController extends Controller
         return response()->json($contactStatus);
     }
 
-    public function addLead(Request $request){
+
+    public function submitEditContact($id,Request $request){
 
        
         $incomingFields=$request->validate([
@@ -52,14 +53,16 @@ class ContactController extends Controller
             'account_id'=>'required|numeric|digits_between:1,20',  
         ]);
 
-        $incomingFields['status']='lead';
+        // $incomingFields['status']='contact';
 
-        Contact::create($incomingFields);
+        $contact = Contact::find($id);
+        $contact->update($incomingFields);
 
-        $leadStatus=array(
-            "message" => "Lead Added Successfully",
+        $contactStatus=array(
+            "message" => "Contact Edited Successfully",
             "status" => "success");
 
-        return response()->json($leadStatus);
+        return response()->json($contactStatus);
     }
+
 }
