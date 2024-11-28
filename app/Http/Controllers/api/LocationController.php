@@ -15,12 +15,7 @@ class LocationController extends Controller
         return response()->json(['locations'=>$locations]); 
     }
 
-    public function accountLocations($id){
-        $account = Account::find($id);
-        $locations = Location::where('account_id',$id)->orderBy('id', 'DESC')->get();
-        // ->where('status','contact')
-        return response()->json(['locations'=>$locations]); 
-    }
+
 
     public function showLocation($id){
         $location = Location::with('account')->find($id);

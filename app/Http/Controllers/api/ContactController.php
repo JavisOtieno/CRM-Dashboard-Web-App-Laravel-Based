@@ -19,12 +19,7 @@ class ContactController extends Controller
         return response()->json(['contacts'=>$contacts]); 
     }
 
-    public function accountContacts($id){
-        $account = Account::find($id);
-        $contacts = Contact::where('account_id',$id)->orderBy('id', 'DESC')->get();
-        // ->where('status','contact')
-        return response()->json(['contacts'=>$contacts]); 
-    }
+
 
     public function showContact($id){
         $contact = Contact::with('account')->find($id);

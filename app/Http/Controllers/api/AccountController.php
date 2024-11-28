@@ -39,7 +39,7 @@ class AccountController extends Controller
     }
 
     public function showAccount($id){
-        $account = Account::find($id);
+        $account = Account::with('locations','contacts')->find($id);
         return response()->json(['account'=>$account]);
     }
 
