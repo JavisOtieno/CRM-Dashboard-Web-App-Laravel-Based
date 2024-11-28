@@ -28,7 +28,7 @@ class Visit extends Model
 
     protected $appends = ['modelcalendartype'];
 
-    public function getTypeAttribute()
+    public function getModelcalendartypeAttribute()
     {
         return 'visit';
     }

@@ -28,7 +28,7 @@ class Call extends Model
 
     protected $appends = ['modelcalendartype'];
 
-    public function getTypeAttribute()
+    public function getModelcalendartypeAttribute()
     {
         return 'call';
     }
