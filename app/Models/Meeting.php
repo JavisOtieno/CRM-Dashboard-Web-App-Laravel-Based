@@ -29,7 +29,7 @@ class Meeting extends Model
         return $this->belongsTo(Contact::class,'contact_id');
     }
 
-    protected $appends = ['type'];
+    protected $appends = ['modelcalendartype'];
 
     public function getTypeAttribute()
     {

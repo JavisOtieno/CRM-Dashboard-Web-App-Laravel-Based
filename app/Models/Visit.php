@@ -26,7 +26,7 @@ class Visit extends Model
         return $this->belongsTo(Location::class,'location_id');
     }
 
-    protected $appends = ['type'];
+    protected $appends = ['modelcalendartype'];
 
     public function getTypeAttribute()
     {
