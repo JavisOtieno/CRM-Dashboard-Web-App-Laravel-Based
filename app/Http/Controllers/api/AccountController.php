@@ -63,4 +63,25 @@ class AccountController extends Controller
         
     }
 
+    public function submitEditAccount($id,Request $request){
+
+       
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
+            'website'=>'required|string|max:255',
+            'address'=>'required|string|max:1500',
+        ]);
+
+        $account = Account::find($id);
+        $account->update($incomingFields);
+
+        $accountStatus=array(
+            "message" => "Account Edited Successfully",
+            "status" => "success");
+
+        return response()->json($accountStatus);
+        
+    }
+
 }

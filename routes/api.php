@@ -59,6 +59,7 @@ Route::post('addaccount',[AccountController::class,'addAccount']);
 Route::get('/account/{id}', [AccountController::class, 'showAccount']);
 Route::get('/accountscontacts', [AccountController::class, 'accountsandcontacts']);
 Route::get('/accountslocations', [AccountController::class, 'accountsandlocations']);
+Route::put('/submiteditaccount/{id}', [AccountController::class, 'submitEditAccount']);
 
 Route::get('/contacts', [ContactController::class, 'index']);
 Route::post('addcontact',[ContactController::class,'addContact']);
