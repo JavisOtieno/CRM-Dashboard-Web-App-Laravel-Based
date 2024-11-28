@@ -119,6 +119,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::put('/submitedittask/{id}', [TaskController::class, 'submitEditTask']);
     Route::delete('/deletetask/{id}', [TaskController::class, 'deleteTask']);
     Route::post('/submitaddtask',[ TaskController::class, 'submitAddTask']);
+    Route::put('/submitedittask/{id}', [TaskController::class, 'submitEditTask']);
 
     Route::get('/newtasks', [TaskController::class, 'newindex'])->name('newtasks');
 

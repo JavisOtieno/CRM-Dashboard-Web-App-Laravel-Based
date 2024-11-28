@@ -40,4 +40,28 @@ class TaskController extends Controller
 
         return response()->json($taskStatus);
     }
+
+    public function submitEditTask($id,Request $request){
+       
+        $incomingFields=$request->validate([
+            'account_id'=>'required|numeric|digits_between:1,20', 
+            'contact_id'=>'required|numeric|digits_between:1,20', 
+            'name'=>'required|string|max:255', 
+            'description'=>'required|string|max:1500',
+            'status'=>'required|string|max:255', 
+            'date'=>'required|string|max:255',
+            'time'=>'required|string|max:255', 
+
+            // date - time
+        ]);
+
+        $task = Task::find($id);
+        $task->update($incomingFields);
+
+        $taskStatus=array(
+            "message" => "Task Edited Successfully",
+            "status" => "success");
+
+        return response()->json($taskStatus);
+    }
 }
