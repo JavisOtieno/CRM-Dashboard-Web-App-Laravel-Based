@@ -38,4 +38,25 @@ class LocationController extends Controller
 
         return response()->json($locationStatus);
     }
+    public function submitEditLocation($id,Request $request){
+
+       
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'lat' => 'required|numeric|between:-90,90',
+            'long' => 'required|numeric|between:-180,180',
+            'description' =>'required|string|max:1500',
+            'account_id'=>'required|numeric|digits_between:1,20',  
+        ]);
+
+        $location = Location::find($id);
+        $location->update($incomingFields);
+
+        $locationStatus=array(
+            "message" => "Location Edited Successfully",
+            "status" => "success");
+
+        return response()->json($locationStatus);
+    }
+
 }

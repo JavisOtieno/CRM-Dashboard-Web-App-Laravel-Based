@@ -75,6 +75,7 @@ Route::post('submiteditlead/{id}',[LeadController::class,'submitEditLead']);
 Route::get('/locations', [LocationController::class, 'index']);
 Route::post('addlocation',[LocationController::class,'addLocation']);
 Route::get('/location/{id}', [LocationController::class, 'showLocation']);
+Route::put('/submiteditlocation/{id}', [LocationController::class, 'submitEditLocation']);
 
 
 Route::get('/deals', [DealController::class, 'index']);
