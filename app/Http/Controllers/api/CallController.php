@@ -55,7 +55,7 @@ class CallController extends Controller
         $call->update($incomingFields);
 
         $callStatus=array(
-            "message" => "Call Added Successfully",
+            "message" => "Call Edited Successfully",
             "status" => "success");
 
         return response()->json($callStatus);
