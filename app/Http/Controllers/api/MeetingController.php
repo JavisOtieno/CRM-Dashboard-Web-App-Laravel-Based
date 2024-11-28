@@ -55,7 +55,7 @@ class meetingcontroller extends Controller
         ]);
 
         $meeting = Meeting::find($id);
-        $meeting::update($incomingFields);
+        $meeting->update($incomingFields);
 
         $meetingStatus=array(
             "message" => "Meeting Edited Successfully",
