@@ -65,6 +65,7 @@ Route::get('/contacts', [ContactController::class, 'index']);
 Route::post('addcontact',[ContactController::class,'addContact']);
 Route::get('/contact/{id}', [ContactController::class, 'showContact']);
 Route::put('/submiteditcontact/{id}', [ContactController::class, 'submitEditContact']);
+Route::get('/accountcontacts/{id}', [ContactController::class, 'accountContacts']);
 
 Route::get('/leads', [LeadController::class, 'index']);
 Route::post('addlead',[LeadController::class,'addLead']);
@@ -76,6 +77,7 @@ Route::get('/locations', [LocationController::class, 'index']);
 Route::post('addlocation',[LocationController::class,'addLocation']);
 Route::get('/location/{id}', [LocationController::class, 'showLocation']);
 Route::put('/submiteditlocation/{id}', [LocationController::class, 'submitEditLocation']);
+Route::get('/accountlocations/{id}', [LocationController::class, 'accountLocations']);
 
 
 Route::get('/deals', [DealController::class, 'index']);

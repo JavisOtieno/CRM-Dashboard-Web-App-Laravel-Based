@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Models\Account;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,13 @@ class LocationController extends Controller
     //
     public function index(){
         $locations = Location::with('account')->orderBy('id', 'DESC')->get();;
+        return response()->json(['locations'=>$locations]); 
+    }
+
+    public function accountLocations($id){
+        $account = Account::find($id);
+        $locations = Location::where('account_id',$id)->orderBy('id', 'DESC')->get();
+        // ->where('status','contact')
         return response()->json(['locations'=>$locations]); 
     }
 
