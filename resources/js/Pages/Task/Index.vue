@@ -160,6 +160,11 @@ const flash = computed(() => page.props.flash || null);
             </th>
             <th>
                 <span class="flex items-center">
+                 Seller
+                </span>
+            </th>
+            <th>
+                <span class="flex items-center">
                  Account
                 </span>
             </th>
@@ -180,6 +185,7 @@ const flash = computed(() => page.props.flash || null);
         <tr v-for="(task, index) in tasks" :key="index">
                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ task.id }}</td>
+                <td>{{ task.user.name }}</td>
                 <td>{{ task.account.name }}</td>
                 <td>{{ task.contact.name }}</td>
                 <td>{{ capitalizeFirstLetter(task.status) }}</td>

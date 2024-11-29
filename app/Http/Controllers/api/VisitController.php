@@ -10,7 +10,7 @@ class VisitController extends Controller
 {
     //
     public function index(){
-        $visits = Visit::with('location','account')->orderBy('id', 'DESC')->get();
+        $visits = Visit::with('location','account','user')->orderBy('id', 'DESC')->get();
         return response()->json(['visits'=>$visits]);
     }
 

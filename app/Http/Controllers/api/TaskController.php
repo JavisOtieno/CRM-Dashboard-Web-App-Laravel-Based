@@ -10,7 +10,7 @@ class TaskController extends Controller
 {
     //
     public function index(){
-        $tasks = Task::with('account','contact')->orderBy('id', 'DESC')->get();
+        $tasks = Task::with('account','contact','user')->orderBy('id', 'DESC')->get();
         return response()->json(['tasks'=>$tasks]);
     }
     public function showTask($id){
@@ -31,7 +31,7 @@ class TaskController extends Controller
 
             // date - time
         ]);
-        
+
         $incomingFields['user_id']=auth()->user()->id;
 
         Task::create($incomingFields);
