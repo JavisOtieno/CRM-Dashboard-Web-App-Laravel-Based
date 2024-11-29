@@ -173,6 +173,11 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
             </th>
             <th>
                 <span class="flex items-center">
+                    Seller
+                </span>
+            </th>
+            <th>
+                <span class="flex items-center">
                     Contact Name
                 </span>
             </th>

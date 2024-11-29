@@ -177,6 +177,11 @@ const flash = computed(() => page.props.flash || null);
                                 </th>
                                 <th>
                                     <span class="flex items-center">
+                                        Seller
+                                    </span>
+                                </th>
+                                <th>
+                                    <span class="flex items-center">
                                         Account
                                     </span>
                                 </th>
@@ -197,6 +202,7 @@ const flash = computed(() => page.props.flash || null);
                             <tr v-for="(call, index) in calls" :key="index">
                                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ call.id }}</td>
+                                <td>{{ call.user.name }}</td>
                                 <td>{{ call.account.name }}</td>
                                 <td>{{ call.contact.name }}</td>
                                 <td>{{ capitalizeFirstLetter(call.status) }}</td>
