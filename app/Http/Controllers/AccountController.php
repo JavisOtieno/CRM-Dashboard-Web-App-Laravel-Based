@@ -26,7 +26,7 @@ class AccountController extends Controller
         // $accounts = Account::all();
                 $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
         // return view('com', ['competitors'=>$competitors]);-
-        return $accounts[0];
+        // return $accounts[0];
         return Inertia::render('Account/Index',['accounts' => $accounts]);
     }
 
