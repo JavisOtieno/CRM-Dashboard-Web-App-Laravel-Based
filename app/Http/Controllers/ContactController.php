@@ -11,14 +11,14 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     //
-    public function index() {
-        //$competitors = Competitor::all();
+    // public function index() {
+    //     //$competitors = Competitor::all();
 
-        $contacts = Contact::with('account','user')->get();
-        // return Inertia::render('Contacts',['contacts' => $contacts]);
-        return Inertia::render('Contact/Index',['contacts' => $contacts]);
+    //     $contacts = Contact::with('account','user')->get();
+    //     // return Inertia::render('Contacts',['contacts' => $contacts]);
+    //     return Inertia::render('Contact/Index',['contacts' => $contacts]);
 
-    }
+    // }
     public function newindex() {
         //$competitors = Competitor::all();
 

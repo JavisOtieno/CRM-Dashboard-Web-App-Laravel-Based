@@ -12,18 +12,18 @@ class LocationController extends Controller
 {
     //
 
-    public function index() {
-        //$competitors = Competitor::all();
+    // public function index() {
+    //     //$competitors = Competitor::all();
 
-        $locations = Location::with('account','user')->get();
-        return Inertia::render('Locations',['locations' => $locations]);
+    //     $locations = Location::with('account','user')->get();
+    //     return Inertia::render('Locations',['locations' => $locations]);
 
-    }
+    // }
 
     public function newindex() {
         //$competitors = Competitor::all();
 
-        $locations = Location::with('account')->get();
+        $locations = Location::with('account','user')->get();
         return Inertia::render('Location/Index',['locations' => $locations]);
 
     }
