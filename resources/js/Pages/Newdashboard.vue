@@ -363,7 +363,7 @@ VueApexCharts;
       </div>
       <Link
       :href="route('newdeals')" 
-        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-primary-800 hover:text-primary-900 dark:hover:text-primary-700  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-black-600 hover:text-black-700 dark:hover:text-black-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
         Deals
         <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
