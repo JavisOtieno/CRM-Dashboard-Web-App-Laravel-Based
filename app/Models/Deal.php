@@ -21,6 +21,10 @@ class Deal extends Model
         //return $this->belongsTo(User::class);
         return $this->belongsTo(Account::class,'account_id');
     }
+    public function user(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
 
     protected static function booted()
     {

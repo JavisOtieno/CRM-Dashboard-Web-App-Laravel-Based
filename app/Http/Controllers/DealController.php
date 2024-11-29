@@ -11,7 +11,7 @@ class DealController extends Controller
 {
     //
     public function index() {
-        $deals = Deal::with('account')->get();
+        $deals = Deal::with('account','user')->get();
         return Inertia::render('Deals',['deals' => $deals]);
     }
     public function newindex() {
