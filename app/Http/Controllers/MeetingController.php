@@ -15,7 +15,7 @@ class MeetingController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $meetings = Meeting::with('account','contact')->get();
+        $meetings = Meeting::with('account','contact','user')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
         // return $meetings;
