@@ -23,7 +23,8 @@ class AccountController extends Controller
     public function newindex() {
         //$competitors = Competitor::all();
 
-        $accounts = Account::all();
+        // $accounts = Account::all();
+                $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
         // return view('com', ['competitors'=>$competitors]);-
         return $accounts[0];
         return Inertia::render('Account/Index',['accounts' => $accounts]);
