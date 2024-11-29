@@ -108,7 +108,7 @@ class SellerController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
-        $incomingFields['usertype']='seller';
+        
 
         // $path = $request->file('file')->store('images', 'public');
         // $incomingFields['image']=$path;
