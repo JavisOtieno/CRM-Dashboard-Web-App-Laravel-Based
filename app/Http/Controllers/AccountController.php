@@ -10,22 +10,22 @@ use Illuminate\Http\Request;
 class AccountController extends Controller
 {
     //
-    public function index() {
-        //$competitors = Competitor::all();
+    // public function index() {
+    //     //$competitors = Competitor::all();
 
-        $accounts = Account::with('user')->get();
-        $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
-        // return view('com', ['competitors'=>$competitors]);-
-        return $accounts[0];
-        // return Inertia::render('Accounts',['accounts' => $accounts]);
-    }
+    //     $accounts = Account::with('user')->get();
+    //     $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
+    //     // return view('com', ['competitors'=>$competitors]);-
+    //     return $accounts[0];
+    //     // return Inertia::render('Accounts',['accounts' => $accounts]);
+    // }
 
     public function newindex() {
         //$competitors = Competitor::all();
 
         $accounts = Account::all();
         // return view('com', ['competitors'=>$competitors]);-
-        // return $accounts[0]['name'];
+        return $accounts[0];
         return Inertia::render('Account/Index',['accounts' => $accounts]);
     }
 
