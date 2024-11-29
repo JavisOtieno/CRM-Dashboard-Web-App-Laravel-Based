@@ -217,9 +217,11 @@ const capitalizeFirstLetter= (string) => {
                     Id
                 </span>
             </th>
+            <th>
             <span class="flex items-center">
                     Seller
                 </span>
+                </th>
             <th>
                 <span class="flex items-center">
                     Account Name
@@ -247,7 +249,7 @@ const capitalizeFirstLetter= (string) => {
         <tr v-for="(account, index) in sortedAccounts" :key="index">
             <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {{ account.id }}</td>
-                <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <td >
                     {{ account.user.name }}</td>
                 <td>{{ account.name }}</td>
                 <td>{{ account.phone }}</td>
