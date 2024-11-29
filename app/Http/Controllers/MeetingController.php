@@ -12,20 +12,20 @@ use Illuminate\Http\Request;
 class MeetingController extends Controller
 {
     //
-    public function index() {
-        //$competitors = Competitor::all();
+    // public function index() {
+    //     //$competitors = Competitor::all();
 
-        $meetings = Meeting::with('account','contact')->get();
-        // return view('com', ['competitors'=>$competitors]);-
-        // return $accounts[0]['name'];
-        // return $meetings;
-        return Inertia::render('Meeting/Index',['meetings' => $meetings]);
-    }
+    //     $meetings = Meeting::with('account','contact')->get();
+    //     // return view('com', ['competitors'=>$competitors]);-
+    //     // return $accounts[0]['name'];
+    //     // return $meetings;
+    //     return Inertia::render('Meeting/Index',['meetings' => $meetings]);
+    // }
 
     public function newindex() {
         //$competitors = Competitor::all();
 
-        $meetings = Meeting::with('account','contact')->get();
+        $meetings = Meeting::with('account','contact','user')->get();
         return Inertia::render('Meetings',['meetings' => $meetings]);
     }
 
