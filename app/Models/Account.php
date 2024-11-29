@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Scopes\DefaultTeamScope;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Account extends Model
 {
@@ -23,5 +25,10 @@ class Account extends Model
     public function contacts()
     {
         return $this->hasMany(Contact::class);
+    }
+    protected static function booted()
+    {
+        // static::addGlobalScope(new OrganizationScope);
+        static::addGlobalScope(new DefaultTeamScope);
     }
 }

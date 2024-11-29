@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Scopes\DefaultTeamScope;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\OrganizationScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Call extends Model
 {
@@ -31,6 +33,11 @@ class Call extends Model
     public function getModelcalendartypeAttribute()
     {
         return 'call';
+    }
+    protected static function booted()
+    {
+        // static::addGlobalScope(new OrganizationScope);
+        static::addGlobalScope(new DefaultTeamScope);
     }
     
 
