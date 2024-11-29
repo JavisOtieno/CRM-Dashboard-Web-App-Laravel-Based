@@ -253,6 +253,11 @@ function updateMap(newLocation2) {
             </th>
             <th>
                 <span class="flex items-center">
+                    Seller
+                </span>
+            </th>
+            <th>
+                <span class="flex items-center">
                     Location Name
                 </span>
             </th>
@@ -278,6 +283,7 @@ function updateMap(newLocation2) {
         <tr v-for="(location, index) in locations" :key="index">
                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ location.id }}</td>
+                <td>{{ location.user.name }}</td>
                 <td>{{ location.name }}</td>
                 <td>{{ location.lat }}</td>
                 <td>{{ location.long }}</td>

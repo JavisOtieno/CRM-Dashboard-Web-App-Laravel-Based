@@ -15,7 +15,7 @@ class LocationController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $locations = Location::with('account')->get();
+        $locations = Location::with('account','user')->get();
         return Inertia::render('Locations',['locations' => $locations]);
 
     }
