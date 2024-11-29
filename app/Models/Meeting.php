@@ -10,6 +10,7 @@ class Meeting extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'account_id',
         'contact_id',
         'type',

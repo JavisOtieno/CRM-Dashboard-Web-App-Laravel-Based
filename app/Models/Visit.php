@@ -9,6 +9,7 @@ class Visit extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'user_id',
         'account_id',
         'location_id',
         // 'location',
