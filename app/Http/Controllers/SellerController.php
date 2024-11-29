@@ -48,6 +48,7 @@ class SellerController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
+        $incomingFields['usertype']='seller';
        
 
         // Store the uploaded file
@@ -97,6 +98,7 @@ class SellerController extends Controller
         ],
             'email'=>'required|string|max:255',
             'status' => 'required|string|max:255',
+            'usertype' => 'required|string|max:255',
             // 'file' => 'required|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
             
         ]);
@@ -106,6 +108,7 @@ class SellerController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
+        $incomingFields['usertype']='seller';
 
         // $path = $request->file('file')->store('images', 'public');
         // $incomingFields['image']=$path;
