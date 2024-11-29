@@ -18,9 +18,14 @@ class Lead extends Model
         'account_id',
         'status'
     ];
+    
     protected static function booted()
     {
         // static::addGlobalScope(new OrganizationScope);
         static::addGlobalScope(new DefaultScope);
+    }
+    public function user(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 }
