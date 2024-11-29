@@ -141,8 +141,8 @@ const chartOptions = ref({
     show: false,
     strokeDashArray: 4,
     padding: {
-      left: 2,
-      right: 2,
+      left: 20,
+      right: 20,
       top: 20, // Add space for the stroke at the top
       bottom: 20, // Add space for the stroke at the bottom
     },
@@ -157,7 +157,7 @@ const chartOptions = ref({
   xaxis: {
     categories: props.months,
     labels: {
-      show: false,
+      show: true,
     },
     axisBorder: {
       show: false,
@@ -167,7 +167,7 @@ const chartOptions = ref({
     },
   },
   yaxis: {
-    min: -1, 
+    min: -0.1, 
     max: Math.max(...props.dealsPerMonth) + 1, 
     show: false,
   },
@@ -324,7 +324,7 @@ VueApexCharts;
   <!-- <div id="area-chart"></div> -->
   <div>
     <!-- This div will hold the chart -->
-    <apexchart type="area" height="100%" :options="chartOptions" :series="chartOptions.series" />
+    <apexchart type="area" height="300px" :options="chartOptions" :series="chartOptions.series" />
   </div>
   <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
     <div class="flex justify-between items-center pt-5">
@@ -363,7 +363,7 @@ VueApexCharts;
       </div>
       <Link
       :href="route('newdeals')" 
-        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-primary-800 hover:text-primary-900 dark:hover:text-primary-700  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
         Deals
         <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
