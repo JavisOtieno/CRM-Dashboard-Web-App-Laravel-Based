@@ -22,7 +22,7 @@ class ContactController extends Controller
     public function newindex() {
         //$competitors = Competitor::all();
 
-        $contacts = Contact::with('account')->get();
+        $contacts = Contact::with('account','user')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
         return Inertia::render('Contact/Index',['contacts' => $contacts]);
