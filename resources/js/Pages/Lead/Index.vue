@@ -159,6 +159,16 @@ const capitalizeFirstLetter= (string) => {
         <tr>
             <th>
                 <span class="flex items-center">
+                    ID
+                </span>
+            </th>
+            <th>
+                <span class="flex items-center">
+                    Seller
+                </span>
+            </th>
+            <th>
+                <span class="flex items-center">
                     Lead Name
                 </span>
             </th>
@@ -179,7 +189,9 @@ const capitalizeFirstLetter= (string) => {
     <tbody>
         <tr v-for="(lead, index) in leads" :key="index">
                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ lead.name }}</td>
+                    {{ lead.id }}</td>
+                <td>{{ lead.user.name }}</td>
+                <td>{{ lead.name }}</td>
                 <td>{{ lead.phone }}</td>
                 <td>{{ lead.account_name }}</td>
                 
