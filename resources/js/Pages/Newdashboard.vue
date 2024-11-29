@@ -3,9 +3,10 @@ import { onMounted } from 'vue'
 import SidebarNew from '@/Pages/Sidebarnew.vue';
 import { mapState, mapGetters } from 'vuex';
 import { computed, toRefs } from 'vue';
-import { ref } from "vue"; 
+import { ref, watch } from "vue"; 
 import { useStore } from 'vuex';
 import VueApexCharts from "vue3-apexcharts";
+import { Link } from '@inertiajs/vue3';
 
 const store = useStore();
 
@@ -66,7 +67,19 @@ const props = defineProps({
     type: Number, // Define the type as String
     default: 0,  // Provide an empty string as the default value
   },
+  percentageChange: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
   accounts: {
+    type: Array,
+    default: () => [],
+  },
+  dealsPerMonth: {
+    type: Array,
+    default: () => [],
+  },
+  months: {
     type: Array,
     default: () => [],
   },
@@ -120,32 +133,29 @@ const chartOptions = ref({
   stroke: {
     width: 6,
   },
+  margin: {
+      top: 30,  // Add margin space to the top to prevent cutting off the stroke
+      bottom: 30,  // Add margin space to the bottom
+    },
   grid: {
     show: false,
     strokeDashArray: 4,
     padding: {
       left: 2,
       right: 2,
-      top: 0,
+      top: 20, // Add space for the stroke at the top
+      bottom: 20, // Add space for the stroke at the bottom
     },
   },
   series: [
     {
-      name: "New users",
-      data: [6500, 6418, 6456, 6526, 6356, 6456],
+      name: "Deals",
+      data: [], // Placeholder for `dealsPerMonth`
       color: "#EC1F27",
     },
   ],
   xaxis: {
-    categories: [
-      "01 February",
-      "02 February",
-      "03 February",
-      "04 February",
-      "05 February",
-      "06 February",
-      "07 February",
-    ],
+    categories: props.months,
     labels: {
       show: false,
     },
@@ -157,9 +167,22 @@ const chartOptions = ref({
     },
   },
   yaxis: {
+    min: -1, 
+    max: Math.max(...props.dealsPerMonth) + 1, 
     show: false,
   },
 });
+
+// Update chartOptions.series.data with dealsPerMonth
+watch(
+  () => props.dealsPerMonth, // Watching the prop
+  (newValue) => {
+    chartOptions.value.series[0].data = newValue; // Update chart data
+  },
+  { immediate: true } // Run immediately on mount
+);
+
+
 
 // Register VueApexCharts component
 VueApexCharts;
@@ -283,9 +306,16 @@ VueApexCharts;
       <p class="text-base font-normal text-gray-500 dark:text-gray-400">Deals</p>
       <!-- today -->
     </div>
-    <div
+    <div v-if="percentageChange > 0 || percentageChange == 0"
       class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-      12%
+      {{ Math.abs(percentageChange) }}%
+      <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+      </svg> 
+    </div>
+    <div v-if="percentageChange < 0 "
+      class="flex items-center px-2.5 py-0.5 text-base font-semibold text-red-500 dark:text-red-500 text-center">
+      {{ Math.abs(percentageChange) }}%
       <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
       </svg> 
@@ -299,16 +329,17 @@ VueApexCharts;
   <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
     <div class="flex justify-between items-center pt-5">
       <!-- Button -->
+       <!-- data-dropdown-toggle="lastDaysdropdown"
+        data-dropdown-placement="bottom" -->
       <button
         id="dropdownDefaultButton"
-        data-dropdown-toggle="lastDaysdropdown"
-        data-dropdown-placement="bottom"
+        
         class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
         type="button">
-        Last 7 days
-        <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        Last 12 Months
+        <!-- <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-        </svg>
+        </svg> -->
       </button>
       <!-- Dropdown menu -->
       <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
@@ -330,14 +361,14 @@ VueApexCharts;
             </li>
           </ul>
       </div>
-      <a
-        href="#"
+      <Link
+      :href="route('newdeals')" 
         class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
         Deals
         <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
         </svg>
-      </a>
+      </Link>
     </div>
   </div>
 </div>
