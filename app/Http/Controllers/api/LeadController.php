@@ -11,7 +11,7 @@ class LeadController extends Controller
 {
     //
     public function index(){
-        $leads = Lead::orderBy('id', 'DESC')->get();
+        $leads = Lead::with('user')->orderBy('id', 'DESC')->get();
         return response()->json(['leads'=>$leads]); 
     }
     public function addLead(Request $request){
