@@ -13,7 +13,7 @@ class LeadController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $leads = Lead::with('account','user')->get();
+        $leads = Lead::with('user')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
         return Inertia::render('Lead/Index',['leads' => $leads]);
