@@ -22,7 +22,7 @@ class CallController extends Controller
     }
     public function index() {
 
-        $calls = Call::with('account','contact')->get();
+        $calls = Call::with('account','contact','user')->get();
 
         return Inertia::render('Call/Index',['calls' => $calls]);
     }

@@ -29,6 +29,10 @@ class Call extends Model
         //return $this->belongsTo(User::class);
         return $this->belongsTo(Contact::class,'contact_id');
     }
+    public function user(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
+    }
 
     protected $appends = ['modelcalendartype'];
 
@@ -36,6 +40,8 @@ class Call extends Model
     {
         return 'call';
     }
+
+
 
 
     protected static function booted()

@@ -193,6 +193,7 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
         <tr v-for="(contact, index) in contacts" :key="index">
                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ contact.id }}</td>
+                <td>{{ contact.user.name }}</td>
                 <td>{{ contact.name }}</td>
                 <td>{{ contact.phone }}</td>
                 <td>{{ contact.account.name }}</td>
