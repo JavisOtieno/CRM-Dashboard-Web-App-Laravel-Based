@@ -34,8 +34,9 @@ class DefaultTeamScope implements Scope
             // $teamId = $user->team_id;
             // $builder->where('team_id', $teamId);
             //IDEAL
-            $teamId = $user->team_id;
-            $builder->where('user_id', $user->id)->where('team_id', $teamId)->orWhereNull('team_id');
+            // $teamId = $user->team_id;
+            // $builder->where('user_id', $user->id)->where('team_id', $teamId)->orWhereNull('team_id');
+            $builder->where('user_id', $user->id);
 
         }
 
