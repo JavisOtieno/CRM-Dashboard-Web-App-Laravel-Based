@@ -11,17 +11,17 @@ use Illuminate\Http\Request;
 class VisitController extends Controller
 {
     //
-    public function index() {
-        //$competitors = Competitor::all();
+    // public function index() {
+    //     //$competitors = Competitor::all();
 
-        $visits = Visit::with('account','location')->get();
-        // return view('com', ['competitors'=>$competitors]);-
-        // return $accounts[0]['name'];
-        return Inertia::render('Visits',['visits' => $visits]);
-    }
+    //     $visits = Visit::with('account','location','user')->get();
+    //     // return view('com', ['competitors'=>$competitors]);-
+    //     // return $accounts[0]['name'];
+    //     return Inertia::render('Visits',['visits' => $visits]);
+    // }
     
     public function newindex() {
-        $visits = Visit::with('account','location')->get();
+        $visits = Visit::with('account','location','user')->get();
         return Inertia::render('Visit/Index',['visits' => $visits]);
     }
 

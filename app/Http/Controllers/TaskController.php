@@ -13,14 +13,14 @@ class TaskController extends Controller
 {
     //
     public function index() {
-        $tasks = Task::with('account','contact')->get();
+        $tasks = Task::with('account','contact','user')->get();
         return Inertia::render('Task/Index',['tasks' => $tasks]);
     }
 
-    public function newindex() {
-        $tasks = Task::with('account','contact')->get();
-        return Inertia::render('Tasks',['tasks' => $tasks]);
-    }
+    // public function newindex() {
+    //     $tasks = Task::with('account','contact')->get();
+    //     return Inertia::render('Tasks',['tasks' => $tasks]);
+    // }
 
     
     public function showAddTask() {
