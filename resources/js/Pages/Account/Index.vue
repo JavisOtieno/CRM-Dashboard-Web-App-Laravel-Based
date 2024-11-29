@@ -214,6 +214,9 @@ const capitalizeFirstLetter= (string) => {
                     Id
                 </span>
             </th>
+            <span class="flex items-center">
+                    Seller
+                </span>
             <th>
                 <span class="flex items-center">
                     Account Name
@@ -242,11 +245,12 @@ const capitalizeFirstLetter= (string) => {
             <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {{ account.id }}</td>
                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ account.name }}</td>
+                    {{ account.user.name }}</td>
+                <td>{{ account.name }}</td>
                 <td>{{ account.phone }}</td>
-                <td>{{ account.website }}</td>
-                <td>{{ account.address }} 
+                <td>{{ account.website }} 
                 </td>
+                <td>{{ account.address }}</td>
                 <td>
 
 <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">

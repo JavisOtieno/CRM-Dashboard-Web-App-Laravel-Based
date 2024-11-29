@@ -13,7 +13,7 @@ class AccountController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $accounts = Account::all();
+        $accounts = Account::with('user')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
         return Inertia::render('Accounts',['accounts' => $accounts]);
