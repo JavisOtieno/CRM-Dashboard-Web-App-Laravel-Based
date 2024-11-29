@@ -18,7 +18,7 @@ class AccountController extends Controller
         // $userId = auth()->id();
         // $accounts = Account::where('user_id',$userId)
         // ->orderBy('id', 'DESC')->with('user','outlet')->get();
-        $accounts = Account::orderBy('id', 'DESC')->get();
+        $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
         return response()->json(['accounts'=>$accounts]);
     }
 
