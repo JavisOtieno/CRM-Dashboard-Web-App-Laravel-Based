@@ -50,7 +50,7 @@ class AccountController extends Controller
         $incomingFields['website']=strip_tags($incomingFields['website']);
         $incomingFields['address']=strip_tags($incomingFields['address']);
 
-        
+        $incomingFields['user_id']=auth()->user()->id;
         
         //$incomingFields['image']='';
 
