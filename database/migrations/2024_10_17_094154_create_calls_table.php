@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('calls', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             // $table->string('duration');
             $table->unsignedBigInteger('account_id');
             $table->unsignedBigInteger('contact_id');
