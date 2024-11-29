@@ -99,7 +99,7 @@ const sortedAccounts = computed(() => {
   return props.accounts.slice().sort((a, b) => b.id - a.id);
 });
 console.log("accounts");
-console.log(accounts);
+console.log(props.accounts);
 console.log("accounts");
 
 const { props2 } = usePage();
