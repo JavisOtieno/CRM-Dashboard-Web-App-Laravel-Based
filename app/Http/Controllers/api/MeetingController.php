@@ -32,6 +32,8 @@ class meetingcontroller extends Controller
             'time'=>'required|string|max:255',
         ]);
 
+        $incomingFields['user_id']=auth()->user()->id;
+
         Meeting::create($incomingFields);
 
         $meetingStatus=array(

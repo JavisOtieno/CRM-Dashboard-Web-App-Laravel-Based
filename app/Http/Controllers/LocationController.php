@@ -58,7 +58,8 @@ class LocationController extends Controller
             // new PhoneNumber
             
         ]);
-        //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'        
+        //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' 
+        $incomingFields['user_id']=auth()->user()->id;       
 
         Location::create($incomingFields);
 

@@ -50,6 +50,8 @@ class MeetingController extends Controller
             // new PhoneNumber
             
         ]);
+
+        $incomingFields['user_id']=auth()->user()->id;
         
         Meeting::create($incomingFields);
 

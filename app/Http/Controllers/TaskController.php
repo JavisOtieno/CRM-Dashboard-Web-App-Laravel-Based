@@ -44,6 +44,7 @@ class TaskController extends Controller
             
         ]);
         // return $incomingFields;
+        $incomingFields['user_id']=auth()->user()->id;
         
         Task::create($incomingFields);
 

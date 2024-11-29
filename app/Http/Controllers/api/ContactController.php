@@ -36,6 +36,7 @@ class ContactController extends Controller
         ]);
 
         // $incomingFields['status']='contact';
+        $incomingFields['user_id']=auth()->user()->id;
 
         Contact::create($incomingFields);
 

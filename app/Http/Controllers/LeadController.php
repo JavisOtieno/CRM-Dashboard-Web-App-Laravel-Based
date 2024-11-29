@@ -37,7 +37,7 @@ class LeadController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['account_name']=strip_tags($incomingFields['account_name']);
 
-        
+        $incomingFields['user_id']=auth()->user()->id;
         //$incomingFields['image']='';
 
         //return $request['image'];

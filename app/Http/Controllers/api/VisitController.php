@@ -31,6 +31,8 @@ class VisitController extends Controller
             // date - time
         ]);
 
+        $incomingFields['user_id']=auth()->user()->id;
+
         Visit::create($incomingFields);
 
         $visitStatus=array(

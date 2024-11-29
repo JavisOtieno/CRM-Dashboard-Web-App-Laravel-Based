@@ -31,6 +31,8 @@ class CallController extends Controller
             'status'=>'required|string|max:255',
         ]);
 
+        $incomingFields['user_id']=auth()->user()->id;
+
         Call::create($incomingFields);
 
         $callStatus=array(

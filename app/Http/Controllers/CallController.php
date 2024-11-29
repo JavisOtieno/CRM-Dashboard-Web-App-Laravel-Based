@@ -55,6 +55,7 @@ class CallController extends Controller
         //$incomingFields['image']='';
 
         // return $incomingFields;
+        $incomingFields['user_id']=auth()->user()->id;
         
 
         Call::create($incomingFields);

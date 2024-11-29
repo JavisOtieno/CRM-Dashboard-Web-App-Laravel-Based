@@ -33,6 +33,8 @@ class LocationController extends Controller
             'account_id'=>'required|numeric|digits_between:1,20',  
         ]);
 
+        $incomingFields['user_id']=auth()->user()->id;
+
         Location::create($incomingFields);
 
         $locationStatus=array(

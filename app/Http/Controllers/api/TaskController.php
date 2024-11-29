@@ -31,6 +31,8 @@ class TaskController extends Controller
 
             // date - time
         ]);
+        
+        $incomingFields['user_id']=auth()->user()->id;
 
         Task::create($incomingFields);
 
