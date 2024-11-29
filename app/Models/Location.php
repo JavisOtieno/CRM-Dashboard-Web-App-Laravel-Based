@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Scopes\DefaultScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Location extends Model
 {
@@ -21,5 +22,10 @@ class Location extends Model
     public function account(){
         //return $this->belongsTo(User::class);
         return $this->belongsTo(Account::class,'account_id');
+    }
+    protected static function booted()
+    {
+        // static::addGlobalScope(new OrganizationScope);
+        static::addGlobalScope(new DefaultScope);
     }
 }

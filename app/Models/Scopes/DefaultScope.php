@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Builder;
 
 
-class DefaultTeamScope implements Scope
+class DefaultScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {

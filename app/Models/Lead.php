@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Scopes\DefaultScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Lead extends Model
 {
@@ -17,4 +18,9 @@ class Lead extends Model
         'account_id',
         'status'
     ];
+    protected static function booted()
+    {
+        // static::addGlobalScope(new OrganizationScope);
+        static::addGlobalScope(new DefaultScope);
+    }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Scopes\DefaultTeamScope;
+
+use App\Models\Scopes\DefaultScope;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Scopes\OrganizationScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,6 +32,6 @@ class Account extends Model
     protected static function booted()
     {
         // static::addGlobalScope(new OrganizationScope);
-        static::addGlobalScope(new DefaultTeamScope);
+        static::addGlobalScope(new DefaultScope);
     }
 }

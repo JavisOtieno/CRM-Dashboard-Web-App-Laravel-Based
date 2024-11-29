@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\DefaultScope;
 use App\Models\Scopes\DefaultTeamScope;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Scopes\OrganizationScope;
@@ -35,10 +36,12 @@ class Call extends Model
     {
         return 'call';
     }
+
+
     protected static function booted()
     {
         // static::addGlobalScope(new OrganizationScope);
-        static::addGlobalScope(new DefaultTeamScope);
+        static::addGlobalScope(new DefaultScope);
     }
     
 
