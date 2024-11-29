@@ -11,7 +11,7 @@ class LocationController extends Controller
 {
     //
     public function index(){
-        $locations = Location::with('account')->orderBy('id', 'DESC')->get();;
+        $locations = Location::with('account','user')->orderBy('id', 'DESC')->get();;
         return response()->json(['locations'=>$locations]); 
     }
 
