@@ -10,14 +10,14 @@ use Illuminate\Http\Request;
 class DealController extends Controller
 {
     //
-    public function index() {
-        $deals = Deal::with('account','user')->get();
-        return Inertia::render('Deals',['deals' => $deals]);
-    }
+    // public function index() {
+    //     $deals = Deal::with('account','user')->get();
+    //     return Inertia::render('Deals',['deals' => $deals]);
+    // }
     public function newindex() {
         //$competitors = Competitor::all();
 
-        $deals = Deal::with('account')->get();
+        $deals = Deal::with('account','user')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
         return Inertia::render('Deal/Index',['deals' => $deals]);
