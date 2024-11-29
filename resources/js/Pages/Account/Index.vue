@@ -244,7 +244,7 @@ const capitalizeFirstLetter= (string) => {
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(account, index) in accounts" :key="index">
+        <tr v-for="(account, index) in sortedAccounts" :key="index">
             <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {{ account.id }}</td>
                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
