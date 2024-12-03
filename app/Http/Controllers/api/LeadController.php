@@ -83,6 +83,7 @@ class LeadController extends Controller
         $incomingFieldsContact['name']=$incomingFields['contact_name'];
         $incomingFieldsContact['phone']=$incomingFields['contact_phone'];
         $incomingFieldsContact['account_id']=$account->id;
+        $incomingFieldsContact['user_id']=auth()->user()->id;
 
         $contact = Contact::create($incomingFieldsContact);
 
