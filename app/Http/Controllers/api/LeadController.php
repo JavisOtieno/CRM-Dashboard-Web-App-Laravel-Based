@@ -68,12 +68,7 @@ class LeadController extends Controller
           
         ]);
 
-        $incomingFields=$request->validate([
-            'name'=>'required|string|max:255',
-            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
-            'website'=>'required|string|max:255',
-            'address'=>'required|string|max:1500',
-        ]);
+
 
         $incomingFieldsAccount['name']=$incomingFields['account_name'];
         $incomingFieldsAccount['phone']=$incomingFields['account_phone'];
