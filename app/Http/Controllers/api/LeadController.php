@@ -96,6 +96,7 @@ class LeadController extends Controller
 
         $leadStatus=array(
             "message" => "Lead Converted Successfully",
+            "account_id" => $account->id,
             "status" => "success");
 
         return response()->json($leadStatus);
