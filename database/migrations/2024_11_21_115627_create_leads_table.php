@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('account_name')->nullable();
             $table->string('account_id')->nullable();
             $table->string('contact_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

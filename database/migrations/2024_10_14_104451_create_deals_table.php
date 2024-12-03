@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('amount');
             $table->string('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

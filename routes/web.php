@@ -17,6 +17,7 @@ use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,13 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::put('/submiteditcontact/{id}', [ContactController::class, 'submitEditContact']);
     Route::delete('/deletecontact/{id}', [ContactController::class, 'deleteContact']);
     Route::post('/submitaddcontact',[ ContactController::class, 'submitAddContact']);
+
+    Route::get('/products', [ProductController::class, 'index'])->name('products');
+    Route::get('/addproduct', [ProductController::class, 'showAddProduct'])->name('addproduct');
+    Route::get('/editproduct/{id}', [ProductController::class, 'showEditProduct']);
+    Route::put('/submiteditproduct/{id}', [ProductController::class, 'submitEditProduct']);
+    Route::delete('/deleteproduct/{id}', [ProductController::class, 'deleteProduct']);
+    Route::post('/submitaddproduct',[ ProductController::class, 'submitAddProduct']);
 
     // Route::get('/newlogin',  [AuthController::class, 'index'])->name('newlogin');
 

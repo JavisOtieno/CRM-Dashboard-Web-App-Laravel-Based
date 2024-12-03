@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Inertia\Inertia;
+use App\Models\Account;
+use App\Models\Product;
+use App\Rules\WordCount;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Password;
+
+class ProductController extends Controller
+{
+
+    public function index() {
+        //$competitors = Competitor::all();
+
+        $products = Product::with('user')->get();
+        return Inertia::render('Product/Index',['products' => $products]);
+
+    }
+
+    public function showEditProduct($id) {
+        $product = Product::find($id);
+        return Inertia::render('Product/Edit',compact('product','accounts'));
+    }
+
+
+    public function showAddProduct() {
+        return Inertia::render('Product/Add');
+    }
+
+
+    public function submitAddProduct(Request $request) {
+
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'phone'=>['required','string','min:10','max:255', 
+            // new PhoneNumber
+        ],
+            'name'=>'required|string|max:255',
+            'description' => 'required|string|max:3000',
+            'status' => ['required','string','max:255'],
+            'file' => 'required|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
+
+            
+        ]);
+        //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+
+        $incomingFields['name']=strip_tags($incomingFields['name']);
+        $incomingFields['description']=strip_tags($incomingFields['description']);
+        
+      
+       
+
+        // Store the uploaded file
+        $path = $request->file('file')->store('images', 'public');
+        $incomingFields['image']=$path;
+        // return $path;
+        
+        
+        //$incomingFields['image']='';
+
+        //return $request['image'];
+        
+
+        Product::create($incomingFields);
+
+        return redirect('/products')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Product added successfully'
+            ]
+        ]);
+    }
+
+    public function deleteProduct($id) {
+        $product = Product::find($id);
+        $product->delete();
+        // return redirect('/listproducts');
+        return redirect('/products')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Product deleted successfully'
+            ]
+        ]);
+    }
+
+
+    public function submitEditProduct($id,Request $request) {
+        $product = Product::find($id);
+        $incomingFields=$request->validate([
+            // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
+            
+            'name'=>'required|string|max:255',
+            'image'=>'required|string|max:255',
+            'description' => ['required', 'string', new WordCount(300)], 
+        
+        ]);
+        //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'        
+        //$incomingFields['image']='';
+
+        //return $request['image'];
+        $product->update($incomingFields);
+
+        // return redirect('/listproducts');
+        return redirect('/products')->with([
+            'flash' => [
+                'status' => 'success',
+                'message' => 'Product edited successfully'
+            ]
+        ]);
+    }
+}
