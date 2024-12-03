@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\api;
 
 use App\Models\Lead;
+use App\Models\Account;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 
 class LeadController extends Controller
 {
@@ -48,6 +50,52 @@ class LeadController extends Controller
 
         $leadStatus=array(
             "message" => "Lead Edited Successfully",
+            "status" => "success");
+
+        return response()->json($leadStatus);
+        
+    }
+
+    public function submitConvertLead($id,Request $request){
+       
+        $incomingFields=$request->validate([
+            'account_name'=>'required|string|max:255',
+            'account_phone' => ['nullable', 'string', 'min:10', 'max:13', new PhoneNumber],
+            'account_website'=>'required|string|max:255',
+            'account_address'=>'required|string|max:255',
+            'contact_name'=>'required|string|max:255',
+            'contact_phone'=> ['nullable', 'string', 'min:10', 'max:13', new PhoneNumber],
+          
+        ]);
+
+        $incomingFields=$request->validate([
+            'name'=>'required|string|max:255',
+            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
+            'website'=>'required|string|max:255',
+            'address'=>'required|string|max:1500',
+        ]);
+
+        $incomingFieldsAccount['name']=$incomingFields['account_name'];
+        $incomingFieldsAccount['phone']=$incomingFields['account_phone'];
+        $incomingFieldsAccount['website']=$incomingFields['account_website'];
+        $incomingFieldsAccount['address']=$incomingFields['account_address'];
+
+        $incomingFieldsContact['name']=$incomingFields['contact_name'];
+        $incomingFieldsContact['phone']=$incomingFields['contact_phone'];
+
+        $account = Account::create($incomingFieldsAccount);
+
+        $contact = Contact::create($incomingFieldsContact);
+
+        $incomingFieldsLead['account_id'] = $account->id;
+        $incomingFieldsLead['contact_id'] = $contact->id;
+    
+        $lead = Lead::find($id);
+
+        $lead->update($incomingFieldsLead);
+
+        $leadStatus=array(
+            "message" => "Lead Converted Successfully",
             "status" => "success");
 
         return response()->json($leadStatus);
