@@ -103,7 +103,7 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
 }
 
 const capitalizeFirstLetter = (string) => {
-    if (!string) return '';
+    if (!string) return 'N/A';
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -158,7 +158,22 @@ const flash = computed(() => page.props.flash || null);
                             </th>
                             <th>
                                 <span class="flex items-center">
-                                    Account
+                                Name
+                                </span>
+                            </th>
+                            <th>
+                                <span class="flex items-center">
+                                    Phone
+                                </span>
+                            </th>
+                            <th>
+                                <span class="flex items-center">
+                                    Email
+                                </span>
+                            </th>
+                            <th>
+                                <span class="flex items-center">
+                                    Status
                                 </span>
                             </th>
 
@@ -171,6 +186,9 @@ const flash = computed(() => page.props.flash || null);
                             <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ seller.id }}</td>
                             <td>{{ seller.name }}</td>
+                            <td>{{ seller.phone }}</td>
+                            <td>{{ seller.email }}</td>
+                            <td>{{ capitalizeFirstLetter(seller.status) }}</td>
 
 
 
