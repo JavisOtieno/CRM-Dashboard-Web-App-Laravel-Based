@@ -103,7 +103,7 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
 }
 
 const capitalizeFirstLetter = (string) => {
-    if (!string) return 'N/A';
+    if (!string) return '';
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
