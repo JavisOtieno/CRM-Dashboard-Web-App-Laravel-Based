@@ -74,9 +74,11 @@ class LeadController extends Controller
         $incomingFieldsAccount['phone']=$incomingFields['account_phone'];
         $incomingFieldsAccount['website']=$incomingFields['account_website'];
         $incomingFieldsAccount['address']=$incomingFields['account_address'];
+        $incomingFieldsAccount['user_id']=auth()->user()->id;
 
         $incomingFieldsContact['name']=$incomingFields['contact_name'];
         $incomingFieldsContact['phone']=$incomingFields['contact_phone'];
+        $incomingFieldsContact['user_id']=auth()->user()->id;
 
         $account = Account::create($incomingFieldsAccount);
 
