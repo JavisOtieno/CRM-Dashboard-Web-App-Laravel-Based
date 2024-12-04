@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description');
             $table->string('image');
+            $table->string('status');
            // $table->integer('organization_id');
             $table->softDeletes();
             $table->timestamps();

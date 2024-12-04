@@ -54,8 +54,9 @@ export default {
 
     const form = useForm({
     
-      name: props.product.namne || '',
+      name: props.product.name || '',
       description: props.product.description || '',
+      status: props.product.status || '',
 
     });
 
@@ -125,57 +126,8 @@ export default {
 
 
 
-          <div class="mb-5">
-            <label for="account_id" class="block mb-2 text-sm 
-          font-medium text-gray-900 dark:text-white">Account</label>
 
-            <div class="relative">
-              <!-- <input
-             v-model="form.account_id"
-              type="text"
-              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Account Id"
-            /> -->
-              <select name="account_id" v-model="form.account_id" id="HeadlineAct"
-                class="bg-gray-50 mt-1.5 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
-                placeholder="Account Id">
-
-
-                <option disabled value="">Select account</option>
-                <option v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}
-                </option>
-              </select>
-              <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
-
-
-            </div>
-          </div>
-
-          <div class="mb-5">
-            <label for="account_id" class="block mb-2 text-sm 
-          font-medium text-gray-900 dark:text-white">Contact</label>
-
-            <div class="relative">
-              <!-- <input
-             v-model="form.account_id"
-              type="text"
-              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-              placeholder="Account Id"
-            /> -->
-              <select name="contact_id" v-model="form.contact_id" id="HeadlineAct"
-                class="bg-gray-50 mt-1.5 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
-                placeholder="Contact Id">
-
-
-                <option disabled value="">Select contact</option>
-                <option v-for="(contact, index)  in contacts" :key="index" :value="contact.id">{{ contact.name }}
-                </option>
-              </select>
-              <div v-if="form.errors.contact_id" class="error">{{ form.errors.contact_id }}</div>
-
-
-            </div>
-          </div>
+        
 
           <div class="mb-5">
     <label for="name" class="block mb-2 text-sm 

@@ -166,7 +166,7 @@ const flash = computed(() => page.props.flash || null);
             </th>
             <th>
                 <span class="flex items-center">
-                 Contact
+                 Location
                 </span>
             </th>
             <th>

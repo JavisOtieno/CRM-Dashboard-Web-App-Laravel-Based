@@ -15,14 +15,14 @@ class ProductController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $products = Product::with('user')->get();
+        $products = Product::get();
         return Inertia::render('Product/Index',['products' => $products]);
 
     }
 
     public function showEditProduct($id) {
         $product = Product::find($id);
-        return Inertia::render('Product/Edit',compact('product','accounts'));
+        return Inertia::render('Product/Edit',compact('product'));
     }
 
 
@@ -33,11 +33,23 @@ class ProductController extends Controller
 
     public function submitAddProduct(Request $request) {
 
+        // $file = $request->file('file');
+
+        // $fileName = $file->getClientOriginalName();
+        // $extension = $file->getClientOriginalExtension();
+        // $mimeType = $file->getMimeType();
+        // $size = $file->getSize();
+        // $tempPath = $file->getPathname();
+    
+        // return response()->json([
+        //     'name' => $fileName,
+        //     'extension' => $extension,
+        //     'mime_type' => $mimeType,
+        //     'size' => $size,
+        //     'temp_path' => $tempPath,
+        // ]);
+
         $incomingFields=$request->validate([
-            'name'=>'required|string|max:255',
-            'phone'=>['required','string','min:10','max:255', 
-            // new PhoneNumber
-        ],
             'name'=>'required|string|max:255',
             'description' => 'required|string|max:3000',
             'status' => ['required','string','max:255'],
@@ -93,7 +105,7 @@ class ProductController extends Controller
             // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
             
             'name'=>'required|string|max:255',
-            'image'=>'required|string|max:255',
+            'status'=>'required|string|max:255',
             'description' => ['required', 'string', new WordCount(300)], 
         
         ]);

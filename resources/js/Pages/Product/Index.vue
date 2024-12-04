@@ -168,19 +168,10 @@ const capitalizeFirstLetter= (string) => {
             </th>
             <th>
                 <span class="flex items-center">
-                 Seller
+                 Name
                 </span>
             </th>
-            <th>
-                <span class="flex items-center">
-                 Account
-                </span>
-            </th>
-            <th>
-                <span class="flex items-center">
-                 Contact
-                </span>
-            </th>
+            
             <th>
                 <span class="flex items-center">
                     Status
