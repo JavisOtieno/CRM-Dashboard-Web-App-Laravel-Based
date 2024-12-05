@@ -48,7 +48,10 @@ export default {
       name: '',
       description: '',
       file: null,
-      status: 'pending',
+      status: 'available',
+      target_type: 'value',
+      amount: '',
+
 
     });
     
@@ -58,6 +61,8 @@ export default {
       formData.append('name', form.name);
       formData.append('description', form.description);
       formData.append('status', form.status);
+      formData.append('target_type', form.target_type);
+      formData.append('amount', form.amount);
       formData.append('file', form.file);
 
       console.log(formData);
@@ -193,7 +198,7 @@ export default {
     rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Name" required />
+     dark:focus:border-blue-500" placeholder="Amount" required />
      <div v-if="form.errors.amount" class="error">{{ form.errors.amount }}</div>
   </div>
 
