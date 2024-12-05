@@ -17,6 +17,10 @@ return new class extends Migration
             $table->longText('description');
             $table->string('image');
             $table->string('status');
+            
+            $table->string('type');
+            $table->string('target_amount');
+            $table->string('target_quantity');
            // $table->integer('organization_id');
             $table->softDeletes();
             $table->timestamps();
