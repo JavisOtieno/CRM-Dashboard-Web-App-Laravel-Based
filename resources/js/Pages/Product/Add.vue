@@ -168,6 +168,35 @@ export default {
             </div>
           </div>
 
+          <div class="mb-5">
+            <label for="target_type" class="block mb-2 text-sm 
+          font-medium text-gray-900 dark:text-white">Target Type</label>
+
+            <div class="mb-5">
+              <select name="target_type" v-model="form.target_type" id="HeadlineAct"
+                class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+                placeholder="Target Type">
+                <option disabled value="">Select Target Type</option>
+                <option value="value">Value in KSh</option>
+                <option value="quantity">Quantity</option>
+
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-5">
+    <label for="name" class="block mb-2 text-sm 
+    font-medium text-gray-900 dark:text-white">Target Amount</label>
+    <input type="text" id="amount" 
+    v-model="form.amount"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+    w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+     dark:focus:border-blue-500" placeholder="Name" required />
+     <div v-if="form.errors.amount" class="error">{{ form.errors.amount }}</div>
+  </div>
+
   <div class="mb-5">
     <label for="image" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Image</label>

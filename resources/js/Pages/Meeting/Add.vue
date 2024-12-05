@@ -258,7 +258,7 @@ export default {
                 class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
                 placeholder="Type">
                 <option disabled value="">Select type</option>
-                <option value="virtual">Virtual</option>
+                <option value="online">Online</option>
                 <option value="physical">Physical</option>
 
               </select>

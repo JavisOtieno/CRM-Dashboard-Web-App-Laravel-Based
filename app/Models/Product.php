@@ -13,6 +13,9 @@ class Product extends Model
         'name',
         'description',
         'image',
-        'status'
+        'status',
+        
+        'target_type',
+        'target_amount'
     ];
 }

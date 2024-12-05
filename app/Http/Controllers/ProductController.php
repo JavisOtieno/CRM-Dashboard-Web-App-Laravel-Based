@@ -52,6 +52,8 @@ class ProductController extends Controller
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'description' => 'required|string|max:3000',
+            'target_type' => 'required|numeric|digits_between:1,20',
+            'target_amount' => 'required|numeric|digits_between:1,20',
             'status' => ['required','string','max:255'],
             'file' => 'required|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
 
@@ -60,6 +62,9 @@ class ProductController extends Controller
         //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 
         $incomingFields['name']=strip_tags($incomingFields['name']);
+        $incomingFields['status']=strip_tags($incomingFields['status']);
+        $incomingFields['target_type']=strip_tags($incomingFields['target_type']);
+        $incomingFields['target_amount']=strip_tags($incomingFields['target_amount']);
         $incomingFields['description']=strip_tags($incomingFields['description']);
         
       
