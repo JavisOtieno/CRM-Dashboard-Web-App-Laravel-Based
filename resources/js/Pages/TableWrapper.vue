@@ -111,6 +111,12 @@ export default {
           this.localFlash = { ...newFlash }
           this.isModalOpen = true;
 
+        if(this.localFlash!=undefined){
+        if (this.localFlash.status === 'success') {
+            this.isModalOpen = true;
+        }
+        }
+
           // Trigger any other necessary logic
           console.log('Flash updated:', this.localFlash)
         }
