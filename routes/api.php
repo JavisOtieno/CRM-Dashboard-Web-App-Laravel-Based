@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\api\ProductController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\CallController;
 use App\Http\Controllers\api\DealController;
