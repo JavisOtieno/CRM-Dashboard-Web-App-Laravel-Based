@@ -1,22 +1,23 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\api\ProductController;
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\api\CallController;
 use App\Http\Controllers\api\DealController;
 use App\Http\Controllers\api\LeadController;
 use App\Http\Controllers\api\TaskController;
+use App\Http\Controllers\api\StatsController;
 use App\Http\Controllers\api\VisitController;
 use App\Http\Controllers\api\AccountController;
 use App\Http\Controllers\api\ContactController;
 use App\Http\Controllers\api\MeetingController;
+use App\Http\Controllers\api\ProductController;
 use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\ActivityController;
 use App\Http\Controllers\api\LocationController;
 use App\Http\Controllers\api\DashboardController;
-use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/stats', [StatsController::class, 'index']);
 
 Route::get('/activities', [ActivityController::class, 'index']);
 Route::post('/activitiesdate', [ActivityController::class, 'activitiesOnThisDate']);

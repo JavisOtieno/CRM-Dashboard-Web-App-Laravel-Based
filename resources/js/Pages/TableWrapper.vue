@@ -109,7 +109,7 @@ export default {
         if (newFlash !== oldFlash) {
           // Update localFlash when flash prop changes
           this.localFlash = { ...newFlash }
-          this.isModalOpen = true;
+        //   this.isModalOpen = true;
 
         if(this.localFlash!=undefined){
         if (this.localFlash.status === 'success') {
