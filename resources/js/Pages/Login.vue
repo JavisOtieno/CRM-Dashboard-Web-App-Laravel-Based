@@ -2,8 +2,10 @@
 // import SidebarNew from '@/Pages/Sidebarnew.vue';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
+import { Link } from '@inertiajs/vue3';
 
 export default {
+  components: { Link },
 //   components: { SidebarNew },
 //   props: {
 //     location: {
@@ -95,7 +97,9 @@ export default {
                       dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-600">
                       Sign in</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Don’t have an account yet? <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
+                        Don’t have an account yet? <Link :href="route('register')"  
+                        class="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                        Sign up</Link>
                     </p>
                 </form>
             </div>
