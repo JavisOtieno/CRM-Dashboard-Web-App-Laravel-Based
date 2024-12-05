@@ -57,6 +57,8 @@ export default {
       name: props.product.name || '',
       description: props.product.description || '',
       status: props.product.status || '',
+      target_type: props.product.target_type || '',
+      target_amount: props.product.target_amount || '',
 
     });
 
@@ -175,7 +177,34 @@ export default {
             </div>
           </div>
 
-        
+          <div class="mb-5">
+            <label for="target_type" class="block mb-2 text-sm 
+          font-medium text-gray-900 dark:text-white">Target Type</label>
+
+            <div class="mb-5">
+              <select name="target_type" v-model="form.target_type" id="HeadlineAct"
+                class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+                placeholder="Target Type">
+                <option disabled value="">Select Target Type</option>
+                <option value="value">Value in KSh</option>
+                <option value="quantity">Quantity</option>
+
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-5">
+    <label for="name" class="block mb-2 text-sm 
+    font-medium text-gray-900 dark:text-white">Target Amount</label>
+    <input type="text" id="target_amount" 
+    v-model="form.target_amount"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+    w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
+     dark:focus:border-blue-500" placeholder="Target Amount" required />
+     <div v-if="form.errors.target_amount" class="error">{{ form.errors.target_amount }}</div>
+  </div>
 
           <!-- <div class="mb-5">
     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>

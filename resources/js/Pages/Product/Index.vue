@@ -95,6 +95,16 @@ const deleteProduct = () => {
 //   }
 };
 
+// Function to format the target amount
+function formatTargetAmount(product) {
+  if (product.target_type === 'value') {
+    return `Ksh. ${product.target_amount}`;
+  } else if (product.target_type === 'quantity') {
+    return `${product.target_amount} units`;
+  }
+  return product.target_amount; // Fallback
+}
+
 
 if (document.getElementById("search-table") && typeof simpleDatatables.DataTable !== 'undefined') {
     const dataTable = new simpleDatatables.DataTable("#search-table", {
@@ -171,6 +181,16 @@ const capitalizeFirstLetter= (string) => {
                  Name
                 </span>
             </th>
+            <!-- <th>
+                <span class="flex items-center">
+                 Target Type
+                </span>
+            </th> -->
+            <th>
+                <span class="flex items-center">
+                 Amount
+                </span>
+            </th>
             
             <th>
                 <span class="flex items-center">
@@ -185,6 +205,8 @@ const capitalizeFirstLetter= (string) => {
                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ product.id }}</td>
                 <td>{{ product.name }}</td>
+                <!-- <td>{{ product.target_type }}</td> -->
+                <td>{{ formatTargetAmount(product) }}</td>
                 <td>{{ capitalizeFirstLetter(product.status) }}</td>
                 
                 

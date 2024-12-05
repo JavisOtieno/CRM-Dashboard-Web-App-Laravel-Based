@@ -16,6 +16,7 @@ use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\ActivityController;
 use App\Http\Controllers\api\LocationController;
 use App\Http\Controllers\api\DashboardController;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +79,9 @@ Route::get('/locations', [LocationController::class, 'index']);
 Route::post('addlocation',[LocationController::class,'addLocation']);
 Route::get('/location/{id}', [LocationController::class, 'showLocation']);
 Route::put('/submiteditlocation/{id}', [LocationController::class, 'submitEditLocation']);
+
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/product/{id}', [ProductController::class, 'showProduct']);
 
 
 Route::get('/deals', [DealController::class, 'index']);

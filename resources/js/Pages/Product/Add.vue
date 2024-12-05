@@ -50,7 +50,7 @@ export default {
       file: null,
       status: 'available',
       target_type: 'value',
-      amount: '',
+      target_amount: '',
 
 
     });
@@ -62,7 +62,7 @@ export default {
       formData.append('description', form.description);
       formData.append('status', form.status);
       formData.append('target_type', form.target_type);
-      formData.append('amount', form.amount);
+      formData.append('target_amount', form.target_amount);
       formData.append('file', form.file);
 
       console.log(formData);
