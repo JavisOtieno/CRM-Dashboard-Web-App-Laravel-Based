@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('image');
             $table->string('status');
             
-            $table->string('type');
+            $table->string('target_type');
             $table->string('target_amount');
-            $table->string('target_quantity');
            // $table->integer('organization_id');
             $table->softDeletes();
             $table->timestamps();
