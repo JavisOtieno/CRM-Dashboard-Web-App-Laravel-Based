@@ -29,7 +29,7 @@ class StatsController extends Controller
         $tasksCount = Task::orderBy('id', 'DESC')->count();
         $callsCount = Call::orderBy('id', 'DESC')->count();
         ;
-        return response()->json(compact('user',
+        return response()->json(compact(
         'accountsCount','contactsCount','dealsCount','leadsCount',
         'visitsCount','meetingsCount','tasksCount','callsCount'
         ));
