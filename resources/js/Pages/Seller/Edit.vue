@@ -57,6 +57,7 @@ export default {
       email: props.seller.email || '',
       // password: '',
       status: props.seller.status || '',
+      usertype: props.seller.usertype || '',
       file: null,
 
     });
@@ -70,6 +71,7 @@ export default {
       // formData.append('password', form.password);
       formData.append('status', form.status);
       formData.append('file', form.file);
+      formData.append('usertype', form.usertype);
       console.log('form' + form.name + ' ' + form.phone + ' ' + form.email + ' ' +  ' ' + form.status);
 
       form.put(`/submiteditseller/${props.seller.id}`, formData, {
@@ -201,6 +203,21 @@ export default {
                 placeholder="Status">
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
+
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-5">
+            <label for="usertype" class="block mb-2 text-sm 
+          font-medium text-gray-900 dark:text-white">User Type</label>
+
+            <div class="mb-5">
+              <select name="usertype" v-model="form.status" id="HeadlineAct"
+                class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+                placeholder="User Type">
+                <option value="seller">Seller</option>
+                <option value="admin">Admin</option>
 
               </select>
             </div>
