@@ -135,10 +135,10 @@ export default {
               <label for="name" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Name</label>
               <input type="text" id="name" v-model="form.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Name" required />
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Name" required />
               <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
             </div>
 
@@ -146,10 +146,10 @@ export default {
               <label for="lat" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Phone</label>
               <input type="text" id="phone" v-model="form.phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Phone" required />
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Phone" required />
               <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
             </div>
 
@@ -157,10 +157,10 @@ export default {
               <label for="lat" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Account Name</label>
               <input type="text" id="account_name" v-model="form.account_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Account Name" required />
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Account Name" required />
               <div v-if="form.errors.account_name" class="error">{{ form.errors.account_name }}</div>
             </div>
 

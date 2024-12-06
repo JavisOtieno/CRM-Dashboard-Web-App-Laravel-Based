@@ -19,7 +19,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 
-/*
+/*-
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -42,6 +42,7 @@ use App\Http\Controllers\ProductController;
 Route::get('/login',  [AuthController::class, 'index'])->name('login');
 Route::post('dologin', [AuthController::class, 'doLogin'])
 ->name('dologin');
+Route::get('/signup',  [AuthController::class, 'signup'])->name('signup');
 
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/',  [DashboardController::class, 'newindex'])->name('home');

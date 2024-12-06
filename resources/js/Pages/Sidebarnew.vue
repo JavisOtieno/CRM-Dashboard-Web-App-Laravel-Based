@@ -42,8 +42,8 @@
                 </div>
                 <ul class="py-1" role="none">
                   <li>
-                    <Link :href="route('profile')"
-                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-100 
+                    <Link :href="route('profile')"                     
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-100 
                      dark:text-gray-300 dark:hover:bg-red-600 dark:hover:text-white" 
                      role="menuitem">Profile</Link>
                     
@@ -99,6 +99,32 @@
                  <span class="flex-1 ms-3 whitespace-nowrap">Dashboard</span>
                 </Link>
            </li>
+
+           <li>
+            <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-red-100 dark:text-white dark:hover:bg-red-700"  data-collapse-toggle="dropdown-example">
+                  <!-- <svg class="flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"  xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+                     <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
+                  </svg> -->
+                  <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                  </svg>
+                  <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Users</span>
+                  <svg class="w-3 h-3 text-red-600"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                  </svg>
+            </button>
+            <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                  <li>
+                     <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-red-100 dark:text-white dark:hover:bg-red-700">Admins</a>
+                  </li>
+                  <li>
+                    <Link :href="route('sellers')"  
+                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-red-100 dark:text-white dark:hover:bg-red-700"
+                    >Sellers</Link>
+                  </li>
+                  
+            </ul>
+         </li>
            
            <li>
             <Link :href="route('accounts')" 
@@ -311,6 +337,8 @@
 <svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-width="2" d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
 </svg>
+
+
 
 
                  <span class="flex-1 ms-3 whitespace-nowrap">Sellers</span>

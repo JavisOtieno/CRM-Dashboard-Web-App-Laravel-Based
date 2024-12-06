@@ -137,10 +137,10 @@ export default {
     <input type="text" id="name" 
     v-model="form.name"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Name" required />
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Name" required />
      <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
   </div>
 
@@ -199,10 +199,10 @@ export default {
     <input type="text" id="target_amount" 
     v-model="form.target_amount"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Target Amount" required />
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Target Amount" required />
      <div v-if="form.errors.target_amount" class="error">{{ form.errors.target_amount }}</div>
   </div>
 

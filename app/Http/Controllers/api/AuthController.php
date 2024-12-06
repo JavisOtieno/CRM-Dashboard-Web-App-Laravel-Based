@@ -87,4 +87,6 @@ class AuthController extends Controller
         // ])->onlyInput('email');
 
     }
+
+    
 }

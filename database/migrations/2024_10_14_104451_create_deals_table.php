@@ -16,8 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('account_id');
             // $table->string('account_id');
-            $table->string('name');
+            // $table->string('name');
+            $table->string('product_id');
             $table->unsignedBigInteger('amount');
+            // $table->string('description');
             $table->string('status');
             $table->softDeletes();
             $table->timestamps();

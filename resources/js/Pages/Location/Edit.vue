@@ -128,10 +128,10 @@ export default {
     <input type="text" id="name" 
     v-model="form.name"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Name" required />
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Name" required />
      <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
   </div>
 
@@ -141,10 +141,10 @@ export default {
     <input type="text" id="lat" 
     v-model="form.lat"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Lat" required />
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Lat" required />
      <div v-if="form.errors.lat" class="error">{{ form.errors.lat }}</div>
   </div>
 
@@ -154,10 +154,10 @@ export default {
     <input type="text" id="long" 
     v-model="form.long"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Long" required />
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Long" required />
      <div v-if="form.errors.long" class="error">{{ form.errors.long }}</div>
   </div>
 
@@ -167,10 +167,10 @@ export default {
     <input type="text" id="account_id" 
     v-model="form.account_id"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Account Id" required />
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Account Id" required />
      <div v-if="form.errors.account_id" class="error"> {{form.errors.account_id}} </div>
   </div> -->
 
@@ -216,10 +216,10 @@ export default {
     <!-- <input type="text" id="description" 
     v-model="form.description"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-    rounded-lg focus:ring-blue-500 focus:border-blue-500 block 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500
-     dark:focus:border-blue-500" placeholder="Description" required /> -->
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Description" required /> -->
      <div v-if="form.errors.description" class="error"> {{form.errors.description}} </div>
   </div>
 

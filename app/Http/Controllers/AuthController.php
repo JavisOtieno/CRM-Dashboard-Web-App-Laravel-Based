@@ -17,6 +17,12 @@ class AuthController extends Controller
 
     }
 
+    public function signup() {
+
+        return Inertia::render('AuthNew/Signup');
+
+    }
+
     public function profile() {
         //$competitors = Competitor::all();
         // $contacts = Contact::with('account')->get();

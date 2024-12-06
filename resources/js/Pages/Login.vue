@@ -97,7 +97,7 @@ export default {
                       dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-600">
                       Sign in</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Don’t have an account yet? <Link :href="route('register')"  
+                        Don’t have an account yet? <Link :href="route('signup')"  
                         class="font-medium text-primary-600 hover:underline dark:text-primary-500">
                         Sign up</Link>
                     </p>
