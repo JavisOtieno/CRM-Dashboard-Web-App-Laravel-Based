@@ -26,6 +26,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    products: {
+      type: Array,
+      default: () => [],
+    },
   },
   setup(props) {
 
