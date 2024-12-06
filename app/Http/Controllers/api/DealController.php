@@ -11,17 +11,17 @@ class DealController extends Controller
 {
     public function index(){
         // $deals = Deal::all();
-        $deals = Deal::with('account')->orderBy('id', 'DESC')->get();
+        $deals = Deal::with('account','product')->orderBy('id', 'DESC')->get();
         return response()->json(['deals'=>$deals]);
     }
 
     public function showDeal($id){
-        $deal = Deal::with('account')->find($id);
+        $deal = Deal::with('account','product')->find($id);
         return response()->json(['deal'=>$deal]);
     }
 
     public function showEditDeal($id){
-        $deal = Deal::with('account')->find($id);
+        $deal = Deal::with('account','product')->find($id);
         $accounts = Account::orderBy('id', 'DESC')->get();
         return response()->json(compact('accounts','deal'));
     }
