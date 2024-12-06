@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Account;
 use App\Models\Contact;
+use App\Models\Product;
 use App\Models\Location;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
@@ -35,6 +36,14 @@ class AccountController extends Controller
         $accounts = Account::orderBy('id', 'DESC')->get();
         $locations = Location::orderBy('id', 'DESC')->get();
         return response()->json([compact('accounts','locations')]);
+        
+    }
+
+    public function accountsandproducts(){
+
+        $accounts = Account::orderBy('id', 'DESC')->get();
+        $products = Product::orderBy('id', 'DESC')->get();
+        return response()->json([compact('accounts','products')]);
         
     }
 
