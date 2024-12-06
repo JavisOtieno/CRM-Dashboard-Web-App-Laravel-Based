@@ -29,7 +29,7 @@ class DashboardController extends Controller
         ->sum('amount');
         $target = "500000";
         $products = Product::orderBy('id', 'DESC')->get();
-        $recentdeals = Deal::with('account')->orderBy('id', 'DESC')->take(5)->get();
+        $recentdeals = Deal::with('account','product')->orderBy('id', 'DESC')->take(5)->get();
         $monthYear = now()->format('F Y'); // Outputs: "May 2024"
 
 
