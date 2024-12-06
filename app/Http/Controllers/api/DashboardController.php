@@ -30,8 +30,10 @@ class DashboardController extends Controller
         $target = "500000";
         $products = Product::orderBy('id', 'DESC')->get();
         $recentdeals = Deal::with('account')->orderBy('id', 'DESC')->take(5)->get();
+        $monthYear = now()->format('F Y'); // Outputs: "May 2024"
+
 
         return response()->json(compact('products','target','recentdeals',
-        'totalDealsKShThisMonth','totalDealsUnitsThisMonth'));
+        'totalDealsKShThisMonth','totalDealsUnitsThisMonth','monthYear'));
     }
 }
