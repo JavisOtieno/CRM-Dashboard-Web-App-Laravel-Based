@@ -17,7 +17,7 @@ class DashboardController extends Controller
         ->whereMonth('created_at', now()->month)  // Filter by current month
         ->whereYear('created_at', now()->year)    // Filter by current year
         ->whereHas('product', function ($query) {
-            $query->where('target_type', 'value'); // Filter by product_type
+            $query->where('target_type', 'quantity'); // Filter by product_type
         })
         ->sum('amount');
         $totalDealsKShThisMonth = Deal::with('account')
