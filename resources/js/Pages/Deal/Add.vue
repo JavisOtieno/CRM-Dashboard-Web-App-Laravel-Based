@@ -130,7 +130,7 @@ export default {
 
           <div class="mb-5">
             <label for="product_id" class="block mb-2 text-sm 
-          font-medium text-gray-900 dark:text-white">Product</label>
+          font-medium text-gray-900 dark:text-white">Product - test</label>
 
             <div class="relative">
               <!-- <input
