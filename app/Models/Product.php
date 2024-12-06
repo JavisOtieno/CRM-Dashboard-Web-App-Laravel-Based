@@ -14,8 +14,14 @@ class Product extends Model
         'description',
         'image',
         'status',
-        
+
         'target_type',
         'target_amount'
     ];
+
+    public function deals()
+    {
+        return $this->hasMany(Deal::class);
+    }
+
 }
