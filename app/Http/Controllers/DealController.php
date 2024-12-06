@@ -18,7 +18,7 @@ class DealController extends Controller
     public function newindex() {
         //$competitors = Competitor::all();
 
-        $deals = Deal::with('account','user')->get();
+        $deals = Deal::with('account','user','product')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
         return Inertia::render('Deal/Index',['deals' => $deals]);
@@ -86,7 +86,7 @@ class DealController extends Controller
 
     public function submitEditDeal($id,Request $request) {
         $deal = Deal::find($id);
-        
+
         $incomingFields=$request->validate([
             'amount'=>'required|numeric|digits_between:1,20',
             'status'=>'required|string|max:255',
