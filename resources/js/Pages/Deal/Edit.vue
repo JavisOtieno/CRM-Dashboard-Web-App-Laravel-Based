@@ -58,7 +58,7 @@ export default {
       //   account_id: props.deal.account_id || '',
 
 
-      name: props.deal.product_id || '',
+      product_id: props.deal.product_id || '',
       amount: props.deal.amount || '',
       status: props.deal.status || '',
       account_id: props.deal.account_id || '',
