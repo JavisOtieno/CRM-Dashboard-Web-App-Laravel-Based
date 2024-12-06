@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Deal;
 use App\Models\Account;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -23,7 +24,8 @@ class DealController extends Controller
     public function showEditDeal($id){
         $deal = Deal::with('account','product')->find($id);
         $accounts = Account::orderBy('id', 'DESC')->get();
-        return response()->json(compact('accounts','deal'));
+        $products = Product::orderBy('id', 'DESC')->get();
+        return response()->json(compact('accounts','deal','products'));
     }
 
     //
