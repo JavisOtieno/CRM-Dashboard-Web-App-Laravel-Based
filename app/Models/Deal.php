@@ -12,10 +12,15 @@ class Deal extends Model
     protected $fillable = [
         'user_id',
         'account_id',
-        'name',
+        // 'name',
+        'product_id',
         'amount',
         'status'
     ];
+    public function product(){
+        //return $this->belongsTo(User::class);
+        return $this->belongsTo(Product::class,'product_id');
+    }
 
     public function account(){
         //return $this->belongsTo(User::class);

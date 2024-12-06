@@ -164,7 +164,7 @@ const capitalizeFirstLetter= (string) => {
             </th>
             <th>
                 <span class="flex items-center">
-                    Deal Name
+                    Product Name
                 </span>
             </th>
             <th>
@@ -190,7 +190,7 @@ const capitalizeFirstLetter= (string) => {
                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ deal.id }}</td>
                 <td>{{ deal.user.name }}</td>
-                <td>{{ deal.name }}</td>
+                <td>{{ deal.product.name }}</td>
                 <td>{{ deal.amount }}</td>
                 <td>{{ capitalizeFirstLetter(deal.status) }}</td>
                 <td>{{ deal.account.name }}</td>

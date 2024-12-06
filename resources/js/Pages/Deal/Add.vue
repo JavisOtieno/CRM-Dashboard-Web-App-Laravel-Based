@@ -47,7 +47,7 @@ export default {
     // Initialize form state with useForm
 
     const form = useForm({
-      name: '',
+      product_id: '',
       amount: '',
       status: 'pending',
       account_id: '',
@@ -123,15 +123,33 @@ export default {
         </div>
 
         <form class="w-full bg-white rounded" @submit.prevent="submitForm">
+
           <div class="mb-5">
-            <label for="name" class="block mb-2 text-sm 
-    font-medium text-gray-900 dark:text-white">Name</label>
-            <input type="text" id="name" v-model="form.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
-    w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
-     dark:focus:border-primary-600" placeholder="Name" required />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <label for="product_id" class="block mb-2 text-sm 
+          font-medium text-gray-900 dark:text-white">Product</label>
+
+            <div class="relative">
+              <!-- <input
+             v-model="form.account_id"
+              type="text"
+              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+              placeholder="Account Id"
+            /> -->
+              <select name="product_id" v-model="form.product_id" id="HeadlineAct"
+                class="bg-gray-50 mt-1.5 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+                placeholder="Product Id">
+
+
+                <option disabled value="">Select product</option>
+                <option v-for="(product, index)  in products" :key="index" 
+                :value="product.id">
+                  {{ product.name }}
+                </option>
+              </select>
+              <div v-if="form.errors.product_id" class="error">{{ form.errors.product_id }}</div>
+
+
+            </div>
           </div>
 
           <div class="mb-5">

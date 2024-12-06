@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Deal;
 use Inertia\Inertia;
 use App\Models\Account;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class DealController extends Controller
@@ -24,7 +25,8 @@ class DealController extends Controller
     }
     public function showAddDeal() {
         $accounts = Account::all();
-        return Inertia::render('Deal/Add',compact('accounts'));
+        $products = Product::all();
+        return Inertia::render('Deal/Add',compact('accounts','products'));
     }
 
 
@@ -32,8 +34,8 @@ class DealController extends Controller
 
         $incomingFields=$request->validate([
             // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
-            'account_id'=>'required|numeric|digits_between:1,20',
-            'name'=>'required|string|max:255',
+            'account_id'=>'required|numeric|digits_between:1,20|exists:accounts,id',
+            'product_id'=>'required|numeric|digits_between:1,20|exists:products,id',
             'amount'=>'required|numeric|digits_between:1,20',
             'status'=>'required|string|max:255',
            
@@ -78,16 +80,18 @@ class DealController extends Controller
     public function showEditDeal($id) {
         $deal = Deal::find($id);
         $accounts = Account::all();
-        return Inertia::render('Deal/Edit', compact('deal','accounts'));
+        $products = Product::all();
+        return Inertia::render('Deal/Edit', compact('deal','accounts','products'));
     }
 
     public function submitEditDeal($id,Request $request) {
         $deal = Deal::find($id);
+        
         $incomingFields=$request->validate([
             'amount'=>'required|numeric|digits_between:1,20',
-            'name'=>'required|string|max:255',
             'status'=>'required|string|max:255',
-            'account_id'=>'required|numeric|digits_between:1,20',
+            'account_id'=>'required|numeric|digits_between:1,20|exists:accounts,id',
+            'product_id'=>'required|numeric|digits_between:1,20|exists:products,id',
             
         ]);
         //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'        
