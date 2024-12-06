@@ -213,7 +213,7 @@ export default {
           font-medium text-gray-900 dark:text-white">User Type</label>
 
             <div class="mb-5">
-              <select name="usertype" v-model="form.status" id="HeadlineAct"
+              <select name="usertype" v-model="form.usertype" id="HeadlineAct"
                 class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
                 placeholder="User Type">
                 <option value="seller">Seller</option>
