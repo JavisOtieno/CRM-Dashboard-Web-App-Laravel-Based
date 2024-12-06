@@ -198,10 +198,10 @@ export default {
             <label for="description" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Description</label>
             <textarea id="description" rows="4" v-model="form.description" class="block p-2.5 w-full text-sm text-gray-900 
-    bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 
-    focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 
-    dark:focus:border-blue-500" placeholder="Description"></textarea>
+    bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-600 
+    focus:border-primary-600 dark:bg-gray-700 dark:border-gray-600 
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600 
+    dark:focus:border-primary-600" placeholder="Description"></textarea>
 
 
             <div v-if="form.errors.description" class="error"> {{ form.errors.description }} </div>
