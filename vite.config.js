@@ -17,4 +17,11 @@ export default defineConfig({
             },
         }),
     ],
+    server: {
+        host: '0.0.0.0', // Bind to all interfaces
+        port: 5173,      // Default Vite port, or choose a custom one
+        hmr: {
+            host: 'crm.scgafrica.com', // Your domain
+        },
+    },
 });
