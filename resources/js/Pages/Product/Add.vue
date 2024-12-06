@@ -159,11 +159,12 @@ export default {
 
   <div class="mb-5">
             <label for="status" class="block mb-2 text-sm 
-          font-medium text-gray-900 dark:text-white">Status</label>
+          font-medium text-gray-900 dark:text-white focus:ring-primary-600">Status</label>
 
             <div class="mb-5">
               <select name="status" v-model="form.status" id="HeadlineAct"
-                class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+                class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  
+                pe-12  text-gray-700 sm:text-sm"
                 placeholder="Status">
                 <option disabled value="">Select status</option>
                 <option value="available">Available</option>
@@ -175,7 +176,7 @@ export default {
 
           <div class="mb-5">
             <label for="target_type" class="block mb-2 text-sm 
-          font-medium text-gray-900 dark:text-white">Target Type</label>
+          font-medium text-gray-900 dark:text-white focus:ring-primary-600">Target Type</label>
 
             <div class="mb-5">
               <select name="target_type" v-model="form.target_type" id="HeadlineAct"
