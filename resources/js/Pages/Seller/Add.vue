@@ -53,6 +53,7 @@ export default {
       phone: '',
       email: '',
       password: '',
+      usertype: 'seller',
       status: 'active',
       file: null,
 
@@ -66,6 +67,7 @@ export default {
       formData.append('email', form.email);
       formData.append('password', form.password);
       formData.append('status', form.status);
+      formData.append('usertype', form.usertype);
       formData.append('file', form.file);
 
       console.log(formData);
@@ -224,6 +226,27 @@ export default {
   >
   <option value="active">Active</option>
   <option value="inactive">Inactive</option>
+
+  </select>
+  </div>
+  </div>
+
+  <div class="mb-5">
+          <label for="user type" class="block mb-2 text-sm 
+          font-medium text-gray-900 dark:text-white">User Type</label>
+  
+          <div class="mb-5">
+        <select
+    name="usertype"
+    v-model="form.usertype"
+    id="HeadlineAct"
+    class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+    placeholder="User Type"
+    
+  >
+  
+  <option value="admin">Admin</option>
+  <option value="seller">Seller</option>
 
   </select>
   </div>
