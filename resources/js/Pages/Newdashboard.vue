@@ -438,7 +438,7 @@ VueApexCharts;
                     ID
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Name
+                    Product Name
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Account
@@ -453,7 +453,7 @@ VueApexCharts;
                 <th scope="row" 
                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >{{ deal.id }}</th>
-                <td  class="px-6 py-4">{{ deal.name }}</td>
+                <td  class="px-6 py-4">{{ deal.product.name }}</td>
                 <td  class="px-6 py-4">{{ deal.account.name }}</td>
        
             </tr>
