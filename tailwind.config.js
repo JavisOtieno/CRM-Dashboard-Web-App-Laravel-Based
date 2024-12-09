@@ -12,6 +12,8 @@ import forms from '@tailwindcss/forms';
 //     plugins: [],
 //   }
 
+
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -23,6 +25,8 @@ export default {
         "./src/**/*.{vue,js,ts,jsx,tsx}",
         "./node_modules/flowbite/**/*.js"
     ],
+    darkMode: 'class', // Enable class-based dark mode
+   
 
 
     theme: {

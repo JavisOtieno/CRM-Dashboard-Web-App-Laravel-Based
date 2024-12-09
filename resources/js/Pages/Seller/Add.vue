@@ -125,7 +125,7 @@ export default {
                 <div class="container mx-auto mt-5">
         <!-- Add User button aligned to the right -->
         <div class="flex justify-between mb-4">
-        <div class="text-lg font-semibold">Add Seller</div>
+        <div class="text-lg font-semibold dark:text-white">Add Seller</div>
         
             <!-- <button @click="openAddUserModal" 
           
@@ -136,7 +136,7 @@ export default {
         
         </div>
 
-<form class="w-full bg-white rounded"
+<form class="w-full bg-white dark:bg-gray-700 rounded"
 @submit.prevent="submitForm" >
   <div class="mb-5">
     <label for="name" class="block mb-2 text-sm 
@@ -220,12 +220,15 @@ export default {
     name="status"
     v-model="form.status"
     id="HeadlineAct"
-    class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+    class="mt-1.5 bg-gray-50 dark:bg-gray-700 dark:text-white
+    focus:ring-primary-600 focus:border-primary-600
+    dark:focus:ring-primary-600 focus:border-primary-600  
+     w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
     placeholder="Status"
     
   >
-  <option value="active">Active</option>
-  <option value="inactive">Inactive</option>
+  <option  value="active">Active</option>
+  <option   value="inactive">Inactive</option>
 
   </select>
   </div>
@@ -240,7 +243,11 @@ export default {
     name="usertype"
     v-model="form.usertype"
     id="HeadlineAct"
-    class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+    class="mt-1.5 bg-gray-50 dark:bg-gray-700 dark:text-white
+    w-full rounded-lg border-gray-300 
+    focus:ring-primary-600 focus:border-primary-600
+    dark:focus:ring-primary-600 focus:border-primary-600 
+    pe-12  text-gray-700 sm:text-sm"
     placeholder="User Type"
     
   >

@@ -1,5 +1,6 @@
 <template>
-<div class="w-full md:w-1/4 lg:w-1/3 bg-blue-500 p-4 bg-gray-50 border-gray-200 border-dashed rounded-lg 
+<div class="w-full md:w-1/4 lg:w-1/3  p-4 bg-gray-50 dark:bg-gray-700  
+border-gray-200 border-dashed rounded-lg 
 dark:border-gray-700 mt-14">
      
 
@@ -9,7 +10,7 @@ dark:border-gray-700 mt-14">
 
    <div class="flex items-center justify-center  mb-4 rounded">
        
-       <div class="container mx-auto mt-2">
+       <div class="container mx-auto mt-2 dark:text-white">
 <!-- Add User button aligned to the right -->
 <!-- <div class="flex justify-between mb-4">
 <div class="text-lg font-semibold">Add Account</div>

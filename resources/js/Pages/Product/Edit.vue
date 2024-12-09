@@ -121,7 +121,7 @@ export default {
 
         </div>
 
-        <form class="w-full bg-white rounded" @submit.prevent="submitForm">
+        <form class="w-full bg-white dark:bg-gray-700 rounded" @submit.prevent="submitForm">
 
 
 

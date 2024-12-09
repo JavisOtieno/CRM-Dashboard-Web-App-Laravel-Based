@@ -142,7 +142,7 @@ export default {
         
         </div>
 
-<form class="w-full bg-white rounded"
+<form class="w-full bg-white dark:bg-gray-700 rounded"
 @submit.prevent="submitForm" >
   <div class="mb-5">
     <label for="name" class="block mb-2 text-sm 

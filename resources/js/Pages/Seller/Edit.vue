@@ -132,7 +132,7 @@ export default {
       <div class="container mx-auto mt-5">
         <!-- Add User button aligned to the right -->
         <div class="flex justify-between mb-4">
-          <div class="text-lg font-semibold">Edit Seller</div>
+          <div class="text-lg font-semibold dark:text-white">Edit Seller</div>
 
           <!-- <button @click="openAddUserModal" 
           
@@ -143,7 +143,7 @@ export default {
 
         </div>
 
-        <form class="w-full bg-white rounded" @submit.prevent="submitForm">
+        <form class="w-full bg-white dark:bg-gray-700 rounded" @submit.prevent="submitForm">
           <div class="mb-5">
             <label for="name" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Name</label>
@@ -151,6 +151,7 @@ export default {
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+
      dark:focus:border-primary-600" placeholder="Name" required />
             <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
           </div>
@@ -195,11 +196,15 @@ export default {
 
           <div class="mb-5">
             <label for="status" class="block mb-2 text-sm 
+               
           font-medium text-gray-900 dark:text-white">Status</label>
 
             <div class="mb-5">
               <select name="status" v-model="form.status" id="HeadlineAct"
-                class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+                class="mt-1.5 bg-gray-50 dark:bg-gray-700 dark:text-white w-full rounded-lg border-gray-300  
+                focus:ring-primary-600 focus:border-primary-600 
+                dark:focus:ring-primary-600 focus:border-primary-600 
+                pe-12  text-gray-700 sm:text-sm"
                 placeholder="Status">
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
@@ -210,11 +215,15 @@ export default {
 
           <div class="mb-5">
             <label for="usertype" class="block mb-2 text-sm 
+               
           font-medium text-gray-900 dark:text-white">User Type</label>
 
             <div class="mb-5">
               <select name="usertype" v-model="form.usertype" id="HeadlineAct"
-                class="mt-1.5 bg-gray-50 w-full rounded-lg border-gray-300  pe-12  text-gray-700 sm:text-sm"
+                class="mt-1.5 bg-gray-50 dark:bg-gray-700 dark:text-white w-full rounded-lg border-gray-300  pe-12  
+                focus:ring-primary-600 focus:border-primary-600
+                dark:focus:ring-primary-600 focus:border-primary-600   
+                text-gray-700 sm:text-sm"
                 placeholder="User Type">
                 <option value="seller">Seller</option>
                 <option value="admin">Admin</option>

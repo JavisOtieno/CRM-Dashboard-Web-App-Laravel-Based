@@ -126,7 +126,7 @@ export default {
 
         </div>
 
-        <form class="w-full bg-white rounded" @submit.prevent="submitForm">
+        <form class="w-full bg-white dark:bg-gray-700 rounded" @submit.prevent="submitForm">
 
           <div class="mb-5">
             <label for="product_id" class="block mb-2 text-sm 

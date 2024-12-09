@@ -127,7 +127,7 @@ const flash = computed(() => page.props.flash || null);
             <div class="container mx-auto mt-5">
                 <!-- Add User button aligned to the right -->
                 <div class="flex justify-between mb-4">
-                    <div class="text-lg font-semibold">Sellers Table</div>
+                    <div class="text-lg dark:text-white font-semibold">Sellers Table</div>
 
 
 
@@ -194,9 +194,11 @@ const flash = computed(() => page.props.flash || null);
 
                             <td>
 
-                                <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
+                                <span class="inline-flex overflow-hidden rounded-md border 
+                                bg-white shadow-sm dark:bg-gray-900">
                                     <Link :href="`/editseller/${seller.id}`"
-                                        class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
+                                    
+                                        class="dark:bg-gray-900 inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
                                         title="Edit Seller">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-4">
@@ -205,7 +207,7 @@ const flash = computed(() => page.props.flash || null);
                                     </svg>
                                     </Link>
 
-                                    <button class="inline-block p-2 text-primary-700 hover:bg-primary-50 focus:relative"
+                                    <button class="inline-block p-2 text-primary-700 dark:bg-gray-900 hover:bg-primary-50 focus:relative"
                                         title="Delete Seller" :disabled="form.processing" @click="openModal(seller)"
                                         data-modal-target="popup-modal" data-modal-toggle="popup-modal">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
