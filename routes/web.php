@@ -55,7 +55,6 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/newaccounts', [AccountController::class, 'index'])->name('newaccounts');
     Route::get('/accounts',  [AccountController::class, 'newindex'])->name('accounts');
 
-    Route::get('/newcontacts', [ContactController::class, 'newindex'])->name('newcontacts');
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
     Route::get('/addcontact', [ContactController::class, 'showAddContact'])->name('addcontact');
     Route::get('/editcontact/{id}', [ContactController::class, 'showEditContact']);
@@ -106,7 +105,7 @@ Route::middleware(['auth','verified'])->group(function () {
         Route::get('/editdeal/{id}', [DealController::class, 'showEditDeal']);
     Route::delete('/deletedeal/{id}', [DealController::class, 'deleteDeal']);
     Route::post('/submitadddeal',[ DealController::class, 'submitAddDeal']);
-    Route::get('/newdeals',  [DealController::class, 'newindex'])->name('newdeals');
+
 
 
     Route::get('/newcalls', [CallController::class, 'oldindex'])->name('calls');

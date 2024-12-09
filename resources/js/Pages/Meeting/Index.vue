@@ -190,8 +190,9 @@ const capitalizeFirstLetter= (string) => {
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(meeting, index) in meetings" :key="index">
-                <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        v-for="(meeting, index) in meetings" :key="index">
+                <td>
                     {{ meeting.id }}</td>
                 <td>{{ meeting.user.name }}</td>
                 <td>{{ meeting.account.name }}</td>

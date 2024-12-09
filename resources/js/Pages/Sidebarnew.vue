@@ -181,7 +181,7 @@ const toggleDropdown = () => {
             <!-- class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white 
               hover:bg-red-100 dark:hover:bg-red-700 group" -->
 
-            <Link :href="route('newdashboard')" 
+            <Link :href="route('dashboard')" 
               
 
               :class="{
@@ -294,11 +294,11 @@ const toggleDropdown = () => {
            </li>
 
            <li>
-            <Link :href="route('newcontacts')" 
+            <Link :href="route('contacts')" 
              
               :class="{
-                        'flex items-center p-2 text-gray-900 bg-red-100 rounded-lg dark:bg-red-700': route().current('newcontacts'),
-                        'flex items-center p-2 text-gray-900 rounded-lg hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !route().current('newcontacts')
+                        'flex items-center p-2 text-gray-900 bg-red-100 rounded-lg dark:bg-red-700': route().current('contacts'),
+                        'flex items-center p-2 text-gray-900 rounded-lg hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !route().current('contacts')
                     }"
               >
               <!-- <svg class="w-6 h-6 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -344,10 +344,10 @@ const toggleDropdown = () => {
                 </Link>
            </li>
            <li>
-            <Link :href="route('newdeals')" 
+            <Link :href="route('deals')" 
             :class="{
-                        'flex items-center p-2 text-gray-900 bg-red-100 rounded-lg dark:bg-red-700': route().current('newdeals'),
-                        'flex items-center p-2 text-gray-900 rounded-lg hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !route().current('newdeals')
+                        'flex items-center p-2 text-gray-900 bg-red-100 rounded-lg dark:bg-red-700': route().current('deals'),
+                        'flex items-center p-2 text-gray-900 rounded-lg hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !route().current('deals')
                     }"
               >
 

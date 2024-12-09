@@ -280,8 +280,9 @@ function updateMap(newLocation2) {
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(location, index) in locations" :key="index">
-                <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        v-for="(location, index) in locations" :key="index">
+                <td>
                     {{ location.id }}</td>
                 <td>{{ location.user.name }}</td>
                 <td>{{ location.name }}</td>

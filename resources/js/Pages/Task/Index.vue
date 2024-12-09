@@ -182,8 +182,9 @@ const flash = computed(() => page.props.flash || null);
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(task, index) in tasks" :key="index">
-                <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        v-for="(task, index) in tasks" :key="index">
+                <td>
                     {{ task.id }}</td>
                 <td>{{ task.user.name }}</td>
                 <td>{{ task.account.name }}</td>

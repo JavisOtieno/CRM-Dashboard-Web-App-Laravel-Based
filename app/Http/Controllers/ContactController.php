@@ -19,7 +19,7 @@ class ContactController extends Controller
     //     return Inertia::render('Contact/Index',['contacts' => $contacts]);
 
     // }
-    public function newindex() {
+    public function index() {
         //$competitors = Competitor::all();
 
         $contacts = Contact::with('account','user')->get();

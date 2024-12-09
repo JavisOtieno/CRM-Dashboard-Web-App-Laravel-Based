@@ -178,8 +178,9 @@ const flash = computed(() => page.props.flash || null);
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(visit, index) in visits" :key="index">
-                <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        v-for="(visit, index) in visits" :key="index">
+                <td>
                     {{ visit.id }}</td>
                 <td>{{ visit.user.name }}</td>
                 <td>{{ visit.account.name }}</td>

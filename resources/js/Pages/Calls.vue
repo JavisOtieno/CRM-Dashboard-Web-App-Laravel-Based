@@ -163,7 +163,7 @@ defineProps({
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(call, index) in calls" :key="index">
+            <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(call, index) in calls" :key="index">
                 <td>{{ call.id }}</td>
                 <td>{{ call.account.name }}</td>
                 <td>{{ call.contact.name }}</td>

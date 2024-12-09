@@ -182,10 +182,11 @@ const flash = computed(() => page.props.flash || null);
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(seller, index) in sellers" :key="index">
+                        <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" 
+                        v-for="(seller, index) in sellers" :key="index">
                             <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ seller.id }}</td>
-                            <td>{{ seller.name }}</td>
+                            <td >{{ seller.name }}</td>
                             <td>{{ seller.phone }}</td>
                             <td>{{ seller.email }}</td>
                             <td>{{ capitalizeFirstLetter(seller.status) }}</td>

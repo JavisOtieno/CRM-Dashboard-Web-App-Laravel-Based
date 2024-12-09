@@ -195,8 +195,8 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
         </tr>
     </thead>
     <tbody>
-        <tr v-for="(contact, index) in contacts" :key="index">
-                <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(contact, index) in contacts" :key="index">
+                <td>
                     {{ contact.id }}</td>
                 <td>{{ contact.user.name }}</td>
                 <td>{{ contact.name }}</td>

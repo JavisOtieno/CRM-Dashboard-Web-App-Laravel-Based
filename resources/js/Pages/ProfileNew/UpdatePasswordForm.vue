@@ -53,13 +53,14 @@ const updatePassword = () => {
                             <label for="current-password"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current
                                 password</label>
-                            <input type="password" name="current-password" id="current_password" ref="currentPasswordInput"
+                            <input type="password" name="current-password" id="current_password" 
+                            ref="currentPasswordInput"
 
                                 v-model="form.current_password" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 
                         sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
                         block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
                         dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600 
-                        dark:focus:border-primary-600" placeholder="••••••••" required>
+                        dark:focus:border-primary-600" placeholder="Current Password" required>
                         <InputError :message="form.errors.current_password" class="mt-2" />
                         </div>
                         <div class="col-span-6 sm:col-span-3">
@@ -73,7 +74,7 @@ const updatePassword = () => {
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 
                                 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600
                                  dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600 dark:focus:border-primary-600"
-                                placeholder="••••••••" required>
+                                placeholder="New Password" required>
                                 <InputError :message="form.errors.password" class="mt-2" />
                             <div data-popover id="popover-password" role="tooltip"
                                 class="absolute z-10 invisible inline-block text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
@@ -135,7 +136,7 @@ const updatePassword = () => {
                                 focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                                 dark:focus:ring-primary-600 dark:focus:border-primary-600"
-                                placeholder="••••••••" required>
+                                placeholder="Confirm Password" required>
                                 <InputError :message="form.errors.password_confirmation" class="mt-2" />
 
                         </div>

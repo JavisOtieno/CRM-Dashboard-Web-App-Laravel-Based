@@ -142,7 +142,7 @@ const deleteAccount = (accountId) => {
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(account, index) in accounts" :key="index">
+            <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(account, index) in accounts" :key="index">
                 <td>{{ account.name }}</td>
                 <td>{{ account.phone }}</td>
                 <td>{{ account.website }}</td>
