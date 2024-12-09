@@ -14,10 +14,11 @@ use App\Http\Controllers\SellerController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 /*-
 |--------------------------------------------------------------------------
@@ -43,6 +44,8 @@ Route::get('/login',  [AuthController::class, 'index'])->name('login');
 Route::post('dologin', [AuthController::class, 'doLogin'])
 ->name('dologin');
 Route::get('/signup',  [AuthController::class, 'signup'])->name('signup');
+Route::get('forgotpassword', [AuthController::class, 'showForgotPassword'])
+->name('forgotpassword');
 
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/',  [DashboardController::class, 'newindex'])->name('home');
@@ -72,7 +75,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/sellers', [SellerController::class, 'index'])->name('sellers');
     Route::get('/addseller', [SellerController::class, 'showAddSeller'])->name('addseller');
-    Route::get('/editseller/{id}', [SellerController::class, 'showEditSeller']);
+    Route::get('/editseller/{id}', [SellerController::class, 'showEditSeller'])->name('editseller');
     Route::put('/submiteditseller/{id}', [SellerController::class, 'submitEditSeller']);
     Route::delete('/deleteseller/{id}', [SellerController::class, 'deleteSeller']);
     Route::post('/submitaddseller',[ SellerController::class, 'submitAddSeller']);
@@ -159,6 +162,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
     Route::post('newlogout', [AuthController::class, 'destroy'])
     ->name('newlogout');
+  
 
     
 

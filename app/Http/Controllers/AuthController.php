@@ -13,13 +13,19 @@ class AuthController extends Controller
         //$competitors = Competitor::all();
         // $contacts = Contact::with('account')->get();
 
-        return Inertia::render('Login');
+        return Inertia::render('AuthNew/Login');
 
     }
+    
 
     public function signup() {
 
         return Inertia::render('AuthNew/Signup');
+
+    }
+    public function showForgotPassword() {
+
+        return Inertia::render('AuthNew/ForgotPassword');
 
     }
 
@@ -28,7 +34,7 @@ class AuthController extends Controller
         // $contacts = Contact::with('account')->get();
         $user = auth()->user();
 
-        return Inertia::render('Profile',compact('user'));
+        return Inertia::render('ProfileNew/Profile',compact('user'));
 
     }
 
