@@ -17,7 +17,7 @@ class DashboardController extends Controller
     {
         // $deals = Deal::all();
         // $deals = Deal::orderBy('id', 'desc')->take(5)->get();
-        $deals = Deal::with('account')->orderBy('id', 'desc')->take(5)->get();
+        $deals = Deal::with('account','product')->orderBy('id', 'desc')->take(5)->get();
         $accounts = Account::orderBy('id', 'desc')->take(5)->get();
 
         // return $accounts;
