@@ -13,7 +13,7 @@ dark:border-gray-700 mt-14">
        <div class="container mx-auto mt-2 dark:text-white">
 <!-- Add User button aligned to the right -->
 <!-- <div class="flex justify-between mb-4">
-<div class="text-lg font-semibold">Add Account</div>
+<div  class="text-lg dark:text-white font-semibold">Add Account</div>
 
    <button @click="openAddUserModal" 
  

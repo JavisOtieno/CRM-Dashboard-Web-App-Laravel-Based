@@ -73,7 +73,6 @@ export default {
       phone: '',
       email: '',
       password: '',
-      usertype: test,
       status: 'active',
       file: null,
 
@@ -90,7 +89,7 @@ export default {
       formData.append('email', form.email);
       formData.append('password', form.password);
       formData.append('status', form.status);
-      formData.append('usertype', form.usertype);
+
       formData.append('file', form.file);
 
       console.log(formData);
@@ -101,9 +100,11 @@ export default {
           form.reset(); // Optional: reset the form after submission
         },
         onError: () => {
+          alert('error');
           // Handle errors if needed
         },
       });
+
     };
 
     return { form, submitForm,handleFileChange, isAdminRoute};
@@ -172,7 +173,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Name" required />
-     <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+     <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
   </div>
 
   <div class="mb-5">
@@ -185,14 +186,14 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Phone" required />
-     <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+     <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
   </div>
 
   <div class="mb-5">
     <label for="image" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Image</label>
     <input type="file" @change="handleFileChange" name="file" accept="image/*" id="file" required />
-      <div v-if="form.errors.file" class="error">{{ form.errors.file }}</div>
+      <div v-if="form.errors.file" class="error text-primary-600 dark:text-white">{{ form.errors.file }}</div>
     <!-- <input type="text" id="image" 
     v-model="form.image"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
@@ -200,7 +201,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Image" required />
-     <div v-if="form.errors.image" class="error">{{ form.errors.image }}</div> -->
+     <div v-if="form.errors.image" class="error text-primary-600 dark:text-white">{{ form.errors.image }}</div> -->
   </div>
 
   <div class="mb-5">
@@ -213,7 +214,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Email" required />
-     <div v-if="form.errors.email" class="error">{{ form.errors.email }}</div>
+     <div v-if="form.errors.email"  class="error text-primary-600 dark:text-white">{{ form.errors.email }}</div>
   </div>
 
   <div class="mb-5">
@@ -226,7 +227,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Password" required />
-     <div v-if="form.errors.password" class="error">{{ form.errors.password }}</div>
+     <div v-if="form.errors.password" class="error text-primary-600 dark:text-white">{{ form.errors.password }}</div>
   </div>
 
 
@@ -258,30 +259,7 @@ export default {
   </div>
   </div>
 
-  <div class="mb-5">
-          <label for="user type" class="block mb-2 text-sm 
-          font-medium text-gray-900 dark:text-white">User Type</label>
-  
-          <div class="mb-5">
-        <select
-    name="usertype"
-    v-model="form.usertype"
-    id="HeadlineAct"
-    class="mt-1.5 bg-gray-50 dark:bg-gray-700 dark:text-white
-    w-full rounded-lg border-gray-300 
-    focus:ring-primary-600 focus:border-primary-600
-    dark:focus:ring-primary-600 focus:border-primary-600 
-    pe-12  text-gray-700 sm:text-sm"
-    placeholder="User Type"
-    
-  >
-  
-  <option value="admin"  >Admin</option>
-  <option value="seller" >Seller</option>
 
-  </select>
-  </div>
-  </div>
 
  
 

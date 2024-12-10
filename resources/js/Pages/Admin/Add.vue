@@ -60,7 +60,6 @@ export default {
       phone: '',
       email: '',
       password: '',
-      usertype: test,
       status: 'active',
       file: null,
 
@@ -77,7 +76,6 @@ export default {
       formData.append('email', form.email);
       formData.append('password', form.password);
       formData.append('status', form.status);
-      formData.append('usertype', form.usertype);
       formData.append('file', form.file);
 
       console.log(formData);
@@ -88,12 +86,13 @@ export default {
           form.reset(); // Optional: reset the form after submission
         },
         onError: () => {
+            alert('test')
           // Handle errors if needed
         },
       });
     };
 
-    return { form, submitForm,handleFileChange, isAdminRoute};
+    return { form, submitForm,handleFileChange};
 
     
   },
@@ -129,14 +128,14 @@ export default {
     <FormWrapper>
 
             
-            <h3 class="text-3xl font-bold dark:text-white mb-4" >Sellers</h3>
+            <h3 class="text-3xl font-bold dark:text-white mb-4" >Admins</h3>
             
             <div class="flex items-center justify-center  mb-4 rounded">
                 
                 <div class="container mx-auto mt-5">
         <!-- Add User button aligned to the right -->
         <div class="flex justify-between mb-4">
-        <div class="text-lg font-semibold dark:text-white">Add Admin }}</div>
+        <div class="text-lg font-semibold dark:text-white">Add Admin</div>
         
             <!-- <button @click="openAddUserModal" 
           
@@ -159,7 +158,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Name" required />
-     <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+     <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
   </div>
 
   <div class="mb-5">
@@ -172,14 +171,14 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Phone" required />
-     <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+     <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
   </div>
 
   <div class="mb-5">
     <label for="image" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Image</label>
     <input type="file" @change="handleFileChange" name="file" accept="image/*" id="file" required />
-      <div v-if="form.errors.file" class="error">{{ form.errors.file }}</div>
+      <div v-if="form.errors.file" class="error text-primary-600 dark:text-white">{{ form.errors.file }}</div>
     <!-- <input type="text" id="image" 
     v-model="form.image"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
@@ -187,7 +186,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Image" required />
-     <div v-if="form.errors.image" class="error">{{ form.errors.image }}</div> -->
+     <div v-if="form.errors.image" class="error text-primary-600 dark:text-white">{{ form.errors.image }}</div> -->
   </div>
 
   <div class="mb-5">
@@ -200,7 +199,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Email" required />
-     <div v-if="form.errors.email" class="error">{{ form.errors.email }}</div>
+     <div v-if="form.errors.email" class="error text-primary-600 dark:text-white">{{ form.errors.email }}</div>
   </div>
 
   <div class="mb-5">
@@ -213,7 +212,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Password" required />
-     <div v-if="form.errors.password" class="error">{{ form.errors.password }}</div>
+     <div v-if="form.errors.password"  class="error text-primary-600 dark:text-white">{{ form.errors.password }}</div>
   </div>
 
 
@@ -242,33 +241,12 @@ export default {
   <option   value="inactive">Inactive</option>
 
   </select>
+  <div v-if="form.errors.status"  class="error text-primary-600 dark:text-white">{{ form.errors.status }}</div>
+
   </div>
   </div>
 
-  <div class="mb-5">
-          <label for="user type" class="block mb-2 text-sm 
-          font-medium text-gray-900 dark:text-white">User Type</label>
-  
-          <div class="mb-5">
-        <select
-    name="usertype"
-    v-model="form.usertype"
-    id="HeadlineAct"
-    class="mt-1.5 bg-gray-50 dark:bg-gray-700 dark:text-white
-    w-full rounded-lg border-gray-300 
-    focus:ring-primary-600 focus:border-primary-600
-    dark:focus:ring-primary-600 focus:border-primary-600 
-    pe-12  text-gray-700 sm:text-sm"
-    placeholder="User Type"
-    
-  >
-  
-  <option value="admin"  >Admin</option>
-  <option value="seller" >Seller</option>
 
-  </select>
-  </div>
-  </div>
 
  
 

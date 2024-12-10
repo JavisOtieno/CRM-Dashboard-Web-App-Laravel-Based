@@ -75,8 +75,8 @@ export default {
         onError: (errors) => {
           // Handle errors here
           // You can customize the error message as per your needs
-          const errorMessages = Object.values(errors).flat().join(', ');
-          alert(`Error(s): ${errorMessages}`);
+          // const errorMessages = Object.values(errors).flat().join(', ');
+          // alert(`Error(s): ${errorMessages}`);
         },
       });
     };
@@ -130,7 +130,7 @@ export default {
           <!-- Add User button aligned to the right -->
           <div class="flex justify-between mb-4">
 
-            <div class="text-lg font-semibold">Add Account</div>
+            <div  class="text-lg dark:text-white font-semibold">Add Account</div>
 
             <!-- <button @click="openAddUserModal" 
           
@@ -150,7 +150,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Name" required />
-              <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+              <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
             </div>
 
             <div class="mb-5">
@@ -161,7 +161,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Phone" required />
-              <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+              <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
             </div>
 
             <div class="mb-5">
@@ -172,7 +172,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Website" required />
-              <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
+              <div v-if="form.errors.website" class="error text-primary-600 dark:text-white">{{ form.errors.website }}</div>
             </div>
 
             <div class="mb-5">
@@ -183,7 +183,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Address" required />
-              <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
+              <div v-if="form.errors.address" class="error text-primary-600 dark:text-white">{{ form.errors.address }}</div>
             </div>
 
 

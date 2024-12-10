@@ -133,7 +133,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter name"
             />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -164,7 +164,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter phone"
             />
-            <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+            <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -201,7 +201,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Website"
             />
-            <div v-if="form.errors.website" class="error">{{ form.errors.website }}</div>
+            <div v-if="form.errors.website" class="error text-primary-600 dark:text-white">{{ form.errors.website }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -238,7 +238,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Address"
             />
-            <div v-if="form.errors.address" class="error">{{ form.errors.address }}</div>
+            <div v-if="form.errors.address" class="error text-primary-600 dark:text-white">{{ form.errors.address }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg

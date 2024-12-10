@@ -157,7 +157,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Name"
             />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -202,7 +202,7 @@ export default {
   <option disabled value="">Select account</option>
     <option  v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}</option>
   </select>
-            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
+            <div v-if="form.errors.account_id" class="error text-primary-600 dark:text-white">{{ form.errors.account_id }}</div>
   
           </div>
         </div>
@@ -230,7 +230,7 @@ export default {
   <option disabled value="">Select contact</option>
     <option  v-for="(contact, index)  in filteredContacts" :key="index" :value="contact.id">{{ contact.name }}</option>
   </select>
-            <div v-if="form.errors.contact_id" class="error">{{ form.errors.contact_id }}</div>
+            <div v-if="form.errors.contact_id" class="error text-primary-600 dark:text-white">{{ form.errors.contact_id }}</div>
 
           </div>
         </div>
@@ -245,7 +245,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Name"
             />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -289,7 +289,7 @@ export default {
               rows="4"
               placeholder="Description"
             ></textarea>
-            <div v-if="form.errors.description" class="error">{{ form.errors.description }}</div>
+            <div v-if="form.errors.description" class="error text-primary-600 dark:text-white">{{ form.errors.description }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -340,7 +340,7 @@ export default {
               <option value="cancelled">Cancelled</option> 
 
             </select>
-            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
+            <div v-if="form.errors.status" class="error text-primary-600 dark:text-white">{{ form.errors.status }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg

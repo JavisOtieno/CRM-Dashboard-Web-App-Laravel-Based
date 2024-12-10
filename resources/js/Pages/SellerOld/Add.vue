@@ -173,7 +173,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter name"
             />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
   
           
           </div>
@@ -189,7 +189,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter phone"
             />
-            <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+            <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
   
            
           </div>
@@ -199,7 +199,7 @@ export default {
         <div>
           <label for="file">Upload Image:</label>
       <input type="file" @change="handleFileChange" name="file" accept="image/*" id="file" required />
-      <div v-if="form.errors.file" class="error">{{ form.errors.file }}</div>
+      <div v-if="form.errors.file" class="error text-primary-600 dark:text-white">{{ form.errors.file }}</div>
   
            
         
@@ -217,7 +217,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Email"
             />
-            <div v-if="form.errors.email" class="error">{{ form.errors.email }}</div>
+            <div v-if="form.errors.email" class="error text-primary-600 dark:text-white">{{ form.errors.email }}</div>
   
            
           </div>
@@ -233,7 +233,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Password"
             />
-            <div v-if="form.errors.password" class="error">{{ form.errors.password }}</div>
+            <div v-if="form.errors.password" class="error text-primary-600 dark:text-white">{{ form.errors.password }}</div>
   
            
           </div>
@@ -256,7 +256,7 @@ export default {
     <option value="inactive">Inactive</option>
 
   </select>
-            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
+            <div v-if="form.errors.status" class="error text-primary-600 dark:text-white">{{ form.errors.status }}</div>
   
             
           </div>

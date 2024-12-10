@@ -122,7 +122,7 @@ export default {
       <div class="container mx-auto mt-5">
         <!-- Add User button aligned to the right -->
         <div class="flex justify-between mb-4">
-          <div class="text-lg font-semibold">Edit Deal</div>
+          <div  class="text-lg dark:text-white font-semibold">Edit Deal</div>
 
           <!-- <button @click="openAddUserModal" 
           
@@ -142,7 +142,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Name" required />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
           </div> -->
 
 
@@ -166,7 +166,7 @@ export default {
                 <option v-for="(product, index)  in products" :key="index" :value="product.id">{{ product.name }}
                 </option>
               </select>
-              <div v-if="form.errors.product_id" class="error">{{ form.errors.product_id }}</div>
+              <div v-if="form.errors.product_id" class="error text-primary-600 dark:text-white">{{ form.errors.product_id }}</div>
 
 
             </div>
@@ -180,7 +180,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Amount" required />
-            <div v-if="form.errors.amount" class="error">{{ form.errors.amount }}</div>
+            <div v-if="form.errors.amount" class="error text-primary-600 dark:text-white">{{ form.errors.amount }}</div>
           </div>
 
 
@@ -206,7 +206,7 @@ export default {
                 <option v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}
                 </option>
               </select>
-              <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
+              <div v-if="form.errors.account_id" class="error text-primary-600 dark:text-white">{{ form.errors.account_id }}</div>
 
 
             </div>
@@ -234,7 +234,7 @@ export default {
                 <option value="cancelled">Cancelled</option>
 
               </select>
-              <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
+              <div v-if="form.errors.status" class="error text-primary-600 dark:text-white">{{ form.errors.status }}</div>
 
 
             </div>

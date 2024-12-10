@@ -152,7 +152,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Name"
             />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -183,7 +183,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Phone"
             />
-            <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+            <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
   
            
           </div>
@@ -199,7 +199,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Email"
             />
-            <div v-if="form.errors.email" class="error">{{ form.errors.email }}</div>
+            <div v-if="form.errors.email" class="error text-primary-600 dark:text-white">{{ form.errors.email }}</div>
   
            
           </div>
@@ -223,7 +223,7 @@ export default {
   
 
   </select>
-            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
+            <div v-if="form.errors.status" class="error text-primary-600 dark:text-white">{{ form.errors.status }}</div>
   
           
           </div>

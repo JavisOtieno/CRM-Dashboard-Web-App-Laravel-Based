@@ -153,7 +153,7 @@ export default {
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
 
      dark:focus:border-primary-600" placeholder="Name" required />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
           </div>
 
           <div class="mb-5">
@@ -164,14 +164,14 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Phone" required />
-            <div v-if="form.errors.phone" class="error">{{ form.errors.phone }}</div>
+            <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
           </div>
 
           <!-- <div class="mb-5">
     <label for="image" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Image</label>
     <input type="file" @change="handleFileChange" name="file" accept="image/*" id="file" required />
-      <div v-if="form.errors.file" class="error">{{ form.errors.file }}</div>
+      <div v-if="form.errors.file" class="error text-primary-600 dark:text-white">{{ form.errors.file }}</div>
     
   </div> -->
 
@@ -183,7 +183,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Email" required />
-            <div v-if="form.errors.email" class="error">{{ form.errors.email }}</div>
+            <div v-if="form.errors.email" class="error text-primary-600 dark:text-white">{{ form.errors.email }}</div>
           </div>
 
 

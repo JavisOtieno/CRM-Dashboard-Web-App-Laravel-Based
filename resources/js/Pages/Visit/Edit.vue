@@ -109,7 +109,7 @@ export default {
       <div class="container mx-auto mt-5">
         <!-- Add User button aligned to the right -->
         <div class="flex justify-between mb-4">
-          <div class="text-lg font-semibold">Edit Visit</div>
+          <div  class="text-lg dark:text-white font-semibold">Edit Visit</div>
 
           <!-- <button @click="openAddUserModal" 
           
@@ -146,7 +146,7 @@ export default {
                 <option v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}
                 </option>
               </select>
-              <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
+              <div v-if="form.errors.account_id" class="error text-primary-600 dark:text-white">{{ form.errors.account_id }}</div>
 
 
             </div>
@@ -172,7 +172,7 @@ export default {
                 <option v-for="(location, index)  in locations" :key="index" :value="location.id">{{ location.name }}
                 </option>
               </select>
-              <div v-if="form.errors.location_id" class="error">{{ form.errors.location_id }}</div>
+              <div v-if="form.errors.location_id" class="error text-primary-600 dark:text-white">{{ form.errors.location_id }}</div>
 
 
             </div>
@@ -205,7 +205,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Date" required />
-            <div v-if="form.errors.date" class="error">{{ form.errors.date }}</div>
+            <div v-if="form.errors.date" class="error text-primary-600 dark:text-white">{{ form.errors.date }}</div>
           </div>
 
           <div class="mb-5">
@@ -216,7 +216,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Time" required />
-            <div v-if="form.errors.time" class="error">{{ form.errors.time }}</div>
+            <div v-if="form.errors.time" class="error text-primary-600 dark:text-white">{{ form.errors.time }}</div>
           </div>
 
 

@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     //
     public function index() {
-        $admins = User::where('usertype','admin')->get();
+        $admins = User::where('usertype','admin')->orWhereNull('usertype')->get();
         return Inertia::render('Admin/Index',['admins' => $admins]);
     }
     public function showAddAdmin() {
@@ -25,7 +25,7 @@ class AdminController extends Controller
             'phone'=>['required','string','min:10','max:255', 
             // new PhoneNumber
         ],
-            'email'=>'required|string|max:255',
+            'email'=>'required|string|unique:users|max:255',
             'status' => 'required|string|max:255',
             'password' => ['required','string','max:255','min:8',
             
@@ -83,9 +83,8 @@ class AdminController extends Controller
             'phone'=>['required','string','min:10','max:255', 
              new PhoneNumber
         ],
-            'email'=>'required|string|max:255',
+            'email'=>'required|string|max:255|unique:users,email,' . $id,
             'status' => 'required|string|max:255',
-            'usertype' => 'required|string|max:255',
             // 'file' => 'required|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
             
         ]);

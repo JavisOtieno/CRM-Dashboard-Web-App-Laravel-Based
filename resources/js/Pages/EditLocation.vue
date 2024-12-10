@@ -144,7 +144,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter name"
             />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
   
             
           </div>
@@ -161,7 +161,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter Latitude"
             />
-            <div v-if="form.errors.lat" class="error">{{ form.errors.lat }}</div>
+            <div v-if="form.errors.lat" class="error text-primary-600 dark:text-white">{{ form.errors.lat }}</div>
   
             
           </div>
@@ -176,7 +176,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Enter Longitude"
             />
-            <div v-if="form.errors.long" class="error">{{ form.errors.long }}</div>
+            <div v-if="form.errors.long" class="error text-primary-600 dark:text-white">{{ form.errors.long }}</div>
   
         
           </div>
@@ -205,7 +205,7 @@ export default {
   <option disabled value="">Select account</option>
     <option  v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}</option>
   </select>
-            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
+            <div v-if="form.errors.account_id" class="error text-primary-600 dark:text-white">{{ form.errors.account_id }}</div>
   
             
           </div>
@@ -228,7 +228,7 @@ export default {
     rows="4"
     placeholder="Enter location description..."
   ></textarea>
-            <div v-if="form.errors.description" class="error">{{ form.errors.desciption }}</div>
+            <div v-if="form.errors.description" class="error text-primary-600 dark:text-white">{{ form.errors.desciption }}</div>
   
           
           </div>

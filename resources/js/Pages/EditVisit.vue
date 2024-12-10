@@ -174,7 +174,7 @@ export default {
               <option  v-for="(account, index)  in accounts" :key="index" :value="account.id">{{ account.name }}</option>
             </select>
             
-            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
+            <div v-if="form.errors.account_id" class="error text-primary-600 dark:text-white">{{ form.errors.account_id }}</div>
   
   
           </div>
@@ -203,7 +203,7 @@ export default {
             <option disabled value="">Select location</option>
               <option  v-for="(location, index)  in filteredLocations" :key="index" :value="location.id">{{ location.name }}</option>
             </select>
-            <div v-if="form.errors.location_id" class="error">{{ form.errors.location_id }}</div>
+            <div v-if="form.errors.location_id" class="error text-primary-600 dark:text-white">{{ form.errors.location_id }}</div>
   
            
           </div>
@@ -234,7 +234,7 @@ export default {
             <option value="cancelled">Cancelled</option> 
 
           </select>
-            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
+            <div v-if="form.errors.status" class="error text-primary-600 dark:text-white">{{ form.errors.status }}</div>
   
            
           </div>

@@ -161,7 +161,7 @@ export default {
 
 
 </div>
-            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
+            <div v-if="form.errors.account_id" class="error text-primary-600 dark:text-white">{{ form.errors.account_id }}</div>
   
            
           </div>
@@ -178,7 +178,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Name"
             />
-            <div v-if="form.errors.name" class="error">{{ form.errors.name }}</div>
+            <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
   
          
           </div>
@@ -194,7 +194,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Amount"
             />
-            <div v-if="form.errors.amount" class="error">{{ form.errors.amount }}</div>
+            <div v-if="form.errors.amount" class="error text-primary-600 dark:text-white">{{ form.errors.amount }}</div>
   
          
           </div>
@@ -224,7 +224,7 @@ export default {
     <option value="cancelled">Cancelled</option> 
 
   </select>
-            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
+            <div v-if="form.errors.status" class="error text-primary-600 dark:text-white">{{ form.errors.status }}</div>
   
             
           </div>

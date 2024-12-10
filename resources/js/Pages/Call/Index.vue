@@ -146,7 +146,7 @@ const flash = computed(() => page.props.flash || null);
                 <div class="container mx-auto mt-5">
                     <!-- Add User button aligned to the right -->
                     <div class="flex justify-between mb-4">
-                        <div class="text-lg font-semibold">Calls Table</div>
+                        <div  class="text-lg dark:text-white font-semibold">Calls Table</div>
 
 
 

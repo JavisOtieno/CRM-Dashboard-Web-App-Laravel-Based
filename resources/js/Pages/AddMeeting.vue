@@ -137,7 +137,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Account Id"
             />
-            <div v-if="form.errors.account_id" class="error">{{ form.errors.account_id }}</div>
+            <div v-if="form.errors.account_id" class="error text-primary-600 dark:text-white">{{ form.errors.account_id }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -168,7 +168,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Contact Id"
             />
-            <div v-if="form.errors.contact_id" class="error">{{ form.errors.contact_id }}</div>
+            <div v-if="form.errors.contact_id" class="error text-primary-600 dark:text-white">{{ form.errors.contact_id }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -205,7 +205,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Type"
             />
-            <div v-if="form.errors.type" class="error">{{ form.errors.type }}</div>
+            <div v-if="form.errors.type" class="error text-primary-600 dark:text-white">{{ form.errors.type }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -242,7 +242,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Location"
             />
-            <div v-if="form.errors.location" class="error">{{ form.errors.location }}</div>
+            <div v-if="form.errors.location" class="error text-primary-600 dark:text-white">{{ form.errors.location }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -279,7 +279,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Date"
             />
-            <div v-if="form.errors.date" class="error">{{ form.errors.date }}</div>
+            <div v-if="form.errors.date" class="error text-primary-600 dark:text-white">{{ form.errors.date }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -316,7 +316,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Time"
             />
-            <div v-if="form.errors.time" class="error">{{ form.errors.time }}</div>
+            <div v-if="form.errors.time" class="error text-primary-600 dark:text-white">{{ form.errors.time }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -353,7 +353,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Description"
             />
-            <div v-if="form.errors.description" class="error">{{ form.errors.description }}</div>
+            <div v-if="form.errors.description" class="error text-primary-600 dark:text-white">{{ form.errors.description }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
@@ -390,7 +390,7 @@ export default {
               class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
               placeholder="Status"
             />
-            <div v-if="form.errors.status" class="error">{{ form.errors.status }}</div>
+            <div v-if="form.errors.status" class="error text-primary-600 dark:text-white">{{ form.errors.status }}</div>
   
             <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
               <svg
