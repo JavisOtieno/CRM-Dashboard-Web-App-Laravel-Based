@@ -185,8 +185,8 @@ const toggleDropdown = () => {
               
 
               :class="{
-                        'flex items-center p-2 text-gray-900 bg-red-100 rounded-lg dark:bg-red-700': route().current('newdashboard'),
-                        'flex items-center p-2 text-gray-900 rounded-lg hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !route().current('newdashboard')
+                        'flex items-center p-2 text-gray-900 bg-red-100 rounded-lg dark:bg-red-700': (route().current('dashboard') || route().current('home')),
+                        'flex items-center p-2 text-gray-900 rounded-lg hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !(route().current('dashboard') || route().current('home')),
                     }"
               >
             <!-- <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -225,7 +225,12 @@ const toggleDropdown = () => {
             :class="{ hidden: !isOpen, 'py-2 space-y-2': true }"
             >
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-red-100 dark:text-white dark:hover:bg-red-700">Admins</a>
+                     <Link :href="route('admins')"  
+                     :class="{
+                        'flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group bg-red-100 dark:text-white dark:bg-red-700': route().current('admins'),
+                        'flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !route().current('admins')
+                    }"
+                      >Admins</Link>
                   </li>
                   <li>
                     <Link :href="route('sellers')"  
@@ -233,7 +238,6 @@ const toggleDropdown = () => {
                         'flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group bg-red-100 dark:text-white dark:bg-red-700': route().current('sellers'),
                         'flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !route().current('sellers')
                     }"
-                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-red-100 dark:text-white dark:hover:bg-red-700"
                     >Sellers</Link>
                   </li>
                   

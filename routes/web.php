@@ -9,6 +9,7 @@ use App\Http\Controllers\CallController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\AccountController;
@@ -80,6 +81,13 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/submitaddseller',[ SellerController::class, 'submitAddSeller']);
 
     Route::get('/newsellers', [SellerController::class, 'newindex'])->name('newsellers');
+
+    Route::get('/admins', [AdminController::class, 'index'])->name('admins');
+    Route::get('/addadmin', [AdminController::class, 'showAddAdmin'])->name('addadmin');
+    Route::get('/editadmin/{id}', [AdminController::class, 'showEditAdmin'])->name('editadmin');
+    Route::put('/submiteditadmin/{id}', [AdminController::class, 'submitEditAdmin']);
+    Route::delete('/deleteadmin/{id}', [AdminController::class, 'deleteAdmin']);
+    Route::post('/submitaddadmin',[ AdminController::class, 'submitAddAdmin']);
 
     Route::get('/viewprofile', [AuthController::class, 'profile'])->name('profile');
 

@@ -269,7 +269,7 @@ const chartOptionsLeads = {
 const chartSeries = [
   {
     name: "Organic",
-    color: "#1A56DB",
+    color: "#E82646",
     data: [
       { x: "Mon", y: 231 },
       { x: "Tue", y: 122 },
@@ -282,7 +282,7 @@ const chartSeries = [
   },
   {
     name: "Social media",
-    color: "#FDBA8C",
+    color: "#05C3FB",
     data: [
       { x: "Mon", y: 232 },
       { x: "Tue", y: 113 },
@@ -322,20 +322,24 @@ const chartOptionsPie = {
     },
   },
   dataLabels: {
-    enabled: true,
+    enabled: false,
+    formatter: function (val) {
+        return Math.round(val); // Rounds to the nearest whole number
+    },
     style: {
       fontFamily: "Inter, sans-serif",
       fontSize: "14px",
       colors: ["#fff"], // Adjust for themes
     },
+    borderWidth: 0 // Removes border shadows if they exist
   },
   fill: {
-    colors: ["#1A56DB", "#FDBA8C", "#A3E635", "#9061F9"], // Pie chart slice colors
+    colors: ["#E82646", "#6C5FFC", "#05C3FB", "#09AD95"], // Pie chart slice colors
   },
 };
 
 // Pie chart series data
-const chartSeriesPie = [44, 55, 13, 33]; // Represents values for each label
+const chartSeriesPie = [44, 20, 13, 33]; // Represents values for each label
 
 
 // Register VueApexCharts component

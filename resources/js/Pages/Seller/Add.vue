@@ -2,7 +2,7 @@
 import FormWrapper from '@/Pages/FormWrapper.vue';
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
-import { onMounted  } from 'vue'
+import { onMounted, ref  } from 'vue'
 import { 
     initAccordions, 
     initCarousels, 
@@ -27,7 +27,10 @@ export default {
       default: () => [],
     },
   },
+  
   setup(props) {
+    const isAdminRoute = ref(false);  // Reactive variable
+    const usertype = ref(false);
     onMounted(() => {
       // Initialization code for the profile pop-up
     initAccordions();
@@ -41,23 +44,43 @@ export default {
     initPopovers();
     initTabs();
     initTooltips();
+
+    const currentPath = window.location.pathname;
+    isAdminRoute.value = currentPath.includes('admin');
+
+    if (isAdminRoute){
+      usertype.value = 'admin';
+    }else{
+      usertype.value = 'seller';
+    }
+
     });
     // Initialize form state with useForm
 
     const handleFileChange = (event) => {
       form.file = event.target.files[0]; // Assign the file to the form
     };
+
+    let test = '';
+    if(window.location.pathname.includes('admin')){
+      test = 'admin';
+    }else{
+      test = 'seller';
+    }
     // Initialize form state with useForm
     const form = useForm({
       name: '',
       phone: '',
       email: '',
       password: '',
-      usertype: 'seller',
+      usertype: test,
       status: 'active',
       file: null,
 
     });
+
+
+
     
     const submitForm = () => {
       // Create a FormData object
@@ -83,7 +106,7 @@ export default {
       });
     };
 
-    return { form, submitForm,handleFileChange, };
+    return { form, submitForm,handleFileChange, isAdminRoute};
 
     
   },
@@ -118,14 +141,15 @@ export default {
 
     <FormWrapper>
 
-            <h3 class="text-3xl font-bold dark:text-white mb-4">Sellers</h3>
+            <h3 class="text-3xl font-bold dark:text-white mb-4" v-if="isAdminRoute">Admins</h3>
+            <h3 class="text-3xl font-bold dark:text-white mb-4" v-else >Sellers</h3>
             
             <div class="flex items-center justify-center  mb-4 rounded">
                 
                 <div class="container mx-auto mt-5">
         <!-- Add User button aligned to the right -->
         <div class="flex justify-between mb-4">
-        <div class="text-lg font-semibold dark:text-white">Add Seller</div>
+        <div class="text-lg font-semibold dark:text-white">Add {{ isAdminRoute ? 'Admin' : 'Seller' }}</div>
         
             <!-- <button @click="openAddUserModal" 
           
@@ -252,8 +276,8 @@ export default {
     
   >
   
-  <option value="admin">Admin</option>
-  <option value="seller">Seller</option>
+  <option value="admin"  >Admin</option>
+  <option value="seller" >Seller</option>
 
   </select>
   </div>
