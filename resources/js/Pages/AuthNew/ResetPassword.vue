@@ -3,9 +3,11 @@
 import { Head } from '@inertiajs/vue3';
 import { useForm } from '@inertiajs/vue3'; // Make sure @inertiajs/vue3 is installed
 import { Link } from '@inertiajs/vue3';
+import LoggedoutWrapper from '../LoggedoutWrapper.vue';
+import { ref } from 'vue';
 
 export default {
-  components: { Link },
+  components: { Link, LoggedoutWrapper },
 //   components: { SidebarNew },
 //   props: {
 //     location: {
@@ -17,6 +19,12 @@ export default {
 //       default: () => [],
 //     },
 //   },
+methods: {
+    resetAlerts() {
+        this.alertMessage = '';
+        this.alertStatus = '';
+    },
+},
 props: {
 
     email: {
@@ -39,26 +47,34 @@ props: {
         password: '',
         password_confirmation: '',
     });
+
+    const alertMessage = ref('');
+    const alertStatus = ref('');
     
     const submitForm = () => {
     form.post(route('password.store'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
         onSuccess: () => {
             form.reset('email');
-            alert("Password reset successfully")
+            // alert("Password reset successfully")
+            alertMessage.value = 'Email sent successfully'; // Update alert message
+            alertStatus.value = 'success';
+
         },
         onError: (errors) => {
             // Handle errors here
             // You can customize the error message as per your needs
             const errorMessages = Object.values(errors).flat().join(', ');
-            alert(`Error(s): ${errorMessages}`);
+            // alert(`Error(s): ${errorMessages}`);
+            alertMessage.value = `Error(s): ${errorMessages}`;
+            alertStatus.value = 'failure';
         },
     });
 
   
     };
 
-    return { form, submitForm };
+    return { form, submitForm, alertMessage, alertStatus };
 
 
     
@@ -67,12 +83,8 @@ props: {
 </script>
 
 <template>
-<section class="bg-defaultbackground-50 dark:bg-defaultbackground-900" >
-    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-            <img class="w-40 h-8 mr-2" src="/images/logo-rtms.png" alt="logo">
-            <!-- CRMTest     -->
-        </a>
+<LoggedoutWrapper :alert-message="alertMessage" :alert-status="alertStatus"  @reset-alerts="resetAlerts">
+
         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -131,6 +143,5 @@ props: {
                 </form>
             </div>
         </div>
-    </div>
-  </section>
+</LoggedoutWrapper>
   </template>

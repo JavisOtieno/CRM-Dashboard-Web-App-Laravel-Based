@@ -62,7 +62,7 @@ export default {
           // Handle errors here
           // You can customize the error message as per your needs
           const errorMessages = Object.values(errors).flat().join(', ');
-          alert(`Error(s): ${errorMessages}`);
+          // alert(`Error(s): ${errorMessages}`);
         },
       });
     };

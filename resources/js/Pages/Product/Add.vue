@@ -69,7 +69,7 @@ export default {
 
       form.post('/submitaddproduct', formData, {
         onSuccess: () => {
-          alert('Product created successfully!');
+          // alert('Product created successfully!');
           form.reset(); // Optional: reset the form after submission
         },
         onError: () => {
