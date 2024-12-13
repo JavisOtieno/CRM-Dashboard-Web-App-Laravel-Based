@@ -2,9 +2,9 @@
     
     <section class="bg-defaultbackground-50 dark:bg-defaultbackground-900" >
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            <Link href="/dashboard" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 <img class="w-40 h-8 mr-2" src="/images/logo-rtms.png" alt="logo">
-            </a>
+            </Link>
             <slot></slot>
         </div>
     </section>
@@ -49,11 +49,12 @@
 
 <script>
 import SidebarNew from '@/Pages/Sidebarnew.vue';
+import { Link } from '@inertiajs/vue3';
 
 export default {
     name: 'TableWrapper',
     components: {
-        SidebarNew,
+        SidebarNew, Link
     },
     props: {
         alertMessage: {
