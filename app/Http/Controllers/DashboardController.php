@@ -43,6 +43,7 @@ class DashboardController extends Controller
         ->orderBy('created_at', 'desc') // Optional: Order by newest first
         ->count();
 
+
         $dealsLastWeek =  Deal::with('account', 'product')
         ->whereBetween('created_at', [
             Carbon::now()->subDays(14)->startOfDay(), // Start of 14 days ago
@@ -104,6 +105,7 @@ class DashboardController extends Controller
         } else {
             $percentageChangeDeals = (($dealsThisWeek - $dealsLastWeek) / $dealsLastWeek) * 100;
         }
+        $percentageChangeDeals = round($percentageChangeDeals, 2);
 
         $deals = Deal::with('account','product')->orderBy('id', 'desc')->take(5)->get();
         $accounts = Account::orderBy('id', 'desc')->take(5)->get();
@@ -172,6 +174,7 @@ class DashboardController extends Controller
         $leadsThisMonth = Lead::whereMonth('created_at', now()->month)  // Filter by current month
         ->whereYear('created_at', now()->year)    // Filter by current year
         ->count();
+       
 
         if($leadsThisMonth==0){
             $conversionRate=0;
