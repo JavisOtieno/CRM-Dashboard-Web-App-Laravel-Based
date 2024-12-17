@@ -72,7 +72,26 @@ class DashboardController extends Controller
     ->toArray();
 
     // return $dealsLastre7Days;
-
+    $dates = collect();
+    for ($i = 6; $i >= 0; $i--) {
+        $dates->push(Carbon::now()->subDays($i)->toDateString());
+    }
+    
+    $dealsLast7Days = Deal::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
+        ->whereBetween('created_at', [
+            Carbon::now()->subDays(6)->startOfDay(),
+            Carbon::now()->endOfDay(),
+        ])
+        ->groupBy(DB::raw('DATE(created_at)'))
+        ->orderBy('date', 'asc')
+        ->get()
+        ->pluck('count', 'date')
+        ->toArray();
+    
+    // Fill in missing dates with zero count
+    $dealsLast7Days = $dates->mapWithKeys(function ($date) use ($dealsLast7Days) {
+        return [$date => $dealsLast7Days[$date] ?? 0];
+    })->toArray();
 
         $leadsLast7Days = Lead::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
         ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
