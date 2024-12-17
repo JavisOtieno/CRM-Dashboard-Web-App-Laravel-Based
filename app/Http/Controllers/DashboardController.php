@@ -71,7 +71,7 @@ class DashboardController extends Controller
     ->pluck('count')
     ->toArray();
 
-    return $dealsLast7Days;
+    // return $dealsLastre7Days;
 
 
         $leadsLast7Days = Lead::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
