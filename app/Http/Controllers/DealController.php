@@ -48,7 +48,7 @@ class DealController extends Controller
         Deal::create($incomingFields);
 
         // return redirect('/newdeals');
-        return redirect('/newdeals')->with([
+        return redirect('/deals')->with([
             'flash' => [
                 'status' => 'success',
                 'message' => 'Deal added successfully'
@@ -62,7 +62,7 @@ class DealController extends Controller
         $deal = Deal::find($id);
         $deal->delete();
         // return redirect('/newdeals');
-        return redirect('/newdeals')->with([
+        return redirect('/deals')->with([
             'flash' => [
                 'status' => 'success',
                 'message' => 'Deal deleted successfully'
@@ -101,7 +101,7 @@ class DealController extends Controller
         $deal->update($incomingFields);
 
         // return redirect('/newdeals');
-        return redirect('/newdeals')->with([
+        return redirect('/deals')->with([
             'flash' => [
                 'status' => 'success',
                 'message' => 'Deal edited successfully'
