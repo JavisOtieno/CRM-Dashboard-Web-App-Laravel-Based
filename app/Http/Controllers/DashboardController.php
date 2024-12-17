@@ -71,6 +71,8 @@ class DashboardController extends Controller
     ->pluck('count')
     ->toArray();
 
+    return $dealsLast7Days;
+
 
         $leadsLast7Days = Lead::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
         ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
