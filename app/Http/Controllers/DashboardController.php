@@ -173,7 +173,12 @@ class DashboardController extends Controller
         ->whereYear('created_at', now()->year)    // Filter by current year
         ->count();
 
-        $conversionRate = $accountsThisMonth/$leadsThisMonth*100;
+        if($leadsThisMonth==0){
+            $conversionRate=0;
+        }else{
+            $conversionRate = $accountsThisMonth/$leadsThisMonth*100;
+        }
+        
 
         $productData = Product::select('id', 'name') // Select the product ID and name
         ->withCount(['deals' => function ($query) {
