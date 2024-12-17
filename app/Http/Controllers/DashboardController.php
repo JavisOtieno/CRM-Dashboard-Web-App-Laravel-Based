@@ -195,6 +195,7 @@ class DashboardController extends Controller
             $percentageChange = $currentMonthDeals > 0 ? 100 : 0; // Avoid division by zero
         } else {
             $percentageChange = (($currentMonthDeals - $lastMonthDeals) / $lastMonthDeals) * 100;
+            $percentageChange = round($percentageChange, 2);
         }
                 //get months Jan Feb Mar...Dec
                 for ($i = 0; $i <= 11; $i++) {
@@ -216,6 +217,7 @@ class DashboardController extends Controller
             $conversionRate=0;
         }else{
             $conversionRate = $accountsThisMonth/$leadsThisMonth*100;
+            $conversionRate = round($conversionRate, 2);
         }
         
 
