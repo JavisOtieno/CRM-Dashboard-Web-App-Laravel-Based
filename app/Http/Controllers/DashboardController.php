@@ -197,6 +197,20 @@ class DashboardController extends Controller
             $percentageChange = (($currentMonthDeals - $lastMonthDeals) / $lastMonthDeals) * 100;
             $percentageChange = round($percentageChange, 2);
         }
+
+
+        // Fetch deal counts
+        $currentMonthLeads = Lead::whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])->count();
+
+        $lastMonthLeads = Lead::whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])->count();
+
+        // Calculate percentage change
+        if ($lastMonthLeads == 0) {
+            $percentageChangeLeads = $currentMonthLeads > 0 ? 100 : 0; // Avoid division by zero
+        } else {
+            $percentageChangeLeads = (($currentMonthLeads - $lastMonthLeads) / $lastMonthLeads) * 100;
+            $percentageChangeLeads = round($percentageChangeLeads, 2);
+        }
                 //get months Jan Feb Mar...Dec
                 for ($i = 0; $i <= 11; $i++) {
                     $months[] = date("M", strtotime( date( 'Y-m-01' )." -$i months"));
@@ -272,6 +286,7 @@ class DashboardController extends Controller
             'months',
             'percentageChange',
             'dealsThisWeek',
+            'percentageChangeLeads',
             'percentageChangeDeals',
             'dealsLast7Days',
             'leadsLast7Days',
