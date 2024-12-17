@@ -52,13 +52,25 @@ class DashboardController extends Controller
         ->orderBy('created_at', 'desc') // Optional: order by newest first
         ->count();
 
+        // $dealsLast7Days = Deal::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
+        // ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
+        // ->groupBy('date')
+        // ->orderBy('date', 'asc')
+        // ->get()
+        // ->pluck('count')
+        // ->toArray();
+
         $dealsLast7Days = Deal::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
-        ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
-        ->groupBy('date')
-        ->orderBy('date', 'asc')
-        ->get()
-        ->pluck('count')
-        ->toArray();
+    ->whereBetween('created_at', [
+        Carbon::now()->subDays(6)->startOfDay(), // Start of 7 days ago
+        Carbon::now()->endOfDay(),               // End of today
+    ])
+    ->groupBy(DB::raw('DATE(created_at)')) // Group by date
+    ->orderBy('date', 'asc')
+    ->get()
+    ->pluck('count')
+    ->toArray();
+
 
         $leadsLast7Days = Lead::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
         ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
