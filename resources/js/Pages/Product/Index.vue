@@ -5,6 +5,10 @@ import { onMounted, onBeforeUnmount, ref, computed, toRefs } from 'vue'
 import { useForm, usePage } from '@inertiajs/vue3'
 import TableWrapper from '@/Pages/TableWrapper.vue';
 
+import { useUserStore } from '../../store/user';
+const userStore = useUserStore();
+const user = userStore.user;
+
 
 import { 
     initAccordions, 
@@ -54,6 +58,7 @@ const selectedProduct = ref(null);
 
 function openModal(product) {
     // alert(account.id)
+    alert(product.id);
 
   selectedProduct.value = product.id; // Set the selected product data
 //   isModalVisible.value = true; // Show the modal
@@ -105,6 +110,15 @@ function formatTargetAmount(product) {
   return product.target_amount; // Fallback
 }
 
+function formatAmountSold(product) {
+  if (product.target_type === 'value') {
+    return `Ksh. ${product.deals_sum_amount}`;
+  } else if (product.target_type === 'quantity') {
+    return `${product.deals_sum_amount} units`;
+  }
+  return product.deals_sum_amount; // Fallback
+}
+
 
 if (document.getElementById("search-table") && typeof simpleDatatables.DataTable !== 'undefined') {
     const dataTable = new simpleDatatables.DataTable("#search-table", {
@@ -151,7 +165,8 @@ const capitalizeFirstLetter= (string) => {
         
         
         
-             <Link :href="route('addproduct')"  as="button"  class="bg-primary-600 text-white w-1/3 px-4 py-2 
+             <Link v-if="user.usertype === 'admin'"
+              :href="route('addproduct')"  as="button"  class="bg-primary-600 text-white w-1/3 px-4 py-2 
             rounded hover:bg-primary-700">
                 Add Product
 
@@ -188,7 +203,12 @@ const capitalizeFirstLetter= (string) => {
             </th> -->
             <th>
                 <span class="flex items-center">
-                 Amount
+                 Target Amount
+                </span>
+            </th>
+            <th  v-if="user.usertype === 'seller'">
+                <span class="flex items-center">
+                 Amount Sold
                 </span>
             </th>
             
@@ -197,7 +217,7 @@ const capitalizeFirstLetter= (string) => {
                     Status
                 </span>
             </th>
-            <th><span class="flex items-center">Actions</span></th>
+            <th v-if="user.usertype === 'admin'"><span class="flex items-center">Actions</span></th>
         </tr>
     </thead>
     <tbody>
@@ -208,10 +228,10 @@ const capitalizeFirstLetter= (string) => {
                 <td>{{ product.name }}</td>
                 <!-- <td>{{ product.target_type }}</td> -->
                 <td>{{ formatTargetAmount(product) }}</td>
+                <td v-if="user.usertype === 'seller'" >{{ formatTargetAmount(product) }}</td>
                 <td>{{ capitalizeFirstLetter(product.status) }}</td>
                 
-                
-                <td>
+                <td v-if="user.usertype === 'admin'" >
 
 <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
 <Link
@@ -219,6 +239,7 @@ const capitalizeFirstLetter= (string) => {
 class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
 title="Edit Product"
 >
+
 <svg
 xmlns="http://www.w3.org/2000/svg"
 fill="none"
@@ -232,6 +253,7 @@ stroke-linecap="round"
 stroke-linejoin="round"
 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
 />
+{{product.id}}
 </svg>
 </Link>
 

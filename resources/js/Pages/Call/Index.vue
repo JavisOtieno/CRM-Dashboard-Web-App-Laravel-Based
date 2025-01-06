@@ -6,6 +6,7 @@ import { useForm } from '@inertiajs/vue3'
 import { usePage } from '@inertiajs/vue3'
 // import SidebarNew from '@/Pages/Sidebarnew.vue';
 import TableWrapper from '@/Pages/TableWrapper.vue';
+import { useUserStore } from '../../store/user';
 import {
     initAccordions,
     initCarousels,
@@ -21,13 +22,16 @@ import {
     initTooltips
 } from 'flowbite'
 
-const people = ref([
-    { name: "John Doe", age: 30, city: "New York" },
-    { name: "Jane Smith", age: 25, city: "Los Angeles" },
-    { name: "Sam Wilson", age: 40, city: "Chicago" },
-]);
+
 const form = useForm({});
 const imageUrl = '/images/logo-dark.png';
+
+// Access the Pinia store
+const userStore = useUserStore();
+
+// Reactive data from the store
+const user = userStore.user;
+
 
 // initialize components based on data attribute selectors
 onMounted(() => {
@@ -164,6 +168,8 @@ const flash = computed(() => page.props.flash || null);
               </svg>
            </p> -->
 
+           
+
 
 
 
@@ -175,7 +181,7 @@ const flash = computed(() => page.props.flash || null);
                                         ID
                                     </span>
                                 </th>
-                                <th>
+                                <th v-if="user.usertype === 'admin'">
                                     <span class="flex items-center">
                                         Seller
                                     </span>
@@ -202,7 +208,8 @@ const flash = computed(() => page.props.flash || null);
                             <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(call, index) in calls" :key="index">
                                 <td >
                                     {{ call.id }}</td>
-                                <td>{{ call.user.name }}</td>
+                                <td v-if="user.usertype === 'admin'">
+                                    {{ call.user.name }}</td>
                                 <td>{{ call.account.name }}</td>
                                 <td>{{ call.contact.name }}</td>
                                 <td>{{ capitalizeFirstLetter(call.status) }}</td>

@@ -3,11 +3,17 @@
 
     import { ref, onMounted } from "vue";
 
+    import { useUserStore } from '../store/user';
+const userStore = useUserStore();
+const user = userStore.user;
+
 const isOpen = ref(false);
 const isValidRoute = ref(false);
 const dropdownRoutes = ["/sellers", "/admins"]; // Define the routes that belong to the dropdown
 
 const isDarkMode = ref(false);
+
+
 
 // Check if the current route matches any dropdown route
 onMounted(() => {
@@ -166,7 +172,7 @@ class="w-5 h-5"
         <img class="w-8 h-8 rounded-full" 
           :src="`${
             $page.props.auth.user.image 
-            ? `storage/${$page.props.auth.user.image}` 
+            ? `/storage/${$page.props.auth.user.image}` 
             : '/images/profilepicdefault.jpg'
           }`"
           alt="user photo">
@@ -249,7 +255,7 @@ class="w-5 h-5"
 
            
 
-           <li>
+           <li v-if="user.usertype === 'admin'">
             <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-red-100 dark:text-white dark:hover:bg-red-700"  data-collapse-toggle="dropdown-example">
                   <!-- <svg class="flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"  xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
                      <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
@@ -285,6 +291,28 @@ class="w-5 h-5"
                   
             </ul>
          </li>
+
+         <li>
+            <Link :href="route('products')" 
+            :class="{
+                        'flex items-center p-2 text-gray-900 bg-red-100 rounded-lg dark:bg-red-700': route().current('products'),
+                        'flex items-center p-2 text-gray-900 rounded-lg hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !route().current('products')
+                    }"
+            >
+
+
+<!-- <svg class="w-6 h-6 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M4.857 3A1.857 1.857 0 0 0 3 4.857v4.286C3 10.169 3.831 11 4.857 11h4.286A1.857 1.857 0 0 0 11 9.143V4.857A1.857 1.857 0 0 0 9.143 3H4.857Zm10 0A1.857 1.857 0 0 0 13 4.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 21 9.143V4.857A1.857 1.857 0 0 0 19.143 3h-4.286Zm-10 10A1.857 1.857 0 0 0 3 14.857v4.286C3 20.169 3.831 21 4.857 21h4.286A1.857 1.857 0 0 0 11 19.143v-4.286A1.857 1.857 0 0 0 9.143 13H4.857Zm10 0A1.857 1.857 0 0 0 13 14.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 21 19.143v-4.286A1.857 1.857 0 0 0 19.143 13h-4.286Z" clip-rule="evenodd"/>
+</svg> -->
+<svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/>
+</svg>
+
+
+
+                 <span class="flex-1 ms-3 whitespace-nowrap">Products</span>
+                </Link>
+           </li>
            
            <li>
             <Link :href="route('accounts')" 
@@ -499,27 +527,7 @@ class="w-5 h-5"
 
   
 
-           <li>
-            <Link :href="route('products')" 
-            :class="{
-                        'flex items-center p-2 text-gray-900 bg-red-100 rounded-lg dark:bg-red-700': route().current('products'),
-                        'flex items-center p-2 text-gray-900 rounded-lg hover:bg-red-100 dark:text-white dark:hover:bg-red-700': !route().current('products')
-                    }"
-            >
-
-
-<!-- <svg class="w-6 h-6 text-gray-500 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M4.857 3A1.857 1.857 0 0 0 3 4.857v4.286C3 10.169 3.831 11 4.857 11h4.286A1.857 1.857 0 0 0 11 9.143V4.857A1.857 1.857 0 0 0 9.143 3H4.857Zm10 0A1.857 1.857 0 0 0 13 4.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 21 9.143V4.857A1.857 1.857 0 0 0 19.143 3h-4.286Zm-10 10A1.857 1.857 0 0 0 3 14.857v4.286C3 20.169 3.831 21 4.857 21h4.286A1.857 1.857 0 0 0 11 19.143v-4.286A1.857 1.857 0 0 0 9.143 13H4.857Zm10 0A1.857 1.857 0 0 0 13 14.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 21 19.143v-4.286A1.857 1.857 0 0 0 19.143 13h-4.286Z" clip-rule="evenodd"/>
-</svg> -->
-<svg class="w-6 h-6 text-red-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"/>
-</svg>
-
-
-
-                 <span class="flex-1 ms-3 whitespace-nowrap">Products</span>
-                </Link>
-           </li>
+          
 
 
          

@@ -53,8 +53,7 @@ Route::middleware(['auth','verified'])->group(function () {
     // Route::get('/dashboard',  [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard',  [DashboardController::class, 'newindex'])->name('dashboard');
     Route::get('/newdashboard',  [DashboardController::class, 'newindex'])->name('newdashboard');
-    Route::get('/newaccounts', [AccountController::class, 'index'])->name('newaccounts');
-    Route::get('/accounts',  [AccountController::class, 'newindex'])->name('accounts');
+
 
     Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
     Route::get('/addcontact', [ContactController::class, 'showAddContact'])->name('addcontact');
@@ -87,6 +86,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/editadmin/{id}', [AdminController::class, 'showEditAdmin'])->name('editadmin');
     Route::put('/submiteditadmin/{id}', [AdminController::class, 'submitEditAdmin']);
     Route::delete('/deleteadmin/{id}', [AdminController::class, 'deleteAdmin']);
+    Route::get('/deleteadmin/{id}', [AdminController::class, 'showDeleteAdmin']);
     Route::post('/submitaddadmin',[ AdminController::class, 'submitAddAdmin']);
 
     Route::get('/viewprofile', [AuthController::class, 'profile'])->name('profile');
@@ -122,6 +122,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::delete('/deletecall/{id}', [CallController::class, 'deleteCall']);
     Route::post('/submitaddcall',[ CallController::class, 'submitAddCall']);
     Route::get('/calls',  [CallController::class, 'index'])->name('newcalls');
+    Route::get('/addcall', [CallController::class, 'showAddCall'])->name('addcall');
 
     Route::get('/newvisits', [VisitController::class, 'index'])->name('visits');
     Route::get('/addvisit', [VisitController::class, 'showAddVisit'])->name('addvisit');
@@ -150,12 +151,14 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/submitaddmeeting',[ MeetingController::class, 'submitAddMeeting']);
     Route::get('/newmeetings',  [MeetingController::class, 'newindex'])->name('newmeetings');
 
-
+    
+    Route::get('/newaccounts', [AccountController::class, 'index'])->name('newaccounts');
+    Route::get('/altaccounts', [AccountController::class, 'altindex'])->name('altaccounts');
+    Route::get('/accounts',  [AccountController::class, 'newindex'])->name('accounts');
     Route::get('/addaccount', [AccountController::class, 'showAddAccount'])->name('addaccount');
-    Route::get('/adddeal', [DealController::class, 'showAddDeal'])->name('adddeal');
-    Route::get('/addcall', [CallController::class, 'showAddCall'])->name('addcall');
     Route::get('/editaccount/{id}', [AccountController::class, 'showEditAccount']);
     Route::put('/submiteditaccount/{id}', [AccountController::class, 'submitEditAccount']);
+    Route::get('/deleteaccount/{id}', [AccountController::class, 'showDeleteAccount']);
     Route::delete('/deleteaccount/{id}', [AccountController::class, 'deleteAccount']);
     Route::post('/submitaddaccount',[ AccountController::class, 'submitAddAccount']);
 

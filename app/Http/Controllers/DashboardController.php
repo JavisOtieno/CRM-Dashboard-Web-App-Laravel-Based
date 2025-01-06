@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Deal;
 use App\Models\Lead;
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Visit;
 use App\Models\Account;
@@ -32,6 +33,10 @@ class DashboardController extends Controller
     {
         // $deals = Deal::all();
         // $deals = Deal::orderBy('id', 'desc')->take(5)->get();
+
+        $auth = [
+            'user' => auth()->user(),
+        ];
 
 
 
@@ -233,6 +238,55 @@ class DashboardController extends Controller
             $conversionRate = $accountsThisMonth/$leadsThisMonth*100;
             $conversionRate = round($conversionRate, 2);
         }
+
+        $numberOfSellers = User::where('usertype', 'seller')->count();
+      
+        $productTargets = Product::select('id', 'name', 'target_amount')
+        // ->withCount('sellers') // Assuming you have a relationship called 'sellers' in the Product model
+        //scope limits depending on user
+        ->withCount(['deals' => function ($query) {
+            $query->whereMonth('created_at', now()->month)  // Filter by current month
+                ->whereYear('created_at', now()->year);   // Filter by current year
+        }])
+        ->withSum(['deals as total_amount' => function ($query) {
+            $query->whereMonth('created_at', now()->month)  // Filter by current month
+                ->whereYear('created_at', now()->year);   // Filter by current year
+        }], 'amount') // Sum the 'amount' field for each product
+        ->get()
+        ->map(function ($product) use ($numberOfSellers) {
+            // Calculate the percentage of amount achieved compared to the target amount
+            if(auth()->user()->usertype=='seller'){
+                if ($product->target_amount > 0) {
+                    $product->percentage_achieved = ($product->total_amount / $product->target_amount) * 100;  
+                } else {
+                    $product->percentage_achieved = 0;
+                }
+            }else{
+                // Multiply target_amount by the number of sellers
+                $adjustedTargetAmount = $product->target_amount * $numberOfSellers;
+                // Calculate the percentage of amount achieved compared to the adjusted target amount
+                if ($adjustedTargetAmount > 0) {
+                    $product->percentage_achieved = ($product->total_amount / $adjustedTargetAmount) * 100;
+                } else {
+                    $product->percentage_achieved = 0;
+                }
+            }
+
+
+
+
+            return $product;
+        })
+        ->sortByDesc(function ($product) {
+            return $product->percentage_achieved;
+        }) // Sort by percentage_achieved in descending order // Sort by the calculated percentage in descending order
+        ->take(4)
+        ->values()
+        ; // Get the top 4 products
+        // $productTargets = array_values($productTargets);
+
+        // return $productTargets;
+
         
 
         $productData = Product::select('id', 'name') // Select the product ID and name
@@ -242,12 +296,18 @@ class DashboardController extends Controller
         }])
         ->get();
 
+        // Filter out products with zero deal count
+        $productData = $productData->filter(function ($product) {
+            return $product->deals_count > 0;
+        });
+
         // Get product names and deals count separately
         $productNamesPieChart = $productData->pluck('name')->toArray();  // Array of product names
         $totalSoldPieChart = $productData->pluck('deals_count')->toArray();  // Array of total deals for each product
 
-        $baseColors = ["#C71A20", "#6C5FFC", "#05C3FB", "#09AD95",'#FDFD96','#DA70D6','#FFBF00',
+        $baseColors = ["#C71A20", "#6C5FFC", "#05C3FB", "#09AD95",'#DA70D6','#FFBF00',
         '#89CFF0', '#9ACD32','#964B00'];
+        
 
         // Number of products
         $numProducts =count($productNamesPieChart);  // Replace this with the actual number of products
@@ -297,7 +357,9 @@ class DashboardController extends Controller
             'accountsLeadsLast7Days',
             'productNamesPieChart',
             'totalSoldPieChart',
-            'palettePieChart'
+            'palettePieChart',
+            'productTargets',
+            'auth'
 
         ));
     }

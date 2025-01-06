@@ -20,13 +20,14 @@ import {
     initTabs, 
     initTooltips } from 'flowbite'
 
-    const people = ref([
-  { name: "John Doe", age: 30, city: "New York" },
-  { name: "Jane Smith", age: 25, city: "Los Angeles" },
-  { name: "Sam Wilson", age: 40, city: "Chicago" },
-]);
+import { useUserStore } from '../../store/user';
+const userStore = useUserStore();
+const user = userStore.user;
+
 const form = useForm({});
 const imageUrl = '/images/logo-dark.png';
+
+
 
 
 // initialize components based on data attribute selectors
@@ -251,7 +252,7 @@ function updateMap(newLocation2) {
                     ID
                 </span>
             </th>
-            <th>
+            <th  v-if="user.usertype === 'admin'">
                 <span class="flex items-center">
                     Seller
                 </span>
@@ -284,7 +285,7 @@ function updateMap(newLocation2) {
         v-for="(location, index) in locations" :key="index">
                 <td>
                     {{ location.id }}</td>
-                <td>{{ location.user.name }}</td>
+                <td  v-if="user.usertype === 'admin'">{{ location.user.name }}</td>
                 <td>{{ location.name }}</td>
                 <td>{{ location.lat }}</td>
                 <td>{{ location.long }}</td>

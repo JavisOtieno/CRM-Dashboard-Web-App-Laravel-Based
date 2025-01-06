@@ -5,6 +5,7 @@ import { onMounted, onBeforeUnmount, ref, computed  } from 'vue'
 import { useForm, usePage } from '@inertiajs/vue3'
 // import SidebarNew from '@/Pages/Sidebarnew.vue';
 import TableWrapper from '@/Pages/TableWrapper.vue';
+import { useUserStore } from '../../store/user';
 
 import { 
     initAccordions, 
@@ -20,13 +21,20 @@ import {
     initTabs, 
     initTooltips } from 'flowbite'
 
-    const people = ref([
-  { name: "John Doe", age: 30, city: "New York" },
-  { name: "Jane Smith", age: 25, city: "Los Angeles" },
-  { name: "Sam Wilson", age: 40, city: "Chicago" },
-]);
+
+
 const form = useForm({});
 const imageUrl = '/images/logo-dark.png';
+
+// Access the Pinia store
+const userStore = useUserStore();
+
+// Reactive data from the store
+const user = userStore.user;
+
+console.log("user");
+console.log(user);
+console.log("user");
 
 
 
@@ -45,6 +53,13 @@ onMounted(() => {
     initPopovers();
     initTabs();
     initTooltips();
+
+    function testAlert(accountId) {
+    alert(accountId);
+
+//   selectedAccount.value = account.id; // Set the selected product data
+//   isModalVisible.value = true; // Show the modal
+}
     const tableElement = document.getElementById("search-table");
   if (tableElement && typeof DataTable !== "undefined") {
     dataTable = new DataTable(tableElement, {
@@ -62,11 +77,13 @@ onMounted(() => {
 const selectedAccount = ref(null);
 
 function openModal(account) {
-    // alert(account.id)
+    alert(account.id);
 
   selectedAccount.value = account.id; // Set the selected product data
 //   isModalVisible.value = true; // Show the modal
 }
+
+
 
 
 
@@ -205,7 +222,9 @@ const capitalizeFirstLetter= (string) => {
         </Link>
         
         </div>
-           
+
+
+
 
 
            
@@ -217,11 +236,13 @@ const capitalizeFirstLetter= (string) => {
                     Id
                 </span>
             </th>
-            <th>
+
+            <th v-if="user.usertype === 'admin'">
             <span class="flex items-center">
                     Seller
                 </span>
                 </th>
+
             <th>
                 <span class="flex items-center">
                     Account Name
@@ -242,21 +263,77 @@ const capitalizeFirstLetter= (string) => {
                     Address
                 </span>
             </th>
+            
+            <!-- <th><span class="flex items-center">Button</span></th> -->
             <th><span class="flex items-center">Actions</span></th>
+            
+            <!-- <th><span class="flex items-center">Actions</span></th> -->
         </tr>
     </thead>
     <tbody>
-        <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(account, index) in sortedAccounts" :key="index">
+        <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" 
+        v-for="(account, index) in sortedAccounts" :key="index">
             <td >
                 {{ account.id }}</td>
-                <td >
+                <td v-if="user.usertype === 'admin'">
                     {{ account.user.name }}</td>
                 <td>{{ account.name }}</td>
                 <td>{{ account.phone }}</td>
                 <td>{{ account.website }} 
                 </td>
                 <td>{{ account.address }}</td>
+              
+                
+                <!-- <td><button @click="testAlert(account.id)">{{account.id}}</button></td> -->
                 <td>
+                    <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
+<a
+:href="`/editaccount/${account.id}`"
+class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
+title="Edit Account"
+>
+<svg
+xmlns="http://www.w3.org/2000/svg"
+fill="none"
+viewBox="0 0 24 24"
+stroke-width="1.5"
+stroke="currentColor"
+class="size-4"
+>
+<path
+stroke-linecap="round"
+stroke-linejoin="round"
+d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+/>
+</svg>
+</a>
+
+<a
+:href="`/deleteaccount/${account.id}`"
+class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
+title="Edit Account"
+>
+<svg
+xmlns="http://www.w3.org/2000/svg"
+fill="none"
+
+viewBox="0 0 24 24"
+stroke-width="1.5"
+stroke="currentColor"
+class="size-4"
+>
+<path
+stroke-linecap="round"
+stroke-linejoin="round"
+d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+/>
+</svg>
+</a>
+
+
+</span>
+                </td>
+                <!-- <td>
 
 <span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
 <Link
@@ -306,7 +383,7 @@ d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022
 </svg>
 </button>
 </span>
-</td>
+</td> -->
         </tr>
         
     </tbody>

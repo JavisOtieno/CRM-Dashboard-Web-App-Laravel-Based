@@ -19,11 +19,12 @@ import {
     initTabs, 
     initTooltips } from 'flowbite'
 
-    const people = ref([
-  { name: "John Doe", age: 30, city: "New York" },
-  { name: "Jane Smith", age: 25, city: "Los Angeles" },
-  { name: "Sam Wilson", age: 40, city: "Chicago" },
-]);
+
+
+import { useUserStore } from '../../store/user';
+const userStore = useUserStore();
+const user = userStore.user;
+
 const form = useForm({});
 const imageUrl = '/images/logo-dark.png';
 
@@ -162,7 +163,7 @@ const capitalizeFirstLetter= (string) => {
                     ID
                 </span>
             </th>
-            <th>
+            <th  v-if="user.usertype === 'admin'">
                 <span class="flex items-center">
                     Seller
                 </span>
@@ -190,7 +191,7 @@ const capitalizeFirstLetter= (string) => {
         <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(lead, index) in leads" :key="index">
                 <td >
                     {{ lead.id }}</td>
-                <td>{{ lead.user.name }}</td>
+                <td  v-if="user.usertype === 'admin'">{{ lead.user.name }}</td>
                 <td>{{ lead.name }}</td>
                 <td>{{ lead.phone }}</td>
                 <td>{{ lead.account_name }}</td>

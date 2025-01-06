@@ -84,6 +84,8 @@ class MeetingController extends Controller
         return Inertia::render('Meeting/Edit', compact('meeting','accounts','contacts'));
     }
 
+    
+
     public function submitEditMeeting($id,Request $request) {
         $meeting = Meeting::find($id);
         $incomingFields=$request->validate([

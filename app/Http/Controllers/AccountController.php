@@ -25,9 +25,60 @@ class AccountController extends Controller
 
         // $accounts = Account::all();
                 $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
+                if(auth()->user()->usertype=='admin'){
+                    $admin = true;
+                }else{
+                    $admin = false;
+                }
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0];
-        return Inertia::render('Account/Index',['accounts' => $accounts]);
+        return Inertia::render('Account/Index',compact('admin','accounts'));
+    }
+
+    public function altindex(Request $request) {
+        //$competitors = Competitor::all();
+
+        // $accounts = Account::all();
+        
+        // $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
+        // $accounts = Account::paginate(10);
+        $accounts = Account::paginate(10); // Adjust the number per page as needed
+        
+        if(auth()->user()->usertype=='admin'){
+            $admin = true;
+        }
+        else{
+            $admin = false;
+        }
+        // return view('com', ['competitors'=>$competitors]);-
+        // return $accounts;
+        $query = $request->input('search');
+        $paginationInfo = [
+                'from' => $accounts->firstItem(),
+                'to' => $accounts->lastItem(),
+                'total' => $accounts->total(),
+        ];
+        // $query = $request->input('search');
+        $filters = $request->only('search');
+
+        // return $request;
+
+        $accounts = Account::query() // Assuming you have an Account model
+            ->when($query, function ($q) use ($query) {
+                $q->where(function ($q) use ($query) {
+                    $q->where('name', 'like', "%{$query}%")    
+                    ->orWhere('website', 'like', "%{$query}%")  
+                    ->orWhere('phone', 'like', "%{$query}%")
+                    ->orWhere('address', 'like', "%{$query}%"); 
+                });
+            })
+            // $accounts = Account::where('name', 'like', "%{$query}%")
+            ->paginate(10); // Adjust the pagination size
+
+            // return $accounts;
+
+
+        return Inertia::render('Account/AltIndex',compact('admin','accounts','paginationInfo','filters'));
     }
 
     public function showAddAccount() {
@@ -85,6 +136,11 @@ class AccountController extends Controller
     public function showEditAccount($id) {
         $account = Account::find($id);
         return Inertia::render('Account/Edit', ['account' => $account]);
+    }
+
+    public function showDeleteAccount($id) {
+        $account = Account::find($id);
+        return Inertia::render('Account/Delete', ['account' => $account]);
     }
 
     public function submitEditAccount($id,Request $request) {

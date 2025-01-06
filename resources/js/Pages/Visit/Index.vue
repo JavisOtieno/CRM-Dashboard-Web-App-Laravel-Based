@@ -19,11 +19,10 @@ import {
     initTooltips } from 'flowbite'
 import TableWrapper from "../TableWrapper.vue";
 
-    const people = ref([
-  { name: "John Doe", age: 30, city: "New York" },
-  { name: "Jane Smith", age: 25, city: "Los Angeles" },
-  { name: "Sam Wilson", age: 40, city: "Chicago" },
-]);
+import { useUserStore } from '../../store/user';
+const userStore = useUserStore();
+const user = userStore.user;
+
 const form = useForm({});
 const imageUrl = '/images/logo-dark.png';
 
@@ -154,7 +153,7 @@ const flash = computed(() => page.props.flash || null);
                     ID
                 </span>
             </th>
-            <th>
+            <th  v-if="user.usertype === 'admin'">
                 <span class="flex items-center">
                  Seller
                 </span>
@@ -182,7 +181,8 @@ const flash = computed(() => page.props.flash || null);
         v-for="(visit, index) in visits" :key="index">
                 <td>
                     {{ visit.id }}</td>
-                <td>{{ visit.user.name }}</td>
+                <td  v-if="user.usertype === 'admin'">
+                    {{ visit.user.name }}</td>
                 <td>{{ visit.account.name }}</td>
                 <td>{{ visit.location.name }}</td>
                 <td>{{ capitalizeFirstLetter(visit.status) }}</td>

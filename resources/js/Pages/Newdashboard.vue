@@ -7,6 +7,7 @@ import { ref, watch } from "vue";
 import { useStore } from 'vuex';
 import VueApexCharts from "vue3-apexcharts";
 import { Link } from '@inertiajs/vue3';
+import { useUserStore } from '../store/user';
 
 const store = useStore();
 
@@ -51,6 +52,7 @@ onMounted(() => {
 })
 
 const props = defineProps({
+  auth: Object,
     leadsCount: {
     type: Number, // Define the type as String
     default: 0,  // Provide an empty string as the default value
@@ -96,6 +98,10 @@ const props = defineProps({
     default: 0,  // Provide an empty string as the default value
   },
   accounts: {
+    type: Array,
+    default: () => [],
+  },
+  productTargets: {
     type: Array,
     default: () => [],
   },
@@ -150,6 +156,12 @@ const props = defineProps({
   
 });
 
+
+// Access the Pinia store
+const userStore = useUserStore();
+
+// Initialize the Pinia store with Inertia data
+userStore.setUser(props.auth.user);
 
 const chartOptions = ref({
   chart: {
@@ -648,12 +660,18 @@ VueApexCharts;
       </div>
     </div>
     <div>
-      <span class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
+      <span v-if="percentageChange > 0 || percentageChange == 0" class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
         <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
         </svg>
-        {{ percentageChangeLeads }} %
+        {{ Math.abs(percentageChangeLeads) }} %
       </span>
+      <span v-else class="bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-red-900 dark:text-red-300">
+  <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1v12m0 0l4-4m-4 4l-4-4"/>
+  </svg>
+  {{ Math.abs(percentageChangeLeads) }} %
+</span>
     </div>
   </div>
 
@@ -885,12 +903,20 @@ VueApexCharts;
           <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Deals this week</h3>
           <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">{{ dealsThisWeek }}</span>
           <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-            <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path clip-rule="evenodd" fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"></path>
-              </svg>
-              {{ Math.abs(percentageChangeDeals) }}% 
-            </span>
+            <span v-if="percentageChangeDeals >= 0" class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path clip-rule="evenodd" fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"></path>
+            </svg>
+            {{ Math.abs(percentageChangeDeals) }}% 
+          </span>
+
+          <span v-else class="flex items-center mr-1.5 text-sm text-red-500 dark:text-red-400">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path clip-rule="evenodd" fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"></path>
+            </svg>
+            {{ Math.abs(percentageChangeDeals) }}% 
+          </span>
+
             Since last week
           </p>
         </div>
@@ -927,20 +953,20 @@ VueApexCharts;
       </div> -->
       <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="w-full">
-          <h3 class="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">Targets</h3>
-          <div class="flex items-center mb-2">
-            <div class="w-16 text-sm font-medium dark:text-white">Units</div>
+          <h3 class="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">Top Product Targets</h3>
+          <div class="flex items-center mb-2" v-for="(target, index) in productTargets" :key="index">
+            <div class="w-1/4 text-sm font-medium dark:text-white">{{ target.name }} </div>
             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-              <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" style="width: 18%"></div>
+              <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" :style="{ width: Math.min(target.percentage_achieved, 100) + '%' }"></div>
             </div>
           </div>
-          <div class="flex items-center mb-2">
+          <!-- <div class="flex items-center mb-2">
             <div class="w-16 text-sm font-medium dark:text-white">KSh </div>
             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
               <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" style="width: 15%"></div>
             </div>
-          </div>
-          <div class="flex items-center mb-2">
+          </div> -->
+          <!-- <div class="flex items-center mb-2">
             <div class="w-16 text-sm font-medium dark:text-white">Calls</div>
             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
               <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" style="width: 60%"></div>
@@ -951,7 +977,7 @@ VueApexCharts;
             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
               <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" style="width: 30%"></div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div id="traffic-channels-chart" class="w-full"></div>
       </div>

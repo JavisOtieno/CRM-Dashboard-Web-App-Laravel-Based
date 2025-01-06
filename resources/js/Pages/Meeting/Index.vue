@@ -20,11 +20,10 @@ import {
     initTabs, 
     initTooltips } from 'flowbite'
 
-    const people = ref([
-  { name: "John Doe", age: 30, city: "New York" },
-  { name: "Jane Smith", age: 25, city: "Los Angeles" },
-  { name: "Sam Wilson", age: 40, city: "Chicago" },
-]);
+import { useUserStore } from '../../store/user';
+const userStore = useUserStore();
+const user = userStore.user;
+
 const form = useForm({});
 const imageUrl = '/images/logo-dark.png';
 
@@ -53,7 +52,7 @@ onMounted(() => {
 const selectedMeeting = ref(null);
 
 function openModal(meeting) {
-    // alert(account.id)
+    alert(meeting.id)
 
   selectedMeeting.value = meeting.id; // Set the selected product data
 //   isModalVisible.value = true; // Show the modal
@@ -166,7 +165,7 @@ const capitalizeFirstLetter= (string) => {
                     ID
                 </span>
             </th>
-            <th>
+            <th  v-if="user.usertype === 'admin'">
                 <span class="flex items-center">
                  Seller
                 </span>
@@ -194,7 +193,7 @@ const capitalizeFirstLetter= (string) => {
         v-for="(meeting, index) in meetings" :key="index">
                 <td>
                     {{ meeting.id }}</td>
-                <td>{{ meeting.user.name }}</td>
+                <td  v-if="user.usertype === 'admin'">{{ meeting.user.name }}</td>
                 <td>{{ meeting.account.name }}</td>
                 <td>{{ meeting.contact.name }}</td>
                 <td>{{ capitalizeFirstLetter(meeting.status) }}</td>

@@ -75,6 +75,11 @@ class AdminController extends Controller
         return Inertia::render('Admin/Edit', ['admin' => $admin]);
     }
 
+    public function showDeleteAdmin($id) {
+        $admin = User::find($id);
+        return Inertia::render('Admin/Delete', ['admin' => $admin]);
+    }
+
     public function submitEditAdmin($id,Request $request) {
         $admin = User::find($id);
 

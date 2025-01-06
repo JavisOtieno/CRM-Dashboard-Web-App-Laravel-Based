@@ -6,6 +6,8 @@ import { useForm } from '@inertiajs/vue3'
 import { usePage } from '@inertiajs/vue3'
 import TableWrapper from '@/Pages/TableWrapper.vue';
 import FormWrapper from '@/Pages/FormWrapper.vue';
+
+
 import { 
     initAccordions, 
     initCarousels, 
@@ -20,12 +22,15 @@ import {
     initTabs, 
     initTooltips } from 'flowbite'
 
+import { useUserStore } from '../../store/user';
 
-    const people = ref([
-  { name: "John Doe", age: 30, city: "New York" },
-  { name: "Jane Smith", age: 25, city: "Los Angeles" },
-  { name: "Sam Wilson", age: 40, city: "Chicago" },
-]);
+// Access the Pinia store
+const userStore = useUserStore();
+
+// Reactive data from the store
+const user = userStore.user;
+
+
 const form = useForm({});
 const imageUrl = '/images/logo-dark.png';
 
@@ -171,7 +176,7 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
                     ID
                 </span>
             </th>
-            <th>
+            <th v-if="user.usertype === 'admin'">
                 <span class="flex items-center">
                     Seller
                 </span>
@@ -196,7 +201,7 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
     </thead>
     <tbody>
         <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(contact, index) in contacts" :key="index">
-                <td>
+                <td v-if="user.usertype === 'admin'">
                     {{ contact.id }}</td>
                 <td>{{ contact.user.name }}</td>
                 <td>{{ contact.name }}</td>

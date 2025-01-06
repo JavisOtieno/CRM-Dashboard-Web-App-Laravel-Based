@@ -6,6 +6,10 @@ import { useForm } from '@inertiajs/vue3'
 import TableWrapper from '@/Pages/TableWrapper.vue';
 import { usePage } from '@inertiajs/vue3'
 
+import { useUserStore } from '../../store/user';
+const userStore = useUserStore();
+const user = userStore.user;
+
 import { 
     initAccordions, 
     initCarousels, 
@@ -20,11 +24,7 @@ import {
     initTabs, 
     initTooltips } from 'flowbite'
 
-    const people = ref([
-  { name: "John Doe", age: 30, city: "New York" },
-  { name: "Jane Smith", age: 25, city: "Los Angeles" },
-  { name: "Sam Wilson", age: 40, city: "Chicago" },
-]);
+
 const form = useForm({});
 const imageUrl = '/images/logo-dark.png';
 
@@ -53,7 +53,7 @@ onMounted(() => {
 const selectedDeal = ref(null);
 
 function openModal(deal) {
-    // alert(account.id)
+    alert(deal.id)
 
   selectedDeal.value = deal.id; // Set the selected product data
 //   isModalVisible.value = true; // Show the modal
@@ -157,7 +157,7 @@ const capitalizeFirstLetter= (string) => {
                     ID
                 </span>
             </th>
-            <th>
+            <th  v-if="user.usertype === 'admin'">
                 <span class="flex items-center">
                     Seller
                 </span>
@@ -189,7 +189,7 @@ const capitalizeFirstLetter= (string) => {
         <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(deal, index) in deals" :key="index">
                 <td >
                     {{ deal.id }}</td>
-                <td>{{ deal.user.name }}</td>
+                <td  v-if="user.usertype === 'admin'">{{ deal.user.name }}</td>
                 <td>{{ deal.product.name }}</td>
                 <td>{{ deal.amount }}</td>
                 <td>{{ capitalizeFirstLetter(deal.status) }}</td>

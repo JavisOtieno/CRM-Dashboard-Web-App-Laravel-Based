@@ -21,6 +21,7 @@ class DealController extends Controller
         $deals = Deal::with('account','user','product')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
+        // return $deals;
         return Inertia::render('Deal/Index',['deals' => $deals]);
     }
     public function showAddDeal() {

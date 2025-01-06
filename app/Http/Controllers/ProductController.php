@@ -15,7 +15,8 @@ class ProductController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $products = Product::get();
+        $products = Product::withSum('deals', 'amount')->get();
+        // return $products;
         return Inertia::render('Product/Index',['products' => $products]);
 
     }
@@ -111,6 +112,8 @@ class ProductController extends Controller
             
             'name'=>'required|string|max:255',
             'status'=>'required|string|max:255',
+            'target_type' => 'required|string|max:255',
+            'target_amount' => 'required|numeric|digits_between:1,20',
             'description' => ['required', 'string', new WordCount(300)], 
         
         ]);
