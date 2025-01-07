@@ -56,7 +56,7 @@ class ProductController extends Controller
             'target_type' => 'required|string|max:255',
             'target_amount' => 'required|numeric|digits_between:1,20',
             'status' => ['required','string','max:255'],
-            'file' => 'required|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
+            'file' => 'nullable|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
 
             
         ]);
@@ -70,10 +70,10 @@ class ProductController extends Controller
         
       
        
-
-        // Store the uploaded file
-        $path = $request->file('file')->store('images', 'public');
-        $incomingFields['image']=$path;
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('images', 'public');
+            $incomingFields['image'] = $path;
+        }
         // return $path;
         
         

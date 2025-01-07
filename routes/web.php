@@ -66,7 +66,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products');
     Route::get('/addproduct', [ProductController::class, 'showAddProduct'])->name('addproduct');
     Route::get('/editproduct/{id}', [ProductController::class, 'showEditProduct']);
-    Route::put('/submiteditproduct/{id}', [ProductController::class, 'submitEditProduct']);
+    Route::post('/submiteditproduct/{id}', [ProductController::class, 'submitEditProduct']);
     Route::delete('/deleteproduct/{id}', [ProductController::class, 'deleteProduct']);
     Route::post('/submitaddproduct',[ ProductController::class, 'submitAddProduct']);
 
@@ -75,7 +75,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/sellers', [SellerController::class, 'index'])->name('sellers');
     Route::get('/addseller', [SellerController::class, 'showAddSeller'])->name('addseller');
     Route::get('/editseller/{id}', [SellerController::class, 'showEditSeller'])->name('editseller');
-    Route::put('/submiteditseller/{id}', [SellerController::class, 'submitEditSeller']);
+    Route::post('/submiteditseller/{id}', [SellerController::class, 'submitEditSeller']);
     Route::delete('/deleteseller/{id}', [SellerController::class, 'deleteSeller']);
     Route::post('/submitaddseller',[ SellerController::class, 'submitAddSeller']);
 
@@ -84,7 +84,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/admins', [AdminController::class, 'index'])->name('admins');
     Route::get('/addadmin', [AdminController::class, 'showAddAdmin'])->name('addadmin');
     Route::get('/editadmin/{id}', [AdminController::class, 'showEditAdmin'])->name('editadmin');
-    Route::put('/submiteditadmin/{id}', [AdminController::class, 'submitEditAdmin']);
+    Route::post('/submiteditadmin/{id}', [AdminController::class, 'submitEditAdmin']);
     Route::delete('/deleteadmin/{id}', [AdminController::class, 'deleteAdmin']);
     Route::get('/deleteadmin/{id}', [AdminController::class, 'showDeleteAdmin']);
     Route::post('/submitaddadmin',[ AdminController::class, 'submitAddAdmin']);

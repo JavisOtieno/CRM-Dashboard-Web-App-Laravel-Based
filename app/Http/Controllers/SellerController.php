@@ -99,7 +99,7 @@ class SellerController extends Controller
             'email'=>'required|string|max:255|unique:users,email,' . $id,
             'status' => 'required|string|max:255',
         
-            // 'file' => 'required|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
+            'file' => 'nullable|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
             
         ]);
         //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -109,9 +109,10 @@ class SellerController extends Controller
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
         
-
-        // $path = $request->file('file')->store('images', 'public');
-        // $incomingFields['image']=$path;
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('images', 'public');
+            $incomingFields['image'] = $path;
+        }
         
         //$incomingFields['image']='';
 

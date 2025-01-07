@@ -191,8 +191,12 @@ export default {
 
   <div class="mb-5">
     <label for="image" class="block mb-2 text-sm 
-    font-medium text-gray-900 dark:text-white">Image</label>
-    <input type="file" @change="handleFileChange" name="file" accept="image/*" id="file" required />
+    font-medium text-gray-900 dark:text-white">Upload Image</label>
+    <!-- <input type="file" @change="handleFileChange" name="file" accept="image/*" id="file" required /> -->
+    <input @change="handleFileChange" name="file" accept="image/*" id="file" required 
+class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer 
+bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help"  type="file">
+<p class="mt-1 text-sm text-gray-500 dark:text-gray-300" >SVG, PNG, JPG or GIF </p>
       <div v-if="form.errors.file" class="error text-primary-600 dark:text-white">{{ form.errors.file }}</div>
     <!-- <input type="text" id="image" 
     v-model="form.image"

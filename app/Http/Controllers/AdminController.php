@@ -48,6 +48,11 @@ class AdminController extends Controller
         $path = $request->file('file')->store('images', 'public');
         $incomingFields['image']=$path;
 
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('images', 'public');
+            $incomingFields['image'] = $path;
+        }
+
         
 
         User::create($incomingFields);
@@ -90,7 +95,7 @@ class AdminController extends Controller
         ],
             'email'=>'required|string|max:255|unique:users,email,' . $id,
             'status' => 'required|string|max:255',
-            // 'file' => 'required|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
+            'file' => 'nullable|image|mimes:jpeg,webp,png,jpg,gif,svg|max:2048',
             
         ]);
         //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -99,6 +104,11 @@ class AdminController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
+
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('images', 'public');
+            $incomingFields['image'] = $path;
+        }
         
 
         // $path = $request->file('file')->store('images', 'public');

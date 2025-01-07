@@ -57,6 +57,7 @@ export default {
       name: props.product.name || '',
       description: props.product.description || '',
       status: props.product.status || '',
+      image: props.product.image || '',
       target_type: props.product.target_type || '',
       target_amount: props.product.target_amount || '',
 
@@ -75,7 +76,7 @@ export default {
     });
 
     const submitForm = () => {
-      form.put(`/submiteditproduct/${props.product.id}`, {
+      form.post(`/submiteditproduct/${props.product.id}`, {
         // onSuccess: () => alert('Product created successfully!'),
         onError: (errors) => {
           // Handle errors here
@@ -177,6 +178,8 @@ export default {
             </div>
           </div>
 
+          
+
           <div class="mb-5">
             <label for="target_type" class="block mb-2 text-sm 
           font-medium text-gray-900 dark:text-white">Target Type</label>
@@ -204,6 +207,39 @@ export default {
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Target Amount" required />
      <div v-if="form.errors.target_amount" class="error text-primary-600 dark:text-white">{{ form.errors.target_amount }}</div>
+  </div>
+
+  <div class="mb-5">
+    <label for="image" class="block mb-2 text-sm 
+    font-medium text-gray-900 dark:text-white">Current Image</label>
+    <img class="mb-2 w-full md:w-1/2" 
+          :src="`${
+            $page.props.product.image 
+            ? `/storage/${$page.props.product.image}` 
+            : '/images/profilepicdefault.jpg'
+          }`"
+          alt="user photo">
+    <label for="image" class="block mb-2 text-sm 
+    font-medium text-gray-900 dark:text-white">Upload Image</label>
+    <!-- <input type="file"  required 
+    /> -->
+    
+<input @change="handleFileChange" name="file" accept="image/*" id="file" 
+class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer 
+bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help"  type="file">
+<p class="mt-1 text-sm text-gray-500 dark:text-gray-300" >SVG, PNG, JPG or GIF </p>
+<!-- (MAX. 800x400px). -->
+
+    
+      <div v-if="form.errors.file" class="error text-primary-600 dark:text-white">{{ form.errors.file }}</div>
+    <!-- <input type="text" id="image" 
+    v-model="form.image"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
+    w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Image" required />
+     <div v-if="form.errors.image" class="error text-primary-600 dark:text-white">{{ form.errors.image }}</div> -->
   </div>
 
           <!-- <div class="mb-5">
