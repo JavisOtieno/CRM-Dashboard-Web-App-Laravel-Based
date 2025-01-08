@@ -56,6 +56,13 @@ class TaskController extends Controller
         ]);
     }
 
+    public function showDeleteTask($id) {
+        $task = Task::find($id);
+        $account = Account::find($task->account_id)->name;
+        $contact = Contact::find($task->contact_id)->name;
+        return Inertia::render('Task/Delete', compact('task','account','contact'));
+    }
+
     public function deleteTask($id) {
         $task = Task::find($id);
         $task->delete();

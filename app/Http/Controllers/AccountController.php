@@ -53,11 +53,7 @@ class AccountController extends Controller
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts;
         $query = $request->input('search');
-        $paginationInfo = [
-                'from' => $accounts->firstItem(),
-                'to' => $accounts->lastItem(),
-                'total' => $accounts->total(),
-        ];
+
         // $query = $request->input('search');
         $filters = $request->only('search');
 
@@ -74,6 +70,12 @@ class AccountController extends Controller
             })
             // $accounts = Account::where('name', 'like', "%{$query}%")
             ->paginate(10); // Adjust the pagination size
+
+        $paginationInfo = [
+            'from' => $accounts->firstItem(),
+            'to' => $accounts->lastItem(),
+            'total' => $accounts->total(),
+        ];
 
             // return $accounts;
 

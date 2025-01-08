@@ -42,6 +42,11 @@ class LocationController extends Controller
         $accounts = Account::all();
         return Inertia::render('Location/Add',compact('accounts'));
     }
+    public function showDeleteLocation($id) {
+        $location = Location::find($id);
+        $account = Account::find($location->account_id)->name;
+        return Inertia::render('Location/Delete', compact('account','location'));
+    }
 
 
     public function submitAddLocation(Request $request) {

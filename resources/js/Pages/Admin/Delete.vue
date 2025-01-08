@@ -154,7 +154,7 @@ export default {
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
 
-     dark:focus:border-primary-600" placeholder="Name" required />
+     dark:focus:border-primary-600" placeholder="Name" required readonly />
             <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
           </div>
 
@@ -165,7 +165,7 @@ export default {
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
-     dark:focus:border-primary-600" placeholder="Phone" required />
+     dark:focus:border-primary-600" placeholder="Phone" required readonly />
             <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
           </div>
 
@@ -184,7 +184,7 @@ export default {
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
-     dark:focus:border-primary-600" placeholder="Email" required />
+     dark:focus:border-primary-600" placeholder="Email" required readonly/>
             <div v-if="form.errors.email" class="error text-primary-600 dark:text-white">{{ form.errors.email }}</div>
           </div>
 
@@ -207,7 +207,7 @@ export default {
                 focus:ring-primary-600 focus:border-primary-600 
                 dark:focus:ring-primary-600 focus:border-primary-600 
                 pe-12  text-gray-700 sm:text-sm"
-                placeholder="Status">
+                placeholder="Status" disabled>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
 

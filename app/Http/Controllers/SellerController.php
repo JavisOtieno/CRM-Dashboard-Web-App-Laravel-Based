@@ -87,6 +87,10 @@ class SellerController extends Controller
         $seller = User::find($id);
         return Inertia::render('Seller/Edit', ['seller' => $seller]);
     }
+    public function showDeleteSeller($id) {
+        $seller = User::find($id);
+        return Inertia::render('Seller/Delete', ['seller' => $seller]);
+    }
 
     public function submitEditSeller($id,Request $request) {
         $seller = User::find($id);

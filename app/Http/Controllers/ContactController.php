@@ -72,6 +72,11 @@ class ContactController extends Controller
             ]
         ]);
     }
+    public function showDeleteContact($id) {
+        $contact = Contact::find($id);
+        $account = Account::find($contact->account_id)->name;
+        return Inertia::render('Contact/Delete', compact('account','contact'));
+    }
 
     public function showEditContact($id) {
         $contact = Contact::find($id);

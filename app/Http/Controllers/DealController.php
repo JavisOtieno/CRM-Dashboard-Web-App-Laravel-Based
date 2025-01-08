@@ -29,6 +29,11 @@ class DealController extends Controller
         $products = Product::all();
         return Inertia::render('Deal/Add',compact('accounts','products'));
     }
+    public function showDeleteDeal($id) {
+        $deal = Deal::find($id);
+        $account = Account::find($deal->account_id)->name;
+        return Inertia::render('Deal/Delete', compact('deal','account'));
+    }
 
 
     public function submitAddDeal(Request $request) {

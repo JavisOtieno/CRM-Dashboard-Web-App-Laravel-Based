@@ -92,6 +92,11 @@ class ProductController extends Controller
         ]);
     }
 
+    public function showDeleteProduct($id) {
+        $product = Product::find($id);
+        return Inertia::render('Product/Delete', ['product' => $product]);
+    }
+
     public function deleteProduct($id) {
         $product = Product::find($id);
         $product->delete();

@@ -85,6 +85,13 @@ class VisitController extends Controller
         return Inertia::render('Visit/Edit', compact('accounts','locations','visit'));
     }
 
+    public function showDeleteVisit($id) {
+        $visit = Visit::find($id);
+        $account = Account::find($visit->account_id)->name;
+        $location = Location::find($visit->location_id)->name;
+        return Inertia::render('Visit/Delete', compact('visit','account','location'));
+    }
+
     public function submitEditVisit($id,Request $request) {
         $visit = Visit::find($id);
         $incomingFields=$request->validate([

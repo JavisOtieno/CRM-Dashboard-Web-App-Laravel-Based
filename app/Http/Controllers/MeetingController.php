@@ -84,6 +84,13 @@ class MeetingController extends Controller
         return Inertia::render('Meeting/Edit', compact('meeting','accounts','contacts'));
     }
 
+    public function showDeleteMeeting($id) {
+        $meeting = Meeting::find($id);
+        $account = Account::find($meeting->account_id)->name;
+        $contact = Contact::find($meeting->contact_id)->name;
+        return Inertia::render('Meeting/Delete', compact('meeting','account','contact'));
+    }
+
     
 
     public function submitEditMeeting($id,Request $request) {

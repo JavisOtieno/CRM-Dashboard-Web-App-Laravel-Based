@@ -147,7 +147,7 @@ export default {
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
-     dark:focus:border-primary-600" placeholder="Name" required />
+     dark:focus:border-primary-600" placeholder="Name" required readonly />
                   <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
                 </div>
 
@@ -158,7 +158,7 @@ export default {
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
-     dark:focus:border-primary-600" placeholder="Phone" required />
+     dark:focus:border-primary-600" placeholder="Phone" required readonly />
                   <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
                 </div>
 
@@ -169,7 +169,7 @@ export default {
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
-     dark:focus:border-primary-600" placeholder="Website" required />
+     dark:focus:border-primary-600" placeholder="Website" required readonly />
                   <div v-if="form.errors.website" class="error text-primary-600 dark:text-white">{{ form.errors.website }}</div>
                 </div>
 
@@ -180,7 +180,7 @@ export default {
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
-     dark:focus:border-primary-600" placeholder="Address" required />
+     dark:focus:border-primary-600" placeholder="Address" required readonly />
                   <div v-if="form.errors.address" class="error text-primary-600 dark:text-white">{{ form.errors.address }}</div>
                 </div>
 
