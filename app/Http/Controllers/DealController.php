@@ -30,9 +30,9 @@ class DealController extends Controller
         return Inertia::render('Deal/Add',compact('accounts','products'));
     }
     public function showDeleteDeal($id) {
-        $deal = Deal::find($id);
-        $account = Account::find($deal->account_id)->name;
-        return Inertia::render('Deal/Delete', compact('deal','account'));
+        $deal = Deal::with('user','account')->find($id);
+        // $account = Account::find($deal->account_id)->name;
+        return Inertia::render('Deal/Delete', compact('deal'));
     }
 
 
@@ -84,7 +84,7 @@ class DealController extends Controller
     }
 
     public function showEditDeal($id) {
-        $deal = Deal::find($id);
+        $deal = Deal::with('user')->find($id);
         $accounts = Account::all();
         $products = Product::all();
         return Inertia::render('Deal/Edit', compact('deal','accounts','products'));

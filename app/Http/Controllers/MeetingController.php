@@ -85,10 +85,10 @@ class MeetingController extends Controller
     }
 
     public function showDeleteMeeting($id) {
-        $meeting = Meeting::find($id);
-        $account = Account::find($meeting->account_id)->name;
-        $contact = Contact::find($meeting->contact_id)->name;
-        return Inertia::render('Meeting/Delete', compact('meeting','account','contact'));
+        $meeting = Meeting::with('account','contact','user')->find($id);
+        // $account = Account::find($meeting->account_id)->name;
+        // $contact = Contact::find($meeting->contact_id)->name;
+        return Inertia::render('Meeting/Delete', compact('meeting'));
     }
 
     

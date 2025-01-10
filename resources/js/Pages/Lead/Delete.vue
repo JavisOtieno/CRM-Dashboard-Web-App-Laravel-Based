@@ -24,11 +24,11 @@ import {
 export default {
   components: { MapComponent, FormWrapper },
   props: {
-    account: {
+    lead: {
       type: Object,
       required: true, // Ensure the seller data is passed as a prop
     },
-    accounts: {
+    leads: {
       type: Array,
       default: () => [],
     },
@@ -51,14 +51,14 @@ export default {
     });
     // Initialize form state with useForm
     const form = useForm({
-      name: props.account.name || '',
-      phone: props.account.phone || '',
-      website: props.account.website || '',
-      address: props.account.address || '',
+      user: props.lead.user.name || '',
+      name: props.lead.name || '',
+      phone: props.lead.phone || '',
+      account_name: props.lead.account_name || '',
     });
 
     const submitForm = () => {
-      form.delete(`/deleteaccount/${props.account.id}`, {
+      form.delete(`/deletelead/${props.lead.id}`, {
         onSuccess: () => {
 
         },
@@ -103,11 +103,11 @@ export default {
 
 <template>
 
-      <FormWrapper>
+  <FormWrapper>
 
-        <div>
+    <div>
 
-          <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+      <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
                <p class="text-2xl text-gray-400 dark:text-gray-500">
                   <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
@@ -115,74 +115,80 @@ export default {
                </p>
             </div> -->
 
-          <h3 class="text-3xl font-bold dark:text-white mb-4">Accounts</h3>
+      <h3 class="text-3xl font-bold dark:text-white mb-4">Leads</h3>
 
-          <div class="flex items-center justify-center  mb-4 rounded">
+      <div class="flex items-center justify-center  mb-4 rounded">
 
-            <div class="container mx-auto mt-5">
-              <!-- Add User button aligned to the right -->
-              <div class="flex justify-between mb-4">
-                <div  class="text-lg dark:text-white font-semibold">Are you sure you want to delete?</div>
+        <div class="container mx-auto mt-5">
+          <!-- Add User button aligned to the right -->
+          <div class="flex justify-between mb-4">
+            <div class="text-lg dark:text-white font-semibold">Are you sure you want to delete?</div>
 
-                
-                <!-- <button @click="openAddUserModal" 
+
+            <!-- <button @click="openAddUserModal" 
           
             class="bg-blue-500 text-white w-1/3 px-4 py-2 
             rounded hover:bg-blue-600">
-                Add Account
+                Add Lead
             </button> -->
 
-              </div>
+          </div>
 
-              <form class="w-full bg-white dark:bg-gray-700 rounded" @submit.prevent="submitForm">
-                <button type="submit" :disabled="form.processing" class="text-white 
+          <form class="w-full bg-white dark:bg-gray-700 rounded" @submit.prevent="submitForm">
+            <button type="submit" :disabled="form.processing" class="text-white 
                 bg-primary-600 hover:bg-primary-700 
   focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg
    text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-500 
    dark:hover:bg-primary-600 dark:focus:ring-primary-700 mb-4">Confirm Delete</button>
-                <div class="mb-5">
-                  <label for="name" class="block mb-2 text-sm 
+
+            <div class="mb-5">
+              <label for="user" class="block mb-2 text-sm 
+      font-medium text-gray-900 dark:text-white">Seller</label>
+              <input type="text" id="user" v-model="form.user" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
+      w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+      dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+      dark:focus:border-primary-600" placeholder="Seller" required readonly />
+              <div v-if="form.errors.user" class="error text-primary-600 dark:text-white">{{ form.errors.user }}
+              </div>
+            </div>
+            <div class="mb-5">
+              <label for="name" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Name</label>
-                  <input type="text" id="name" v-model="form.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+              <input type="text" id="name" v-model="form.name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Name" required />
-                  <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
-                </div>
+              <div v-if="form.errors.name" class="error text-primary-600 dark:text-white">{{ form.errors.name }}</div>
+            </div>
 
-                <div class="mb-5">
-                  <label for="lat" class="block mb-2 text-sm 
+            <div class="mb-5">
+              <label for="lat" class="block mb-2 text-sm 
     font-medium text-gray-900 dark:text-white">Phone</label>
-                  <input type="text" id="phone" v-model="form.phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+              <input type="text" id="phone" v-model="form.phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
      dark:focus:border-primary-600" placeholder="Phone" required readonly />
-                  <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
-                </div>
+              <div v-if="form.errors.phone" class="error text-primary-600 dark:text-white">{{ form.errors.phone }}</div>
+            </div>
 
-                <div class="mb-5">
-                  <label for="website" class="block mb-2 text-sm 
-    font-medium text-gray-900 dark:text-white">Website</label>
-                  <input type="text" id="website" v-model="form.website" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+            <div class="mb-5">
+              <label for="account_name" class="block mb-2 text-sm 
+    font-medium text-gray-900 dark:text-white">Account Name</label>
+              <input type="text" id="account_name" v-model="form.account_name" 
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
      rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
     w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
     dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
-     dark:focus:border-primary-600" placeholder="Website" required readonly />
-                  <div v-if="form.errors.website" class="error text-primary-600 dark:text-white">{{ form.errors.website }}</div>
-                </div>
+     dark:focus:border-primary-600" placeholder="Account Name" required readonly />
+              <div v-if="form.errors.account_name" class="error text-primary-600 dark:text-white">
+                {{ form.errors.account_name }}
+              </div>
+            </div>
 
-                <div class="mb-5">
-                  <label for="website" class="block mb-2 text-sm 
-    font-medium text-gray-900 dark:text-white">Address</label>
-                  <input type="text" id="address" v-model="form.address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
-     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
-    w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
-    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
-     dark:focus:border-primary-600" placeholder="Address" required readonly />
-                  <div v-if="form.errors.address" class="error text-primary-600 dark:text-white">{{ form.errors.address }}</div>
-                </div>
+       
 
 
 
@@ -190,30 +196,29 @@ export default {
 
 
 
-
-                <!-- <div class="mb-5">
+            <!-- <div class="mb-5">
     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
     <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
   </div> -->
-                <!-- <div class="flex items-start mb-5">
+            <!-- <div class="flex items-start mb-5">
     <div class="flex items-center h-5">
       <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
     </div>
     <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
   </div> -->
 
-              </form>
+          </form>
 
 
 
 
 
 
-            </div>
-          </div>
         </div>
+      </div>
+    </div>
 
-      </FormWrapper>
+  </FormWrapper>
 
 
 </template>

@@ -29,9 +29,13 @@ class LocationController extends Controller
     }
 
     public function showNewEditLocation($id) {
-        $location = Location::find($id);
+        $location = Location::with('user')->find($id);
         $accounts = Account::all();
         return Inertia::render('Location/Edit',compact('location','accounts'));
+    }
+    public function showMapLocation($id) {
+        $location = Location::with('user')->find($id);
+        return Inertia::render('Location/Map',compact('location'));
     }
 
     public function showAddLocation() {
@@ -43,7 +47,7 @@ class LocationController extends Controller
         return Inertia::render('Location/Add',compact('accounts'));
     }
     public function showDeleteLocation($id) {
-        $location = Location::find($id);
+        $location = Location::with('user')->find($id);
         $account = Account::find($location->account_id)->name;
         return Inertia::render('Location/Delete', compact('account','location'));
     }

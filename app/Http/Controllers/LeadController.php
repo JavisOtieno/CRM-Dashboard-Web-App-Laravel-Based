@@ -22,6 +22,11 @@ class LeadController extends Controller
     public function showAddLead() {
         return Inertia::render('Lead/Add');
     }
+    
+    public function showDeleteLead($id) {
+        $lead = Lead::with('user')->find($id);
+        return Inertia::render('Lead/Delete', ['lead' => $lead]);
+    }
 
     public function submitAddLead(Request $request) {
 
@@ -69,7 +74,7 @@ class LeadController extends Controller
     }
 
     public function showEditLead($id) {
-        $lead = Lead::find($id);
+        $lead = Lead::with('user')->find($id);
         return Inertia::render('Lead/Edit', ['lead' => $lead]);
     }
 

@@ -42,7 +42,12 @@ class AccountController extends Controller
         
         // $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
         // $accounts = Account::paginate(10);
-        $accounts = Account::paginate(10); // Adjust the number per page as needed
+        $entries = $request->only('entries');
+        // return $request;
+        $perPage = $entries['entries'] ?? 10;  // Default to 10 entries per page if not provided
+       
+
+        $accounts = Account::paginate($perPage); // Adjust the number per page as needed
         
         if(auth()->user()->usertype=='admin'){
             $admin = true;
@@ -55,7 +60,8 @@ class AccountController extends Controller
         $query = $request->input('search');
 
         // $query = $request->input('search');
-        $filters = $request->only('search');
+        $filters = $request->only('search', 'entries');
+        
 
         // return $request;
 
@@ -69,7 +75,7 @@ class AccountController extends Controller
                 });
             })
             // $accounts = Account::where('name', 'like', "%{$query}%")
-            ->paginate(10); // Adjust the pagination size
+            ->paginate($perPage); // Adjust the pagination size
 
         $paginationInfo = [
             'from' => $accounts->firstItem(),
@@ -136,12 +142,12 @@ class AccountController extends Controller
     }
 
     public function showEditAccount($id) {
-        $account = Account::find($id);
+        $account = Account::with('user')->find($id);
         return Inertia::render('Account/Edit', ['account' => $account]);
     }
 
     public function showDeleteAccount($id) {
-        $account = Account::find($id);
+        $account = Account::with('user')->find($id);
         return Inertia::render('Account/Delete', ['account' => $account]);
     }
 

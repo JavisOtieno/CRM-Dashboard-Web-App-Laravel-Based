@@ -96,6 +96,7 @@ Route::middleware(['auth','verified'])->group(function () {
 
     Route::get('/locations', [LocationController::class, 'index'])->name('locations');
     Route::get('/addlocation', [LocationController::class, 'showAddLocation'])->name('addlocation');
+    Route::get('/maplocation/{id}', [LocationController::class, 'showMapLocation']);
     Route::get('/editlocation/{id}', [LocationController::class, 'showNewEditLocation']);
     Route::get('/oldeditlocation/{id}', [LocationController::class, 'showEditLocation']);
     Route::put('/submiteditlocation/{id}', [LocationController::class, 'submitEditLocation']);
@@ -104,9 +105,6 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/deletelocation/{id}', [LocationController::class, 'showDeleteLocation']);
     Route::get('/listlocations', [LocationController::class, 'newindex'])->name('newlocations');
     Route::get('/addnewlocation', [LocationController::class, 'showAddNewLocation'])->name('addnewlocation');
-
-
-
 
 
     Route::get('/deals', [DealController::class, 'index'])->name('deals');
@@ -175,6 +173,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/editlead/{id}', [LeadController::class, 'showEditLead']);
     Route::put('/submiteditlead/{id}', [LeadController::class, 'submitEditLead']);
     Route::delete('/deletelead/{id}', [LeadController::class, 'deleteLead']);
+    Route::get('/deletelead/{id}', [LeadController::class, 'showDeleteLead']);
     Route::post('/submitaddlead',[ LeadController::class, 'submitAddLead']);
 
 

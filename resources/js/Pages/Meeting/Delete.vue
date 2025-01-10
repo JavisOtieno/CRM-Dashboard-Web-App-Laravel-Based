@@ -56,8 +56,8 @@ export default {
     });
     // Initialize form state with useForm
     const form = useForm({
-      account: props.account || '',
-      contact: props.contact || '',
+      account: props.meeting.account.name || '',
+      contact: props.meeting.contact.name || '',
       status: props.meeting.status.charAt(0).toUpperCase() + props.meeting.status.slice(1) || '',
       date: props.meeting.date || '',
       time: props.meeting.time || '',

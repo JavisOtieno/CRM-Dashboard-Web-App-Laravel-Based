@@ -52,7 +52,9 @@ export default {
     // Initialize form state with useForm
 
     const form = useForm({
+      user: props.visit.user.name || '',
       status: props.visit.status || '',
+      user: props.visit.user.name || '',
       date: props.visit.date || '',
       time: props.visit.time || '',
       account_id: props.visit.account_id || '',
@@ -123,7 +125,18 @@ export default {
         <form class="w-full bg-white dark:bg-gray-700 rounded" @submit.prevent="submitForm">
 
 
-
+          <div class="mb-5">
+            <label for="seller" class="block mb-2 text-sm 
+    font-medium text-gray-900 dark:text-white">Seller</label>
+            <input type="user" id="user" v-model="form.user" 
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm 
+     rounded-lg focus:ring-primary-600 focus:border-primary-600 block 
+    w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
+    dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-600
+     dark:focus:border-primary-600" placeholder="Seller" required readonly/>
+            <div v-if="form.errors.user" class="error text-primary-600 dark:text-white">
+              {{ form.errors.user }}</div>
+          </div>
 
 
           <div class="mb-5">
@@ -151,6 +164,7 @@ export default {
 
             </div>
           </div>
+
 
           <div class="mb-5">
             <label for="account_id" class="block mb-2 text-sm 

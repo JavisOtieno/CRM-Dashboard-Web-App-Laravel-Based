@@ -53,6 +53,7 @@ export default {
     // Initialize form state with useForm
 
     const form = useForm({
+      user: props.task.user.name || '',
       status: props.task.status || '',
       account_id: props.task.account_id || '',
       contact_id: props.task.contact_id || '',

@@ -14,7 +14,7 @@ class TaskController extends Controller
         return response()->json(['tasks'=>$tasks]);
     }
     public function showTask($id){
-        $task = Task::with('account','contact')->find($id);
+        $task = Task::with('account','contact','user')->find($id);
         return response()->json(['task'=>$task]);
     }
 

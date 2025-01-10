@@ -80,14 +80,14 @@ class CallController extends Controller
         ]);
     }
     public function showDeleteCall($id) {
-        $call = Call::find($id);
+        $call = Call::with('user')->find($id);
         $account = Account::find($call->account_id)->name;
         $contact = Contact::find($call->contact_id)->name;
         return Inertia::render('Call/Delete', compact('call','account','contact'));
     }
 
     public function showEditCall($id) {
-        $call = Call::find($id);
+        $call = Call::with('user')->find($id);
         $accounts = Account::all();
         $contacts = Contact::all();
         return Inertia::render('Call/Edit', compact('call','contacts','accounts'));

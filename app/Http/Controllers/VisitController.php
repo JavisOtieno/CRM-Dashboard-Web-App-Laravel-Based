@@ -79,17 +79,17 @@ class VisitController extends Controller
     }
 
     public function showEditVisit($id) {
-        $visit = Visit::find($id);
+        $visit = Visit::with('user')->find($id);
         $accounts = Account::all();
         $locations = Location::all();
         return Inertia::render('Visit/Edit', compact('accounts','locations','visit'));
     }
 
     public function showDeleteVisit($id) {
-        $visit = Visit::find($id);
-        $account = Account::find($visit->account_id)->name;
-        $location = Location::find($visit->location_id)->name;
-        return Inertia::render('Visit/Delete', compact('visit','account','location'));
+        $visit = Visit::with('user','account','location')->find($id);
+        // $account = Account::find($visit->account_id)->name;
+        // $location = Location::find($visit->location_id)->name;
+        return Inertia::render('Visit/Delete', compact('visit'));
     }
 
     public function submitEditVisit($id,Request $request) {

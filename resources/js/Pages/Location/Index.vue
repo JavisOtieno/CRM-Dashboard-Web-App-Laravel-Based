@@ -311,11 +311,24 @@ stroke="currentColor"
 class="size-4"
 >
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 5v14M9 5v14M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
-
-
-
 </svg>
 </button>
+<a
+:href="`/maplocation/${location.id}`"
+class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
+title="Map Location"
+>
+<svg
+xmlns="http://www.w3.org/2000/svg"
+fill="none"
+viewBox="0 0 24 24"
+stroke-width="1.5"
+stroke="currentColor"
+class="size-4"
+>
+  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 5v14M9 5v14M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
+</svg>
+</a>
 <a
 :href="`/editlocation/${location.id}`"
 class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"

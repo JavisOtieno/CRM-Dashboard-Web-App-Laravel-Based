@@ -150,7 +150,7 @@ const flash = computed(() => page.props.flash || null);
                 <div class="container mx-auto mt-5">
                     <!-- Add User button aligned to the right -->
                     <div class="flex justify-between mb-4">
-                        <div  class="text-lg dark:text-white font-semibold">Calls Table</div>
+                        <div class="text-lg dark:text-white font-semibold">Calls Table</div>
 
 
 
@@ -168,7 +168,7 @@ const flash = computed(() => page.props.flash || null);
               </svg>
            </p> -->
 
-           
+
 
 
 
@@ -202,17 +202,28 @@ const flash = computed(() => page.props.flash || null);
                                     </span>
                                 </th>
                                 <th><span class="flex items-center">Actions</span></th>
+                           
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(call, index) in calls" :key="index">
-                                <td >
+                            <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                v-for="(call, index) in calls" :key="index">
+                                <td>
                                     {{ call.id }}</td>
                                 <td v-if="user.usertype === 'admin'">
                                     {{ call.user.name }}</td>
                                 <td>{{ call.account.name }}</td>
                                 <td>{{ call.contact.name }}</td>
-                                <td>{{ capitalizeFirstLetter(call.status) }}</td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <div class="h-2.5 w-2.5 rounded-full bg-orange-500 me-2">
+                                            <!-- bg-green-red -->
+                                        </div> {{ capitalizeFirstLetter(call.status) }}
+                                    </div>
+                                    
+                                </td>
+                                
+                             
 
 
                                 <td>
@@ -221,12 +232,12 @@ const flash = computed(() => page.props.flash || null);
                                         <a :href="`/editcall/${call.id}`"
                                             class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
                                             title="Edit Call">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="size-4">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                        </svg>
-                                    </a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="size-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                            </svg>
+                                        </a>
                                         <a :href="`/deletecall/${call.id}`"
                                             class="inline-block border-e p-2 text-primary-700 hover:bg-primary-50 focus:relative"
                                             title="Delete Call">

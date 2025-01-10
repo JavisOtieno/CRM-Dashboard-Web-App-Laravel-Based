@@ -57,7 +57,7 @@ class TaskController extends Controller
     }
 
     public function showDeleteTask($id) {
-        $task = Task::find($id);
+        $task = Task::with('user')->find($id);
         $account = Account::find($task->account_id)->name;
         $contact = Contact::find($task->contact_id)->name;
         return Inertia::render('Task/Delete', compact('task','account','contact'));
@@ -75,7 +75,7 @@ class TaskController extends Controller
     }
 
     public function showEditTask($id) {
-        $task = Task::find($id);
+        $task = Task::with('user')->find($id);
         $accounts = Account::all();
         $contacts = Contact::all();
         return Inertia::render('Task/Edit',compact('task','accounts','contacts'));
