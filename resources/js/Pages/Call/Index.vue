@@ -215,11 +215,13 @@ const flash = computed(() => page.props.flash || null);
                                 <td>{{ call.account.name }}</td>
                                 <td>{{ call.contact.name }}</td>
                                 <td>
-                                    <div class="flex items-center">
+                                    <!-- bg-green-red -->
+                                    <!-- <div class="flex items-center">
                                         <div class="h-2.5 w-2.5 rounded-full bg-orange-500 me-2">
-                                            <!-- bg-green-red -->
-                                        </div> {{ capitalizeFirstLetter(call.status) }}
-                                    </div>
+                                            
+                                        </div> -->
+                                         {{ capitalizeFirstLetter(call.status) }}
+                                    <!-- </div> -->
                                     
                                 </td>
                                 
