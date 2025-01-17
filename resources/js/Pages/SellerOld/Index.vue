@@ -56,8 +56,10 @@ const capitalizeFirstLetter= (string) => {
     <DataTable :data="data" class="display">
         <thead>
             <tr>
-                <th>A</th>
-                <th>B</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+A</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+B</th>
             </tr>
         </thead>
     </DataTable>
@@ -142,11 +144,16 @@ const capitalizeFirstLetter= (string) => {
     <DataTable class="styled-table" id="dataTable" @initComplete="onInitComplete">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Actions</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Name</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Phone</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Email</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Status</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Actions</th>
             </tr>
         </thead>
         <tbody>

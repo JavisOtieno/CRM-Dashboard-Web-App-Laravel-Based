@@ -57,8 +57,10 @@ const deleteItem = (Id) => {
     <DataTable :data="data" class="display">
         <thead>
             <tr>
-                <th>A</th>
-                <th>B</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+A</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+B</th>
             </tr>
         </thead>
     </DataTable>
@@ -136,12 +138,18 @@ const deleteItem = (Id) => {
     <DataTable class="styled-table" id="dataTable">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>Account</th>
-                <th>Actions</th>
-                <!-- <th>Address</th> -->
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Name</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Latitude</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Longitude</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Account</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Actions</th>
+                <!--  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Address</th> -->
             </tr>
         </thead>
         <tbody>

@@ -83,7 +83,7 @@ import { Head } from '@inertiajs/vue3';
           <td class="whitespace-nowrap px-4 py-2 text-gray-700">$120,000</td>
         </tr>
 
-    <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="account in accounts" :key="account.id">
+    <tr class="hover:bg-gray-100 dark:hover:bg-gray-800" v-for="account in accounts" :key="account.id">
       <td class="whitespace-nowrap px-4 py-2 text-gray-900">{{ account.name }}</td>
       <td class="whitespace-nowrap px-4 py-2 text-gray-900">{{ account.phone }}</td>
       <td class="whitespace-nowrap px-4 py-2 text-gray-900">{{ account.website }}</td>

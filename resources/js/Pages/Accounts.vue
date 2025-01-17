@@ -48,8 +48,10 @@ const deleteAccount = (accountId) => {
     <DataTable :data="data" class="display">
         <thead>
             <tr>
-                <th>A</th>
-                <th>B</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+A</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+B</th>
             </tr>
         </thead>
     </DataTable>
@@ -134,15 +136,20 @@ const deleteAccount = (accountId) => {
     <DataTable class="styled-table" id="dataTable" @initComplete="onInitComplete">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Website</th>
-                <th>Address</th>
-                <th>Actions</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Name</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Phone</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Website</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Address</th>
+                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="font-medium text-gray-900 whitespace-nowrap dark:text-white" v-for="(account, index) in accounts" :key="index">
+            <tr class="hover:bg-gray-100 dark:hover:bg-gray-800" v-for="(account, index) in accounts" :key="index">
                 <td>{{ account.name }}</td>
                 <td>{{ account.phone }}</td>
                 <td>{{ account.website }}</td>
