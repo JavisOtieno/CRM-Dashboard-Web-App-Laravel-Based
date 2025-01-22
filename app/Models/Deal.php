@@ -12,6 +12,7 @@ class Deal extends Model
     protected $fillable = [
         'user_id',
         'account_id',
+        'lead_id',
         // 'name',
         'product_id',
         'amount',
