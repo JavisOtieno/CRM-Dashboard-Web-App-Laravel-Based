@@ -33,14 +33,14 @@ class DealController extends Controller
 
         $incomingFields=$request->validate([
             // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
-            'account_id'=>'required|numeric|digits_between:1,20|exists:accounts,id',
+            'account_id'=>'nullable|numeric|digits_between:1,20|exists:accounts,id',
+            'lead_id'=>'nullable|numeric|digits_between:1,20|exists:leads,id',
             // 'name'=>'required|string|max:255',
             'product_id'=>'required|numeric|digits_between:1,20|exists:products,id',
             'amount'=>'required|numeric|digits_between:1,20',
             'status'=>'required|string|max:255',
-           
-            // new PhoneNumber
-            
+            'accountleadtype'=>'required|string|max:255',
+            // new PhoneNumber 
         ]);
         //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048' 
         $incomingFields['user_id']=auth()->user()->id;       
