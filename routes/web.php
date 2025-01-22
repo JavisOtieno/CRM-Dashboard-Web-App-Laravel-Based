@@ -113,7 +113,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::put('/submiteditdeal/{id}', [DealController::class, 'submitEditDeal']);
     Route::get('/editdeal/{id}', [DealController::class, 'showEditDeal']);
     Route::get('/deletedeal/{id}', [DealController::class, 'showDeleteDeal']);
-    Route::delete('/finaldeletedeal/{id}', [DealController::class, 'deleteDeal']);
+    Route::delete('/deletedeal/{id}', [DealController::class, 'deleteDeal']);
     Route::post('/submitadddeal',[ DealController::class, 'submitAddDeal']);
 
 
