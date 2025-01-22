@@ -64,7 +64,7 @@ export default {
     });
 
     const submitForm = () => {
-      form.delete(`/deletedeal/${props.deal.id}`, {
+      form.delete(`/finaldeletedeal/${props.deal.id}`, {
         onSuccess: () => {
 
         },
