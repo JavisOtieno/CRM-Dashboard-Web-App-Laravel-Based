@@ -213,7 +213,7 @@ const flash = computed(() => page.props.flash || null);
                                     deal.amount }}</td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
-                                    deal.account.name }}</td>
+                                    deal.lead==null?deal.account.name:deal.lead.name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full 
                     bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-200">
