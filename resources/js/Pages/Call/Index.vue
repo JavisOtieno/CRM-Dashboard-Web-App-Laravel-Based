@@ -216,12 +216,12 @@ const flash = computed(() => page.props.flash || null);
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-sm">
                 <div class="flex space-x-2">
-                    <Link :href="`/editcall/${call.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                    <a :href="`/editcall/${call.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
                         Edit
-                    </Link>
-                    <button @click="deleteCall()" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
+                    </a>
+                    <a :href="`/deletecall/${call.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
                         Delete
-                    </button>
+                    </a>
                 </div>
             </td>
         </tr>
