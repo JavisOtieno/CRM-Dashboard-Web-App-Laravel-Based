@@ -104,6 +104,8 @@ class AdminController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['email']=strip_tags($incomingFields['email']);
         $incomingFields['status']=strip_tags($incomingFields['status']);
+        $incomingFields['usertype']='admin';
+        //$incomingFields['status']=strip_tags($incomingFields['status']);
 
         if ($request->hasFile('file')) {
             $path = $request->file('file')->store('images', 'public');
