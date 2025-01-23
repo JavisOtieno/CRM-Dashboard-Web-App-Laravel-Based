@@ -12,17 +12,17 @@ class DealController extends Controller
 {
     public function index(){
         // $deals = Deal::all();
-        $deals = Deal::with('account','lead','product')->orderBy('id', 'DESC')->get();
+        $deals = Deal::with('account','product')->orderBy('id', 'DESC')->get();
         return response()->json(['deals'=>$deals]);
     }
 
     public function showDeal($id){
-        $deal = Deal::with('account','lead','product')->find($id);
+        $deal = Deal::with('account','product')->find($id);
         return response()->json(['deal'=>$deal]);
     }
 
     public function showEditDeal($id){
-        $deal = Deal::with('account','lead','product')->find($id);
+        $deal = Deal::with('account','product')->find($id);
         $accounts = Account::orderBy('id', 'DESC')->get();
         $products = Product::orderBy('id', 'DESC')->get();
         return response()->json(compact('accounts','deal','products'));
@@ -33,8 +33,7 @@ class DealController extends Controller
 
         $incomingFields=$request->validate([
             // 'account_id'=>'required|numeric|digits_between:1,20|exists:visits,id',
-            'account_id'=>'nullable|numeric|digits_between:1,20|exists:accounts,id',
-            'lead_id'=>'nullable|numeric|digits_between:1,20|exists:leads,id',
+            'account_id'=>'required|numeric|digits_between:1,20|exists:accounts,id',
             // 'name'=>'required|string|max:255',
             'product_id'=>'required|numeric|digits_between:1,20|exists:products,id',
             'amount'=>'required|numeric|digits_between:1,20',
