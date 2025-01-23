@@ -92,7 +92,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/deleteadmin/{id}', [AdminController::class, 'showDeleteAdmin']);
     Route::post('/submitaddadmin',[ AdminController::class, 'submitAddAdmin']);
 
-    Route::get('/viewprofile', [AuthController::class, 'profile'])->name('profile');
+    Route::get('/viewprofile', [ProfileController::class, 'profile'])->name('profile');
 
     Route::get('/locations', [LocationController::class, 'index'])->name('locations');
     Route::get('/addlocation', [LocationController::class, 'showAddLocation'])->name('addlocation');

@@ -24,6 +24,15 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function profile() {
+        //$competitors = Competitor::all();
+        // $contacts = Contact::with('account')->get();
+        $user = auth()->user();
+
+        return Inertia::render('ProfileNew/Profile',compact('user'));
+
+    }
+
     /**
      * Update the user's profile information.
      */

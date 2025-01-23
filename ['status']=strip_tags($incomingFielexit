@@ -1,0 +1,451 @@
+[33mcommit 8eaecb410dd871657577635fe2b1b1b94535a7a1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdtb-version[m[33m, [m[1;31morigin/dtb-version[m[33m)[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 17:05:14 2025 +0300
+
+    delete change to a href instead of Button and function
+    edit change to a instead of Link
+    which don't work on datatables
+
+[33mcommit c7686a4475161626cba75888467ba99cc6957072[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 16:57:01 2025 +0300
+
+    delete account on index
+
+[33mcommit d75f8f6ff7af6bab60469cb77fb0fec593889661[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 16:51:21 2025 +0300
+
+    Delete deal on web
+
+[33mcommit fd5009651e652a392d6517220f3e93485b644b88[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 16:44:44 2025 +0300
+
+    deal lead relationship on deals index on web
+
+[33mcommit 3ace1a04222c70084418e8d3e862b66920015fe2[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 16:42:49 2025 +0300
+
+    assign deal to account if lead is null
+
+[33mcommit ea341c7fb885824dd1cf762315809ecc60690a2b[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 16:21:28 2025 +0300
+
+    lead relationship set up with deal
+
+[33mcommit 51b41fe0fa2f0a9b0b1c1c9649300b9558ed9765[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 16:14:16 2025 +0300
+
+    update on deal controller submit deal
+
+[33mcommit c0c938141315a7ca3d3cef474a6baab1fc7652e8[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 15:58:46 2025 +0300
+
+    deals show leads as well
+
+[33mcommit 284053ae55f6e0f62effe173729a98a356918e20[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 15:44:18 2025 +0300
+
+    lead id on model
+
+[33mcommit 9a44eb2bbcd8ad4aaf756dec058bf926804a807c[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 22 15:41:37 2025 +0300
+
+    adjusted deals to account for deal done with a lead before it becomes an account
+
+[33mcommit d96332ae1139fdfe76218e6f428da40ddca88409[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Jan 17 15:59:50 2025 +0300
+
+    Table color changes
+
+[33mcommit 63e5c90be82d856297e71a2793062ffcdd5b85e8[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Jan 17 14:37:49 2025 +0300
+
+    calls page changed buttons and text color
+
+[33mcommit 775d59387910450df2bf8bc76b045538bc4c0725[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Jan 10 09:27:02 2025 +0300
+
+    calls status default
+
+[33mcommit c47643d9bf3900f265ee506a83eefba41c39d003[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Jan 10 08:53:05 2025 +0300
+
+    Alt Accounts Table Setup
+    Delete component setup for all models
+    Edit introduced seller on models
+    Map component split from locations table
+
+[33mcommit 1821024e7255ac6aaf7eefe9143a0f0660ed5266[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Jan 8 17:11:15 2025 +0300
+
+    Delete Page Alternative for Datatable conflict with Modal Vue Popup
+
+[33mcommit c5799e1baf36460b10dba773ff2966c6f3741f53[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Jan 7 16:24:05 2025 +0300
+
+    Switch from put to post on edit form
+    Showed current image on edit form
+    Controller setting up the upload images on edit for product, admin and sellers
+
+[33mcommit 11bba00afefd3877794bc5bac0678e33176bfd04[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Jan 7 12:01:18 2025 +0300
+
+    status focus red on add product
+
+[33mcommit 253ee3f57eedcd1d9f0a6dc74ea1ab9457761159[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Mon Jan 6 16:33:33 2025 +0300
+
+    usertype on edit seller removed
+
+[33mcommit 5125d4b3835b50bf4358b3ebb7123845ce5d623f[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Mon Jan 6 10:42:28 2025 +0300
+
+    Alternative index page
+    Establishing pinia store to handle user details
+
+[33mcommit 8c85ddaff3110457ab98da08ee22d1192b43b883[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Wed Dec 18 08:35:58 2024 +0300
+
+    login to dashboard not newdashboard
+
+[33mcommit 9f97c1898ba72ba5ead1ea9a3f525a5828553ea0[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 16:20:18 2024 +0300
+
+    percentageChangeLeads on Dashboard
+
+[33mcommit 28986d7360c88bf6f30c27f0a56200d2886292fc[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 16:13:10 2024 +0300
+
+    Dashboard products last month
+
+[33mcommit 61522ba3df1d1e6f2c2e1410aa194b6ae8609b6d[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 15:54:16 2024 +0300
+
+    percentage change rounded to 2 decimal points
+
+[33mcommit 607c5419a7d6833085df43e1db75d9702a0e9571[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 15:41:37 2024 +0300
+
+    dashboard deals graph
+
+[33mcommit 8d5b7c10fdf623bee25b4b118c558d7bc1cd6c4a[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 15:34:15 2024 +0300
+
+    deals last 7 days
+
+[33mcommit e8cff098520960cce5285cf034ae662686c49bc2[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 15:30:27 2024 +0300
+
+    removed deals return
+
+[33mcommit 74d3c070085bb0a42426260a818ac3ad3709634a[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 15:26:03 2024 +0300
+
+    return deals last 7 days
+
+[33mcommit 85e6b1fa66b5f2952a834702ffcb06ede2ec15a8[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 15:24:45 2024 +0300
+
+    dashboard deals graph
+
+[33mcommit 7248a7839bbec600accd50e8b41d76b9f02d65c0[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 15:15:20 2024 +0300
+
+    percentage change deals rounded off
+
+[33mcommit aaa52e540d0c2a9970ad5efdf7cb179a031b3b82[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 13:57:07 2024 +0300
+
+    converion rate zero division error
+
+[33mcommit 2c92932f1924330cf33562d66398c2ea528c0fcd[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 17 13:52:46 2024 +0300
+
+    dashboard charts
+
+[33mcommit db1c7ec0233a6d41852fc516b94ad38078e3a975[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 13 16:49:55 2024 +0300
+
+    SCG Logo Link on Logged out forms
+
+[33mcommit 107eb5fa3d7de045c2bd52079b01b072999681b7[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 13 16:44:05 2024 +0300
+
+    removed alerts from forms on error
+
+[33mcommit ba8dcfa65101700644a578fc0ccdcb29cec06c2b[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 13 09:20:28 2024 +0300
+
+    navbar full screen mode
+
+[33mcommit 2fc6c37bb6374a26ed3504f5a824198543d2cc2d[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 10 17:06:41 2024 +0300
+
+    deal sum amount on dashboard to show show remainder targets on app
+
+[33mcommit 13c5aea7a019367a598c8e52bf697cfb216049b3[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 10 16:01:24 2024 +0300
+
+    admin crud finalized
+    table and form headers dark mode to white
+    form error divs set to red and white dark mode
+
+[33mcommit 8cae68f2cbe0d437c332669c576972e0546dbe17[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Tue Dec 10 12:24:09 2024 +0300
+
+    Admin CRUD
+
+[33mcommit 3f62e459c9532038d89ab24fe8e5d7a3fde9d17b[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Mon Dec 9 16:36:31 2024 +0300
+
+    table cell text made bold
+
+[33mcommit fe11a38466b49f383f79b0d4b27435b11edaeeb6[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Mon Dec 9 15:36:09 2024 +0300
+
+    Forms tables set background
+    Dark mode styles set
+
+[33mcommit e012ab8b4b7233728c9c648393802f209fb9d78b[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Mon Dec 9 12:32:51 2024 +0300
+
+    Deal with product
+
+[33mcommit e49ae5df0d193381ec0e4ee0f1909dbaa44a4196[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Mon Dec 9 12:31:43 2024 +0300
+
+    deal with product on dashboard
+
+[33mcommit cdede4864877ad12fef4ff139657d9cf0a5fe461[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Mon Dec 9 12:30:31 2024 +0300
+
+    product name on recent deals
+
+[33mcommit 398c5511527027dd565a79e4709b9d7bb3c66284[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Mon Dec 9 12:25:24 2024 +0300
+
+    Forgot password Layout and Methods
+    Sidebar current page recognition
+    Change password
+
+[33mcommit 3e0d049ea36cba7ba4f4f2f8b84b923ca0861ab6[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 15:12:39 2024 +0300
+
+    v-model usertype set to usertype
+
+[33mcommit bdc9c627eea7d9891b9bb918b634e0ba493d81eb[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 15:06:52 2024 +0300
+
+    usertype on edit seller
+
+[33mcommit 11f3eb3d550a42bb4da127c639f1de8b22ea3176[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 15:01:35 2024 +0300
+
+    add user uertype field introduced
+
+[33mcommit 440bbd39cde71a152f59067779b3d3961861b4e4[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 14:02:41 2024 +0300
+
+    product show current deals total on specific product
+
+[33mcommit ebd05ba34e7bd3c9600aaf45902fe193ebf2c041[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 12:53:39 2024 +0300
+
+    products on show edit deal
+
+[33mcommit 57d604ad456a035254d602eab6b8613b0933a7f1[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 12:45:36 2024 +0300
+
+    Product Id on Submit Edit Deal
+
+[33mcommit 85de503d0ee4887ab55847794eb6b6d32018ecfd[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 12:42:55 2024 +0300
+
+    product id on add deal submit to db
+
+[33mcommit b55106f52e06983d383fe08a2fc92cf3ebf88e4e[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 12:08:55 2024 +0300
+
+    accounts products on api
+
+[33mcommit 0affff2b6a813037003fb4c729013b2373124fd0[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 12:04:20 2024 +0300
+
+    Deal with product on deals list api
+
+[33mcommit 3c3c99cccaaf7d77b7a2fbb24433da71c126d5fb[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 11:15:45 2024 +0300
+
+    Deal with product on api
+
+[33mcommit d4d65f96cfae1433987dd9123080c6a4a87ab277[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 11:08:25 2024 +0300
+
+    month year on api
+
+[33mcommit d9cf9b888bbc63cd0624e6126da01e741df503bb[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 11:04:45 2024 +0300
+
+    value and quantity on dashboard api
+
+[33mcommit 27b7b1742875beafa38da23bce4f03a3449a3e97[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 10:35:42 2024 +0300
+
+    test product Add.vue
+
+[33mcommit 4bdf567fba3e36cf8f966e997fa5752320d671ca[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 10:33:46 2024 +0300
+
+    vite test server edit
+
+[33mcommit f68072d6d9c6ebf1f2ab61bbde5e0767a1de573e[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 10:29:14 2024 +0300
+
+    set product id as selected
+
+[33mcommit cd2307f69e3683a5fa8e502cdc8a13ec1e524291[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 10:18:31 2024 +0300
+
+    edit deal includes product name instead of deal name
+
+[33mcommit cdc2fe5bfbd2c216cecc8ecef6330f51691819cb[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 10:12:53 2024 +0300
+
+    Deal with product to show product name on deals table
+
+[33mcommit eb15a1edded9fc42f94cb00e9555e3caefdba788[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 10:10:03 2024 +0300
+
+    products on edit deal
+
+[33mcommit 4cf7d14b203268d61e6c565bf6a2140841c0189d[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 10:09:08 2024 +0300
+
+    products on deal
+
+[33mcommit 5b668c595b61a1967c832dc642ae744c67a0f7ce[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 10:06:10 2024 +0300
+
+    focus ring red on select
+
+[33mcommit 0c99e412ac4325c8f070a6c551e41935a0d90859[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 10:03:13 2024 +0300
+
+    change outline desc fields to red from blue
+
+[33mcommit a4af5ee62a2dd2c95334930d8fe8a227a25845f5[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 09:55:49 2024 +0300
+
+    product id on show add edit deal and submit add edit
+
+[33mcommit a074c1366d7223212fb23d722c18f97fbc1a7853[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Fri Dec 6 09:30:12 2024 +0300
+
+    products on api
+
+[33mcommit a31b72280d227374e42d403d25e072361ff7bafb[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Thu Dec 5 15:55:28 2024 +0300
+
+    user out of compact
+
+[33mcommit e85d0789fa6ed41ba82fd3e2a4c697764a492521[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Thu Dec 5 15:43:53 2024 +0300
+
+    stats on api setup meetings tasks
+
+[33mcommit 25693aac44f6a8ccf05dbeacb1ec5dc2bbe4dc79[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Thu Dec 5 15:40:18 2024 +0300
+
+    stats on api
+
+[33mcommit 8f4b026ec7a2fe30cd4dd235b61b7729ec9e01fa[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Thu Dec 5 14:54:32 2024 +0300
+
+    table wrapper prevent modal show when flash status is null
+
+[33mcommit 28ea2d04d55bf04622cd14841ccbe534ff0804aa[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Thu Dec 5 12:43:02 2024 +0300
+
+    import api\ProductController not ProductController
+
+[33mcommit 808ca5325333814c9fcaf34ae3a90c2512f260a7[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Thu Dec 5 12:25:23 2024 +0300
+
+    Login sign up link redirected to register route
+
+[33mcommit d307bd42da60a43cccaf55555bc88dd2f62c3de7[m
+Author: javisotieno <javisotieno@gmail.com>
+Date:   Thu Dec 5 11:37:22 2024 +0300
+
+    show add product on api
+    Target amount and type on Product Edit and Table
