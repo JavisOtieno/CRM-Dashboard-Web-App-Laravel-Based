@@ -18,7 +18,7 @@ class DealController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $deals = Deal::with('account','lead','user','product')->get();
+        $deals = Deal::with('account','user','product')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
         // return $deals;

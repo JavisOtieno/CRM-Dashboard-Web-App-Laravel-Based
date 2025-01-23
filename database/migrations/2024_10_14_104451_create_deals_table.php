@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('deals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('lead_id')->nullable();
-            $table->unsignedBigInteger('account_id')->nullable();
+            $table->unsignedBigInteger('account_id');
             // $table->string('account_id');
             // $table->string('name');
             $table->unsignedBigInteger('product_id');

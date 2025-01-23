@@ -12,7 +12,6 @@ class Deal extends Model
     protected $fillable = [
         'user_id',
         'account_id',
-        'lead_id',
         // 'name',
         'product_id',
         'amount',
@@ -26,10 +25,6 @@ class Deal extends Model
     public function account(){
         //return $this->belongsTo(User::class);
         return $this->belongsTo(Account::class,'account_id');
-    }
-    public function lead(){
-        //return $this->belongsTo(User::class);
-        return $this->belongsTo(Lead::class,'lead_id');
     }
     public function user(){
         //return $this->belongsTo(User::class);
