@@ -271,8 +271,8 @@ import { Link } from '@inertiajs/vue3';
                     </div>
                      -->
                     <div class="col-span-6 sm:col-full">
-                         <Link :href="route(user.usertype === 'admin' ? 
-                         'editadmin' : 'editseller', { id: user.id })"
+                         <Link :href="route(user.usertype === 'seller' ? 
+                         'editseller' : 'editadmin', {id: user.id })"
                          > <button class="text-white 
                             bg-primary-600 hover:bg-primary-700 
                         focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 
