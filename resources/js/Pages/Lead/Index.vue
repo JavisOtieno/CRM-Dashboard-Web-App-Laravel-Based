@@ -206,7 +206,7 @@ const capitalizeFirstLetter= (string) => {
                     <a :href="`/editlead/${lead.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
                         Edit
                     </a>
-                    <a :href="`/deletedeal/${deal.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
+                    <a :href="`/deletelead/${lead.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
                         Delete
                     </a>
                 </div>
