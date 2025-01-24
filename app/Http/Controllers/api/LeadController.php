@@ -112,7 +112,7 @@ class LeadController extends Controller
         
     }
     public function showLead($id){
-        $lead = Account::find($id);
+        $lead = Account::with('user','contacts')->find($id);
         return response()->json(['lead'=>$lead]);
     }
 }
