@@ -27,11 +27,13 @@ class LeadController extends Controller
     }
     
     public function showDeleteLead($id) {
-        $lead = Lead::with('user')->find($id);
+        $lead = Account::with('user','contacts')->find($id);
         return Inertia::render('Lead/Delete', ['lead' => $lead]);
     }
 
     public function submitAddLead(Request $request) {
+
+        
 
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
@@ -71,7 +73,7 @@ class LeadController extends Controller
     }
 
     public function deleteLead($id) {
-        $lead = Lead::find($id);
+        $lead = Account::find($id);
         $lead->delete();
         // return redirect('/leads');
 
@@ -84,7 +86,7 @@ class LeadController extends Controller
     }
 
     public function showEditLead($id) {
-        $lead = Lead::with('user')->find($id);
+        $lead = Account::where('status','lead')->with('user','contacts')->find($id);
         return Inertia::render('Lead/Edit', ['lead' => $lead]);
     }
 
@@ -93,20 +95,17 @@ class LeadController extends Controller
 
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
-            'phone'=>['required','string','min:10','max:13', new PhoneNumber],
-            'account_name'=>'required|string|max:255',
-            
+            'phone' => ['nullable', 'string', 'min:10', 'max:13', new PhoneNumber],
+            'account_name' => 'nullable|string|max:255',
         ]);
-        //'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 
-        $incomingFields['name']=strip_tags($incomingFields['name']);
-        $incomingFields['phone']=strip_tags($incomingFields['phone']);
-        $incomingFields['account_name']=strip_tags($incomingFields['account_name']);
-        
-        //$incomingFields['image']='';
+        $incomingFieldsAccount['name'] = $incomingFields['account_name'];
 
-        //return $request['image'];
-        $lead->update($incomingFields);
+        $lead = Account::find($id);
+        $contact = Contact::where('account_id', $lead->id)->first();
+
+        $lead->update($incomingFieldsAccount);
+        $contact->update($incomingFields);
 
         // return redirect('/leads');
         return redirect('/leads')->with([
