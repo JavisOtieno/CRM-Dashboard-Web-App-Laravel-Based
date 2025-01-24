@@ -197,8 +197,8 @@ const capitalizeFirstLetter= (string) => {
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                     {{ lead.id }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300"  v-if="user.usertype === 'admin'">{{ lead.user.name }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ lead.name }}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ lead.name }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ lead.contact.name }}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ lead.contact.phone }}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ lead.name }}</td>
                 
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
