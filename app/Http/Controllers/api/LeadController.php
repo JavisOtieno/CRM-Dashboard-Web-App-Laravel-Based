@@ -87,7 +87,8 @@ class LeadController extends Controller
         $incomingFieldsAccount['address']=$incomingFields['account_address'];
         $incomingFieldsAccount['status']='account';
 
-        $account = Account::find($id)->update($incomingFieldsAccount);
+        $account = Account::find($id);
+        $account->update($incomingFieldsAccount);
 
         $incomingFieldsContact['name']=$incomingFields['contact_name'];
         $incomingFieldsContact['phone']=$incomingFields['contact_phone'];
@@ -101,6 +102,7 @@ class LeadController extends Controller
         // $incomingFieldsLead['contact_id'] = $contact->id;
     
         $lead = Account::find($id);
+
 
         $leadStatus=array(
             "message" => "Lead Converted Successfully",
