@@ -53,7 +53,7 @@ export default {
       user: props.lead.user.name || '',
       name: props.lead.contacts[0].name || '',
       phone: props.lead.contacts[0].phone || '',
-      account_name: props.lead.account_name || '',
+      account_name: props.lead.name || '',
     });
 
     const submitForm = () => {
