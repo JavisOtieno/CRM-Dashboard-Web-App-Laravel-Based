@@ -18,7 +18,6 @@ class LeadController extends Controller
     }
     public function addLead(Request $request){
 
-       
         $incomingFields=$request->validate([
             'name'=>'required|string|max:255',
             'phone' => ['nullable', 'string', 'min:10', 'max:13', new PhoneNumber],
@@ -26,15 +25,20 @@ class LeadController extends Controller
         ]);
 
         $incomingFields['user_id']=auth()->user()->id;
-
-        Lead::create($incomingFields);
+        
+        $incomingFieldsAccount = $incomingFields['account_name'];
+        $incomingFieldsAccount['status']='lead';
+        Account::create($incomingFieldsAccount);
+        Contact::create($incomingFields);
 
         $leadStatus=array(
-            "message" => "Lead Added Successfully",
+            "message" => "Account Added Successfully",
             "status" => "success");
 
         return response()->json($leadStatus);
+
     }
+
     public function submitEditLead($id,Request $request){
        
         $incomingFields=$request->validate([

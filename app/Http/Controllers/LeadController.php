@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Lead;
 use Inertia\Inertia;
+use App\Models\Account;
+use App\Models\Contact;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
 
@@ -13,10 +15,11 @@ class LeadController extends Controller
     public function index() {
         //$competitors = Competitor::all();
 
-        $leads = Lead::with('user')->get();
+        $leads = Account::with('user')->get();
         // return view('com', ['competitors'=>$competitors]);-
         // return $accounts[0]['name'];
         return Inertia::render('Lead/Index',['leads' => $leads]);
+
     }
 
     public function showAddLead() {
@@ -44,11 +47,17 @@ class LeadController extends Controller
 
         $incomingFields['user_id']=auth()->user()->id;
         //$incomingFields['image']='';
+        $incomingFieldsAccount['name']=strip_tags($incomingFields['account_name']);
+        $incomingFieldsAccount['status']='lead';
+        
+        $account = Account::create($incomingFieldsAccount);
+        $incomingFields['account_id']=$account->id;
+
+        Contact::create($incomingFields);
 
         //return $request['image'];
-        
-
-        Lead::create($incomingFields);
+    
+        // Lead::create($incomingFields);
 
         // return redirect('/leads');
 
