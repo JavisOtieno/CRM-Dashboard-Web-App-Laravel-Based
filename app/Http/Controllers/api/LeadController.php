@@ -95,7 +95,7 @@ class LeadController extends Controller
         $incomingFieldsContact['account_id']=$account->id;
         // $incomingFieldsContact['user_id']=auth()->user()->id;
 
-        $contact = Contact::where('account_id','$account->id')->first();
+        $contact = Contact::where('account_id',$account->id)->first();
         $contact->update($incomingFieldsContact);
 
         // $incomingFieldsLead['account_id'] = $account->id;
