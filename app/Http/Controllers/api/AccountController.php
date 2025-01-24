@@ -19,7 +19,8 @@ class AccountController extends Controller
         // $userId = auth()->id();
         // $accounts = Account::where('user_id',$userId)
         // ->orderBy('id', 'DESC')->with('user','outlet')->get();
-        $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
+        $accounts = Account::with('user')
+        ->where('status','account')->orderBy('id', 'DESC')->get();
         return response()->json(['accounts'=>$accounts]);
     }
 
@@ -71,6 +72,7 @@ class AccountController extends Controller
             "status" => "success");
 
         return response()->json($accountStatus);
+
         
     }
 

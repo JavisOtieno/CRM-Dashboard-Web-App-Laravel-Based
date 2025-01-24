@@ -112,7 +112,6 @@ class AccountController extends Controller
         $incomingFields['user_id']=auth()->user()->id;
         
         //$incomingFields['image']='';
-
         //return $request['image'];
         
 
