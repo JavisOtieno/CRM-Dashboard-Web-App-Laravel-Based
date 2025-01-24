@@ -51,8 +51,8 @@ export default {
     // Initialize form state with useForm
     const form = useForm({
       user: props.lead.user.name || '',
-      name: props.lead.name || '',
-      phone: props.lead.phone || '',
+      name: props.lead.contacts[0].name || '',
+      phone: props.lead.contacts[0].phone || '',
       account_name: props.lead.account_name || '',
     });
 
