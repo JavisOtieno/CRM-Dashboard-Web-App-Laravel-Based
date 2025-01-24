@@ -46,6 +46,7 @@ class LeadController extends Controller
         $incomingFields['account_name']=strip_tags($incomingFields['account_name']);
 
         $incomingFields['user_id']=auth()->user()->id;
+        $incomingFieldsAccount['user_id']=auth()->user()->id;
         //$incomingFields['image']='';
         $incomingFieldsAccount['name']=strip_tags($incomingFields['account_name']);
         $incomingFieldsAccount['status']='lead';

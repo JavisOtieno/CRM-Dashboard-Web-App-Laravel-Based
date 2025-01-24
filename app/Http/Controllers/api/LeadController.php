@@ -24,6 +24,7 @@ class LeadController extends Controller
             'account_name' => 'nullable|string|max:255',
         ]);
 
+        $incomingFields['user_id']=auth()->user()->id;
         $incomingFieldsAccount['user_id']=auth()->user()->id;
         
         $incomingFieldsAccount = $incomingFields['account_name'];
