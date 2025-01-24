@@ -17,6 +17,7 @@ class Account extends Model
         'phone',
         'website',
         'address',
+        'status'
         
 
     ];

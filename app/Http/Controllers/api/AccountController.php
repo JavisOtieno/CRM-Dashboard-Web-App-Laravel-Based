@@ -62,6 +62,7 @@ class AccountController extends Controller
             'address'=>'required|string|max:1500',
         ]);
         $incomingFields['user_id']=auth()->user()->id;
+        $incomingFields['status']='account';
 
         Account::create($incomingFields);
 
