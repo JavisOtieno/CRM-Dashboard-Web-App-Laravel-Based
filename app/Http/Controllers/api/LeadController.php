@@ -32,7 +32,7 @@ class LeadController extends Controller
         Contact::create($incomingFields);
 
         $leadStatus=array(
-            "message" => "Account Added Successfully",
+            "message" => "Lead Added Successfully",
             "status" => "success");
 
         return response()->json($leadStatus);
