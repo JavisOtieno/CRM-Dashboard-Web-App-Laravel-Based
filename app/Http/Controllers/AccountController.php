@@ -108,7 +108,7 @@ class AccountController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['website']=strip_tags($incomingFields['website']);
         $incomingFields['address']=strip_tags($incomingFields['address']);
-
+        $incomingFields['status']='account';
         $incomingFields['user_id']=auth()->user()->id;
         
         //$incomingFields['image']='';
@@ -167,6 +167,7 @@ class AccountController extends Controller
         $incomingFields['phone']=strip_tags($incomingFields['phone']);
         $incomingFields['website']=strip_tags($incomingFields['website']);
         $incomingFields['address']=strip_tags($incomingFields['address']);
+
         
         //$incomingFields['image']='';
 
