@@ -26,7 +26,7 @@ class AccountController extends Controller
 
     public function accountsandcontacts(){
 
-        $accounts = Account::orderBy('id', 'DESC')->get();
+        $accounts = Account::where('status','account')->orderBy('id', 'DESC')->get();
         $contacts = Contact::orderBy('id', 'DESC')->get();
         return response()->json([compact('accounts','contacts')]);
 
@@ -34,7 +34,7 @@ class AccountController extends Controller
 
     public function accountsandlocations(){
 
-        $accounts = Account::orderBy('id', 'DESC')->get();
+        $accounts = Account::where('status','account')->orderBy('id', 'DESC')->get();
         $locations = Location::orderBy('id', 'DESC')->get();
         return response()->json([compact('accounts','locations')]);
         
@@ -42,7 +42,7 @@ class AccountController extends Controller
 
     public function accountsandproducts(){
 
-        $accounts = Account::orderBy('id', 'DESC')->get();
+        $accounts = Account::where('status','account')->orderBy('id', 'DESC')->get();
         $products = Product::orderBy('id', 'DESC')->get();
         return response()->json([compact('accounts','products')]);
         

@@ -24,7 +24,7 @@ class AccountController extends Controller
         //$competitors = Competitor::all();
 
         // $accounts = Account::all();
-                $accounts = Account::with('user')->orderBy('id', 'DESC')->get();
+                $accounts = Account::where('status','account')->with('user')->orderBy('id', 'DESC')->get();
                 if(auth()->user()->usertype=='admin'){
                     $admin = true;
                 }else{
@@ -47,7 +47,7 @@ class AccountController extends Controller
         $perPage = $entries['entries'] ?? 10;  // Default to 10 entries per page if not provided
        
 
-        $accounts = Account::paginate($perPage); // Adjust the number per page as needed
+        $accounts = Account::where('status','account')->paginate($perPage); // Adjust the number per page as needed
         
         if(auth()->user()->usertype=='admin'){
             $admin = true;
@@ -65,7 +65,7 @@ class AccountController extends Controller
 
         // return $request;
 
-        $accounts = Account::query() // Assuming you have an Account model
+        $accounts = Account::where('status','account')->query() // Assuming you have an Account model
             ->when($query, function ($q) use ($query) {
                 $q->where(function ($q) use ($query) {
                     $q->where('name', 'like', "%{$query}%")    
