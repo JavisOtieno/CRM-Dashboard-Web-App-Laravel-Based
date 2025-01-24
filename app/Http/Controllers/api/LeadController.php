@@ -13,7 +13,8 @@ class LeadController extends Controller
 {
     //
     public function index(){
-        $leads = Account::where('status','lead')->with('user','contacts')->orderBy('id', 'DESC')->get();
+        $leads = Account::where('status','lead')->with('user','contacts')
+        ->orderBy('id', 'DESC')->get();
         return response()->json(['leads'=>$leads]); 
     }
     public function addLead(Request $request){
@@ -80,30 +81,26 @@ class LeadController extends Controller
 
 
 
-        // $incomingFieldsAccount['name']=$incomingFields['account_name'];
-        // $incomingFieldsAccount['phone']=$incomingFields['account_phone'];
-        // $incomingFieldsAccount['website']=$incomingFields['account_website'];
-        // $incomingFieldsAccount['address']=$incomingFields['account_address'];
-        // $incomingFieldsAccount['user_id']=auth()->user()->id;
+        $incomingFieldsAccount['name']=$incomingFields['account_name'];
+        $incomingFieldsAccount['phone']=$incomingFields['account_phone'];
+        $incomingFieldsAccount['website']=$incomingFields['account_website'];
+        $incomingFieldsAccount['address']=$incomingFields['account_address'];
+        $incomingFieldsAccount['status']='account';
 
+        $account = Account::find($id)->update($incomingFieldsAccount);
 
-
-        // $account = Account::create($incomingFieldsAccount);
-
-        // $incomingFieldsContact['name']=$incomingFields['contact_name'];
-        // $incomingFieldsContact['phone']=$incomingFields['contact_phone'];
-        // $incomingFieldsContact['account_id']=$account->id;
+        $incomingFieldsContact['name']=$incomingFields['contact_name'];
+        $incomingFieldsContact['phone']=$incomingFields['contact_phone'];
+        $incomingFieldsContact['account_id']=$account->id;
         // $incomingFieldsContact['user_id']=auth()->user()->id;
 
-        // $contact = Contact::create($incomingFieldsContact);
+        $contact = Contact::where('account_id','$account->id')->first();
+        $contact->update($incomingFieldsContact);
 
         // $incomingFieldsLead['account_id'] = $account->id;
         // $incomingFieldsLead['contact_id'] = $contact->id;
     
         $lead = Account::find($id);
-
-        $incomingFieldsLead['status']='account';
-        $lead->update($incomingFieldsLead);
 
         $leadStatus=array(
             "message" => "Lead Converted Successfully",
