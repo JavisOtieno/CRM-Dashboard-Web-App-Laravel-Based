@@ -118,7 +118,19 @@ class DashboardController extends Controller
         ->values()
         ->toArray();
 
-        return $leadsLast7Days;
+        // return $leadsLast7Days;
+        // Add missing days of the week with a count of 0
+        $allDays = collect(range(0, 6))->map(function ($i) {
+            return Carbon::now()->subDays(6 - $i)->format('D');
+        });
+
+        $leadsLast7Days = $allDays->map(function ($day) use ($leadsLast7Days) {
+            $lead = collect($leadsLast7Days)->firstWhere('x', $day);
+            return [
+                'x' => $day,
+                'y' => $lead['y'] ?? 0,
+            ];
+        })->toArray();
         
         
 
@@ -133,13 +145,26 @@ class DashboardController extends Controller
             $dayOfWeek = Carbon::parse($lead->date)->format('D');
             return [
                 'x' => $dayOfWeek,
-                'y' => $lead->count ?? 0,
+                'y' => $lead->count,
             ];
         })
         ->values()
         ->toArray();
 
-        // return $accountsLeadsLast7Days;
+
+        $allDays = collect(range(0, 6))->map(function ($i) {
+            return Carbon::now()->subDays(6 - $i)->format('D');
+        });
+
+        $accountsLeadsLast7Days = $allDays->map(function ($day) use ($accountsLeadsLast7Days) {
+            $lead = collect($accountsLeadsLast7Days)->firstWhere('x', $day);
+            return [
+                'x' => $day,
+                'y' => $lead['y'] ?? 0,
+            ];
+        })->toArray();
+
+        return $accountsLeadsLast7Days;
 
         $accountsLast7Days = Account::where('status','account')
         ->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
@@ -149,6 +174,8 @@ class DashboardController extends Controller
         ->get()
         ->pluck('count')
         ->toArray();
+        // Add missing days of the week with a count of 0
+
 
         if ($dealsLastWeek == 0) {
             $percentageChangeDeals = $dealsThisWeek > 0 ? 100 : 0; // Avoid division by zero
