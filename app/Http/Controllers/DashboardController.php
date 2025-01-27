@@ -101,50 +101,8 @@ class DashboardController extends Controller
     
     // return $dealsLast7Days;
 
-    $leadsLast7Days = Account::where('status', 'lead')
-        ->select(
-            DB::raw('DATE(created_at) as date'),
-            DB::raw('COUNT(*) as count')
-        )
-        ->whereBetween('created_at', [
-            Carbon::now()->subDays(6)->startOfDay(),
-            Carbon::now()->endOfDay()
-        ])
-        ->groupBy('date')
-        ->orderBy('date', 'asc')
-        ->get()
-        ->map(function ($lead) {
-            // Format the day of the week as short (Mon, Tue, etc.)
-            $dayOfWeek = Carbon::parse($lead->date)->format('D');
-            return [
-                'x' => $dayOfWeek,
-                'y' => $lead->count,
-            ];
-        })
-        ->values()
-        ->toArray();
-
-        // Add missing days of the week with a count of 0
-        $allDays = collect(range(0, 6))->map(function ($i) {
-            return Carbon::now()->subDays(6 - $i)->format('D');
-        });
-
-        $dayOfWeek = Carbon::now()->format('l'); // Full day name (e.g., Monday)
-        $shortDay = Carbon::now()->format('D'); // Short day name (e.g., Mon)
-
-        // echo "Today is $dayOfWeek ($shortDay)";
-        
-        $leadsLast7Days = $allDays->map(function ($day) use ($leadsLast7Days) {
-            $lead = collect($leadsLast7Days)->firstWhere('x', $day);
-            return [
-                'x' => $day,
-                'y' => $lead['y'] ?? 0,
-            ];
-        })->toArray();
-        
-        // return $leadsLast7Days;
-
-        $accountsLeadsLast7Days = Account::where('status','account')->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
+        $leadsLast7Days =  Account::where('status','lead')
+        ->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
         ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
         ->groupBy('date')
         ->orderBy('date', 'asc')
@@ -154,13 +112,35 @@ class DashboardController extends Controller
             $dayOfWeek = Carbon::parse($lead->date)->format('D');
             return [
                 'x' => $dayOfWeek,
-                'y' => $lead->count,
+                'y' => $lead->count ?? 0,
+            ];
+        })
+        ->values()
+        ->toArray();
+        
+        
+
+        $accountsLeadsLast7Days = Account::where('status','account')
+        ->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
+        ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
+        ->groupBy('date')
+        ->orderBy('date', 'asc')
+        ->get()
+        ->map(function ($lead) {
+            // Format the day of the week as short (Mon, Tue, etc.)
+            $dayOfWeek = Carbon::parse($lead->date)->format('D');
+            return [
+                'x' => $dayOfWeek,
+                'y' => $lead->count ?? 0,
             ];
         })
         ->values()
         ->toArray();
 
-        $accountsLast7Days = Account::where('status','accout')->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
+        return $accountsLeadsLast7Days;
+
+        $accountsLast7Days = Account::where('status','account')
+        ->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
         ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
         ->groupBy('date')
         ->orderBy('date', 'asc')
