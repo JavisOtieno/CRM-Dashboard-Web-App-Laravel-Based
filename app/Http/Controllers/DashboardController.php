@@ -101,7 +101,7 @@ class DashboardController extends Controller
     
     // return $dealsLast7Days;
 
-        $leadsLast7Days = Lead::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
+        $leadsLast7Days =  Account::where('status','lead')->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
         ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
         ->groupBy('date')
         ->orderBy('date', 'asc')
@@ -205,9 +205,9 @@ class DashboardController extends Controller
 
 
         // Fetch deal counts
-        $currentMonthLeads = Lead::whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])->count();
+        $currentMonthLeads = Account::where('status','lead')->whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])->count();
 
-        $lastMonthLeads = Lead::whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])->count();
+        $lastMonthLeads = Account::where('status','lead')->whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])->count();
 
         // Calculate percentage change
         if ($lastMonthLeads == 0) {
@@ -227,7 +227,7 @@ class DashboardController extends Controller
         ->whereYear('created_at', now()->year)    // Filter by current year
         ->count();
 
-        $leadsThisMonth = Lead::whereMonth('created_at', now()->month)  // Filter by current month
+        $leadsThisMonth =  Account::where('status','lead')->whereMonth('created_at', now()->month)  // Filter by current month
         ->whereYear('created_at', now()->year)    // Filter by current year
         ->count();
        
