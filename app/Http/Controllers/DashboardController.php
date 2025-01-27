@@ -321,11 +321,10 @@ class DashboardController extends Controller
             return $product->percentage_achieved;
         }) // Sort by percentage_achieved in descending order // Sort by the calculated percentage in descending order
         ->take(4)
-        ->values()
-        ; // Get the top 4 products
+        ->values(); // Get the top 4 products
         // $productTargets = array_values($productTargets);
 
-        // return $productTargets;
+        return $productTargets;
 
         
 
