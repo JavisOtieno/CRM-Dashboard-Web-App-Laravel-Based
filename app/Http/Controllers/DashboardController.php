@@ -319,7 +319,7 @@ class DashboardController extends Controller
         ->values(); // Get the top 4 products
         // $productTargets = array_values($productTargets);
 
-        return $productTargets;
+        // return $productTargets;
 
         
 
