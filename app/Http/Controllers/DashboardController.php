@@ -22,7 +22,7 @@ class DashboardController extends Controller
         // $deals = Deal::all();
         // $deals = Deal::orderBy('id', 'desc')->take(5)->get();
         $deals = Deal::with('account','product')->orderBy('id', 'desc')->take(5)->get();
-        $accounts = Account::orderBy('id', 'desc')->take(5)->get();
+        $accounts = Account::where('status','account')->orderBy('id', 'desc')->take(5)->get();
 
         // return $accounts;
         // return Inertia::render('Index',['deals' => $deals]);
@@ -149,7 +149,7 @@ class DashboardController extends Controller
         $percentageChangeDeals = round($percentageChangeDeals, 2);
 
         $deals = Deal::with('account','product')->orderBy('id', 'desc')->take(5)->get();
-        $accounts = Account::orderBy('id', 'desc')->take(5)->get();
+        $accounts = Account::where('status','account')->orderBy('id', 'desc')->take(5)->get();
         $visits = Visit::with('account', 'location')->take(5)->get();
         $contacts = Contact::with('account')->take(5)->get();
         $dealsCount = Deal::count();
@@ -223,7 +223,7 @@ class DashboardController extends Controller
             $months=array_reverse($months);
 
 
-        $accountsThisMonth = Account::whereMonth('created_at', now()->month)  // Filter by current month
+        $accountsThisMonth = Account::where('status','account')->whereMonth('created_at', now()->month)  // Filter by current month
         ->whereYear('created_at', now()->year)    // Filter by current year
         ->count();
 
