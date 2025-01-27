@@ -142,7 +142,7 @@ class DashboardController extends Controller
             ];
         })->toArray();
         
-        return $leadsLast7Days;
+        // return $leadsLast7Days;
 
         $accountsLeadsLast7Days = Account::where('status','account')->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
         ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
