@@ -117,7 +117,7 @@ class DashboardController extends Controller
         ->values()
         ->toArray();
 
-        $accountsLeadsLast7Days = Account::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
+        $accountsLeadsLast7Days = Account::where('status','lead')->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
         ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
         ->groupBy('date')
         ->orderBy('date', 'asc')
@@ -133,7 +133,7 @@ class DashboardController extends Controller
         ->values()
         ->toArray();
 
-        $accountsLast7Days = Account::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
+        $accountsLast7Days = Account::where('status','accout')->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
         ->whereBetween('created_at', [Carbon::now()->subDays(6)->startOfDay(), Carbon::now()->endOfDay()])
         ->groupBy('date')
         ->orderBy('date', 'asc')
