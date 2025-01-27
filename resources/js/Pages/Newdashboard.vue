@@ -89,7 +89,7 @@ const props = defineProps({
     type: Number, // Define the type as String
     default: 0,  // Provide an empty string as the default value
   },
-  leadsThisMonth: {
+  leadsThisWeek: {
     type: Number, // Define the type as String
     default: 0,  // Provide an empty string as the default value
   },
@@ -655,8 +655,8 @@ VueApexCharts;
         </svg>
       </div>
       <div>
-        <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">{{ leadsThisMonth }}</h5>
-        <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Leads generated this month</p>
+        <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">{{ leadsThisWeek }}</h5>
+        <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Leads generated this week</p>
       </div>
     </div>
     <div>
@@ -858,7 +858,7 @@ VueApexCharts;
          
           class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
           type="button">
-          Last Month
+          This Month
           <!-- <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
           </svg> -->

@@ -230,6 +230,10 @@ class DashboardController extends Controller
         $leadsThisMonth =  Account::where('status','lead')->whereMonth('created_at', now()->month)  // Filter by current month
         ->whereYear('created_at', now()->year)    // Filter by current year
         ->count();
+
+        $leadsThisWeek = Account::where('status', 'lead')
+        ->whereBetween('created_at', [Carbon::now()->subWeek(), Carbon::now()]) // From this time last week to now
+        ->count();
        
 
         if($leadsThisMonth==0){
@@ -352,6 +356,7 @@ class DashboardController extends Controller
             'leadsLast7Days',
             'accountsLast7Days',
             'accountsThisMonth',
+            'leadsThisWeek',
             'leadsThisMonth',
             'conversionRate',
             'accountsLeadsLast7Days',
