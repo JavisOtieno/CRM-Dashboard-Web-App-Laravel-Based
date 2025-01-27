@@ -164,7 +164,7 @@ class DashboardController extends Controller
             ];
         })->toArray();
 
-        return $accountsLeadsLast7Days;
+        // return $accountsLeadsLast7Days;
 
         $accountsLast7Days = Account::where('status','account')
         ->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(*) as count'))
