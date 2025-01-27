@@ -282,8 +282,6 @@ class DashboardController extends Controller
         $numberOfSellers = User::where('usertype', 'seller')->count();
       
         $productTargets = Product::select('id', 'name', 'target_amount')
-        // ->withCount('sellers') // Assuming you have a relationship called 'sellers' in the Product model
-        //scope limits depending on user
         ->withCount(['deals' => function ($query) {
             $query->whereMonth('created_at', now()->month)  // Filter by current month
                 ->whereYear('created_at', now()->year);   // Filter by current year
@@ -311,9 +309,6 @@ class DashboardController extends Controller
                     $product->percentage_achieved = 0;
                 }
             }
-
-
-
 
             return $product;
         })
