@@ -153,8 +153,8 @@ class DashboardController extends Controller
         $visits = Visit::with('account', 'location')->take(5)->get();
         $contacts = Contact::with('account')->take(5)->get();
         $dealsCount = Deal::count();
-        $accountsCount = Account::count();
-        $leadsCount = Lead::count();
+        $accountsCount = Account::where('status','account')->count();
+        $leadsCount = Account::where('status','lead')->count();
         $contactsCount = Contact::count();
         $dealsPerMonth = array();
         // for ($i = 0; $i <= 11; $i++) {
