@@ -18,6 +18,7 @@ use App\Http\Controllers\api\ProfileController;
 use App\Http\Controllers\api\ActivityController;
 use App\Http\Controllers\api\LocationController;
 use App\Http\Controllers\api\DashboardController;
+use App\Http\Controllers\api\TemplocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,8 @@ Route::get('apitest',function(){
 });
 
 Route::post('/login', [AuthController::class, 'doLogin']);
+
+Route::post('/addtemplocation', [TemplocationController::class, 'addTemplocation']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
 Route::get('/dashboard', [DashboardController::class, 'index']);
