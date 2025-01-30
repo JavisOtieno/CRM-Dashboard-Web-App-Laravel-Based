@@ -17,7 +17,7 @@ class TemplocationController extends Controller
             'long' => 'required|numeric|between:-180,180',
         ]);
 
-        $incomingFields['user_id']=auth()->user()->id;
+        // $incomingFields['user_id']=auth()->user()->id;
 
         Templocation::create($incomingFields);
 
