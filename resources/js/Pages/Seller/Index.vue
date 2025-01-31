@@ -18,6 +18,7 @@ import {
     initTabs,
     initTooltips
 } from 'flowbite'
+import { formatDateTime } from '@/composables/customFunctions';
 
 const people = ref([
     { name: "John Doe", age: 30, city: "New York" },
@@ -186,6 +187,13 @@ const flash = computed(() => page.props.flash || null);
                                     Status
                                 </span>
                             </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+
+                                <span class="flex items-center">
+                                    Date & Time
+                                </span>
+                            </th>
 
 
                             <th scope="col"
@@ -199,27 +207,32 @@ const flash = computed(() => page.props.flash || null);
                             :key="index">
                             <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ seller.id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ seller.name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ seller.phone }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ seller.email }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
+                                seller.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
+                                seller.phone }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
+                                seller.email }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full 
                     bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-200">
                                     {{ capitalizeFirstLetter(seller.status) }}
                                 </span>
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ formatDateTime(admin.created_at) }}</td>
 
 
                             <td>
                                 <div class="flex space-x-2">
                                     <a :href="`/editseller/${seller.id}`"
                                         class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
-                                    Edit
-                                </a>
+                                        Edit
+                                    </a>
                                     <a :href="`/deleteseller/${seller.id}`"
                                         class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
                                         Delete
-                            </a>
+                                    </a>
                                 </div>
                             </td>
                         </tr>

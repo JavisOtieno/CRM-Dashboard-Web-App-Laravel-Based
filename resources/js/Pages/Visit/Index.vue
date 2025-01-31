@@ -19,6 +19,7 @@ import {
     initTooltips
 } from 'flowbite'
 import TableWrapper from "../TableWrapper.vue";
+import { formatDateTime } from '@/composables/customFunctions';
 
 import { useUserStore } from '../../store/user';
 const userStore = useUserStore();
@@ -184,6 +185,13 @@ const flash = computed(() => page.props.flash || null);
                             </th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+
+                                <span class="flex items-center">
+                                    Date & Time
+                                </span>
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
                                 <span class="flex items-center">Actions</span>
                             </th>
                         </tr>
@@ -203,6 +211,8 @@ const flash = computed(() => page.props.flash || null);
                                     {{ capitalizeFirstLetter(visit.status) }}
                                 </span>
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ formatDateTime(admin.created_at) }}</td>
 
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm">

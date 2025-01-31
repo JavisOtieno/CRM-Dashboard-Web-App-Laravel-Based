@@ -7,6 +7,7 @@ import { usePage } from '@inertiajs/vue3'
 // import SidebarNew from '@/Pages/Sidebarnew.vue';
 import TableWrapper from '@/Pages/TableWrapper.vue';
 import { useUserStore } from '../../store/user';
+import { formatDateTime } from '@/composables/customFunctions';
 import {
     initAccordions,
     initCarousels,
@@ -173,60 +174,80 @@ const flash = computed(() => page.props.flash || null);
 
 
 
-<table id="search-table" class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-    <thead class="bg-gray-100 dark:bg-gray-800">
-        <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                ID
-            </th>
-            <th v-if="user.usertype === 'admin'" scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                Seller
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                Account
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                Contact
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                Status
-            </th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-                Actions
-            </th>
-        </tr>
-    </thead>
-    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
-        <tr v-for="(call, index) in calls" :key="index" class="hover:bg-gray-100 dark:hover:bg-gray-800">
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{{ call.id }}</td>
-            <td v-if="user.usertype === 'admin'" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ call.user.name }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ call.account.name }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ call.contact.name }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full 
+                    <table id="search-table" class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-100 dark:bg-gray-800">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                                    ID
+                                </th>
+                                <th v-if="user.usertype === 'admin'" scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                                    Seller
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                                    Account
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                                    Contact
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                                    Status
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+
+                                    <span class="flex items-center">
+                                        Date & Time
+                                    </span>
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
+                            <tr v-for="(call, index) in calls" :key="index"
+                                class="hover:bg-gray-100 dark:hover:bg-gray-800">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{{ call.id
+                                    }}</td>
+                                <td v-if="user.usertype === 'admin'"
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                    {{ call.user.name }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                    {{ call.account.name }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                    {{ call.contact.name }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full 
                     bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-200">
-                    {{ capitalizeFirstLetter(call.status) }}
-                </span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <div class="flex space-x-2">
-                    <a :href="`/editcall/${call.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
-                        Edit
-                    </a>
-                    <a :href="`/deletecall/${call.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
-                        Delete
-                    </a>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                                        {{ capitalizeFirstLetter(call.status) }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                    {{ formatDateTime(admin.created_at) }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <div class="flex space-x-2">
+                                        <a :href="`/editcall/${call.id}`"
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                                            Edit
+                                        </a>
+                                        <a :href="`/deletecall/${call.id}`"
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                 </div>
 

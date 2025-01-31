@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/vue3';
 import { onMounted, onBeforeUnmount, ref, computed, toRefs } from 'vue'
 import { useForm, usePage } from '@inertiajs/vue3'
 import TableWrapper from '@/Pages/TableWrapper.vue';
+import { formatDateTime } from '@/composables/customFunctions';
 
 
 import {
@@ -196,6 +197,13 @@ const flash = computed(() => page.props.flash || null);
                             </th>
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+
+                                <span class="flex items-center">
+                                    Date & Time
+                                </span>
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
                                 <span class="flex items-center">Actions</span>
                             </th>
                         </tr>
@@ -205,28 +213,35 @@ const flash = computed(() => page.props.flash || null);
                             v-for="(meeting, index) in meetings" :key="index">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                                 {{ meeting.id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300" v-if="user.usertype === 'admin'">{{ meeting.user.name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ meeting.account.name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ meeting.contact.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300"
+                                v-if="user.usertype === 'admin'">{{ meeting.user.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
+                                meeting.account.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
+                                meeting.contact.name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full 
                     bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-200">
                                     {{ capitalizeFirstLetter(meeting.status) }}
                                 </span>
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ formatDateTime(admin.created_at) }}</td>
 
 
-                                            
+
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <div class="flex space-x-2">
-                    <a :href="`/editmeeting/${meeting.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
-                        Edit
-                    </a>
-                    <a :href="`/deletemeeting/${meeting.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
-                        Delete
-                    </a>
-                </div>
-            </td>
+                                <div class="flex space-x-2">
+                                    <a :href="`/editmeeting/${meeting.id}`"
+                                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                                        Edit
+                                    </a>
+                                    <a :href="`/deletemeeting/${meeting.id}`"
+                                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
 
                     </tbody>

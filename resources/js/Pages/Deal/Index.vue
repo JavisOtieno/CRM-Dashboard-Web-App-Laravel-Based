@@ -5,6 +5,7 @@ import { onMounted, onBeforeUnmount, ref, computed } from 'vue'
 import { useForm } from '@inertiajs/vue3'
 import TableWrapper from '@/Pages/TableWrapper.vue';
 import { usePage } from '@inertiajs/vue3'
+import { formatDateTime } from '@/composables/customFunctions';
 
 import { useUserStore } from '../../store/user';
 const userStore = useUserStore();
@@ -196,6 +197,13 @@ const flash = computed(() => page.props.flash || null);
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+
+                                    <span class="flex items-center">
+                                        Date & Time
+                                    </span>
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
                                     <span class="flex items-center">Actions</span>
                                 </th>
                             </tr>
@@ -213,24 +221,28 @@ const flash = computed(() => page.props.flash || null);
                                     deal.amount }}</td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
-                                    deal.lead==null?deal.account.name:deal.lead.name }}</td>
+                                    deal.lead == null ? deal.account.name : deal.lead.name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                                     <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full 
                     bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-200">
                                         {{ capitalizeFirstLetter(deal.status) }}
                                     </span>
                                 </td>
-                                
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                    {{ formatDateTime(admin.created_at) }}</td>
+
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <div class="flex space-x-2">
-                    <a :href="`/editdeal/${deal.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
-                        Edit
-                    </a>
-                    <a :href="`/deletedeal/${deal.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
-                        Delete
-                    </a>
-                </div>
-            </td>
+                                    <div class="flex space-x-2">
+                                        <a :href="`/editdeal/${deal.id}`"
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                                            Edit
+                                        </a>
+                                        <a :href="`/deletedeal/${deal.id}`"
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
 
                         </tbody>

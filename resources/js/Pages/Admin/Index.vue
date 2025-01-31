@@ -5,6 +5,8 @@ import { onMounted, onBeforeUnmount, ref, computed, toRefs } from 'vue'
 import { useForm, usePage } from '@inertiajs/vue3'
 import TableWrapper from '@/Pages/TableWrapper.vue';
 
+import { formatDateTime } from '@/composables/customFunctions';
+
 import {
     initAccordions,
     initCarousels,
@@ -58,6 +60,18 @@ function openModal(admin) {
     selectedAdmin.value = admin.id; // Set the selected product data
     //   isModalVisible.value = true; // Show the modal
 }
+
+// const formatDateTime = (dateString) => {
+//   const date = new Date(dateString);
+//   const day = String(date.getDate()).padStart(2, '0');
+//   const month = date.toLocaleString('default', { month: 'short' });
+//   const year = date.getFullYear();
+//   const hours = String(date.getHours()).padStart(2, '0');
+//   const minutes = String(date.getMinutes()).padStart(2, '0');
+//  // const seconds = String(date.getSeconds()).padStart(2, '0');
+
+//   return `${day}-${month}-${year} ${hours}:${minutes}`;
+// };
 
 
 
@@ -116,7 +130,7 @@ const flash = computed(() => page.props.flash || null);
 <template>
 
 
-<TableWrapper :flash="flash">
+    <TableWrapper :flash="flash">
 
 
         <h3 class="text-3xl font-bold dark:text-white mb-4">Admins</h3>
@@ -152,67 +166,89 @@ const flash = computed(() => page.props.flash || null);
                 <table id="search-table">
                     <thead>
                         <tr>
-                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
 
                                 <span class="flex items-center">
                                     ID
                                 </span>
                             </th>
-                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
 
                                 <span class="flex items-center">
-                                Name
+                                    Name
                                 </span>
                             </th>
-                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
 
                                 <span class="flex items-center">
                                     Phone
                                 </span>
                             </th>
-                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
 
                                 <span class="flex items-center">
                                     Email
                                 </span>
                             </th>
-                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
 
                                 <span class="flex items-center">
                                     Status
                                 </span>
                             </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+
+                                <span class="flex items-center">
+                                    Date & Time
+                                </span>
+                            </th>
 
 
-                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
-<span class="flex items-center">Actions</span></th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-400">
+                                <span class="flex items-center">Actions</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-800" 
-                        v-for="(admin, index) in admins" :key="index">
+                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-800" v-for="(admin, index) in admins"
+                            :key="index">
                             <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ admin.id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ admin.name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ admin.phone }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ admin.email }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
+                                admin.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
+                                admin.phone }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
+                                admin.email }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full 
+                                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full 
                     bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-200">
-                    {{ capitalizeFirstLetter(admin.status) }}
-                </span>
-            </td>
+                                    {{ admin.status }}
+                                </span>
+
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                                {{ formatDateTime(admin.created_at) }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <div class="flex space-x-2">
-                    <a :href="`/editadmin/${admin.id}`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
-                        Edit
-                    </a>
-                    <a :href="`/deleteadmin/${admin.id}`"  class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
-                        Delete
-                    </a>
-                </div>
-            </td>
-<!-- 
+                                <div class="flex space-x-2">
+                                    <a :href="`/editadmin/${admin.id}`"
+                                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600">
+                                        Edit
+                                    </a>
+                                    <a :href="`/deleteadmin/${admin.id}`"
+                                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600">
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                            <!-- 
                             <td>
 
                                 <span class="inline-flex overflow-hidden rounded-md border 
