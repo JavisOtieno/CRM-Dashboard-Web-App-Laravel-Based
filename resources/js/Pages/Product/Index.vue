@@ -6,7 +6,6 @@ import { useForm, usePage } from '@inertiajs/vue3'
 import TableWrapper from '@/Pages/TableWrapper.vue';
 
 import { formatDateTime } from '@/composables/customFunctions';
-const { formatDateTime } = useDateTime();
 const userStore = useUserStore();
 const user = userStore.user;
 
