@@ -311,7 +311,7 @@ const capitalizeFirstLetter = (string) => {
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
                                     account.address }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                    {{ formatDateTime(admin.created_at) }}</td>
+                                    {{ formatDateTime(account.created_at) }}</td>
 
 
                                 <!-- <td><button @click="testAlert(account.id)">{{account.id}}</button></td> -->

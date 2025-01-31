@@ -221,7 +221,7 @@ const flash = computed(() => page.props.flash || null);
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
                                 lead.name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                {{ formatDateTime(admin.created_at) }}</td>
+                                {{ formatDateTime(lead.created_at) }}</td>
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <div class="flex space-x-2">

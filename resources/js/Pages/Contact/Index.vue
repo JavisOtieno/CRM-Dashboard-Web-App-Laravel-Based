@@ -233,7 +233,7 @@ if (document.getElementById("search-table") && typeof simpleDatatables.DataTable
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{
                                 contact.account.name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                                {{ formatDateTime(admin.created_at) }}</td>
+                                {{ formatDateTime(contact.created_at) }}</td>
 
 
                             <td class="px-6 py-4 whitespace-nowrap text-sm">

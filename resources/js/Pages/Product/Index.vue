@@ -6,6 +6,8 @@ import { useForm, usePage } from '@inertiajs/vue3'
 import TableWrapper from '@/Pages/TableWrapper.vue';
 
 import { formatDateTime } from '@/composables/customFunctions';
+
+import { useUserStore } from '../../store/user';
 const userStore = useUserStore();
 const user = userStore.user;
 
@@ -254,7 +256,7 @@ const flash = computed(() => page.props.flash || null);
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                {{ formatDateTime(admin.created_at) }}</td>
+                {{ formatDateTime(product.created_at) }}</td>
 
               <td v-if="user.usertype === 'admin'" class="px-6 py-4 whitespace-nowrap text-sm">
 
