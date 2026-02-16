@@ -134,7 +134,7 @@ const flash = computed(() => page.props.flash || null);
 
 
 
-                        <Link :href="route('addpayment')" as="button" class="bg-primary-600 text-white w-1/3 px-4 py-2 
+                        <Link :href="route('adddeal')" as="button" class="bg-primary-600 text-white w-1/3 px-4 py-2 
             rounded hover:bg-primary-700">
                         Add Payment
 
