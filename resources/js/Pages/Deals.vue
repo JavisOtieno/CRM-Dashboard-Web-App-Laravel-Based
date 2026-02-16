@@ -110,7 +110,7 @@ B</th>
 
   <div class="flex-1 p-6">
     <!-- Your main content goes here -->
-    <h1 class="text-2xl font-bold">Deals</h1>
+    <h1 class="text-2xl font-bold"></h1>
     <!-- <p class="mt-4">This is where you can add your main content.</p> -->
 
 

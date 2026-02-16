@@ -121,7 +121,7 @@ const flash = computed(() => page.props.flash || null);
 
         <div>
 
-            <h3 class="text-3xl font-bold dark:text-white mb-4">Deals</h3>
+            <h3 class="text-3xl font-bold dark:text-white mb-4">Payments</h3>
 
 
             <div class="flex items-center justify-center  mb-4 rounded">
@@ -130,13 +130,13 @@ const flash = computed(() => page.props.flash || null);
                 <div class="container mx-auto mt-5">
                     <!-- Add User button aligned to the right -->
                     <div class="flex justify-between mb-4">
-                        <div class="text-lg dark:text-white font-semibold">Deals Table</div>
+                        <div class="text-lg dark:text-white font-semibold">Payments Table</div>
 
 
 
-                        <Link :href="route('adddeal')" as="button" class="bg-primary-600 text-white w-1/3 px-4 py-2 
+                        <Link :href="route('addpayment')" as="button" class="bg-primary-600 text-white w-1/3 px-4 py-2 
             rounded hover:bg-primary-700">
-                        Add Deal
+                        Add Payment
 
                         </Link>
 

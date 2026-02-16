@@ -310,7 +310,7 @@ class="w-5 h-5"
 
 
 
-                 <span class="flex-1 ms-3 whitespace-nowrap">Products</span>
+                 <span class="flex-1 ms-3 whitespace-nowrap">Payment Options</span>
                 </Link>
            </li>
            
@@ -333,7 +333,7 @@ class="w-5 h-5"
 </svg>
 
 
-                 <span class="flex-1 ms-3 whitespace-nowrap">Accounts</span>
+                 <span class="flex-1 ms-3 whitespace-nowrap">Merchant Accounts</span>
                 </Link>
            </li>
 
@@ -409,7 +409,7 @@ class="w-5 h-5"
 </svg>
 
 
-                 <span class="flex-1 ms-3 whitespace-nowrap">Deals</span>
+                 <span class="flex-1 ms-3 whitespace-nowrap">Payments</span>
                 </Link>
            </li>
 

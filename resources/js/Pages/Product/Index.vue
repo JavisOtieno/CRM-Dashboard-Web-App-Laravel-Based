@@ -155,7 +155,7 @@ const flash = computed(() => page.props.flash || null);
 
   <TableWrapper :flash="flash">
 
-    <h3 class="text-3xl font-bold dark:text-white mb-4">Products</h3>
+    <h3 class="text-3xl font-bold dark:text-white mb-4">Payment Options</h3>
 
 
     <div class="flex items-center justify-center  mb-4 rounded">
@@ -164,7 +164,7 @@ const flash = computed(() => page.props.flash || null);
       <div class="container mx-auto mt-5">
         <!-- Add User button aligned to the right -->
         <div class="flex justify-between mb-4">
-          <div class="text-lg dark:text-white font-semibold">Products Table</div>
+          <div class="text-lg dark:text-white font-semibold">Payment Options Table</div>
 
 
 

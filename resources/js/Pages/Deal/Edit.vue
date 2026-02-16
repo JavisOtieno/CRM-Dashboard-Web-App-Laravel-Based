@@ -117,7 +117,7 @@ B</th>
 
 
 
-    <h3 class="text-3xl font-bold dark:text-white mb-4">Deals</h3>
+    <h3 class="text-3xl font-bold dark:text-white mb-4">Payments</h3>
 
 
     <div class="flex items-center justify-center  mb-4 rounded">
@@ -125,7 +125,7 @@ B</th>
       <div class="container mx-auto mt-5">
         <!-- Add User button aligned to the right -->
         <div class="flex justify-between mb-4">
-          <div  class="text-lg dark:text-white font-semibold">Edit Deal</div>
+          <div  class="text-lg dark:text-white font-semibold">Edit Payment</div>
 
           <!-- <button @click="openAddUserModal" 
           
