@@ -663,7 +663,7 @@ VueApexCharts;
 
 
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4 bg-white dark:bg-gray-800" >
+<div class="w-full relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4 bg-white dark:bg-gray-800" >
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" >
         <caption class=" pl-6 pt-3 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="text-align:left;font-weight:bold;">Recent Payments</caption>
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
