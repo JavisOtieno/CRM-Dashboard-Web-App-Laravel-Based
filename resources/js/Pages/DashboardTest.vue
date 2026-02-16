@@ -1,6 +1,28 @@
 <script setup>
 import { onMounted } from 'vue'
 import SidebarNew from '@/Pages/Sidebarnew.vue';
+import { mapState, mapGetters } from 'vuex';
+import { computed, toRefs } from 'vue';
+import { ref, watch } from "vue"; 
+import { useStore } from 'vuex';
+import VueApexCharts from "vue3-apexcharts";
+import { Link } from '@inertiajs/vue3';
+import { useUserStore } from '../store/user';
+
+const store = useStore();
+
+const message = computed(() => store.state.message);
+
+const changeMessage = () => {
+  store.dispatch('updateMessage', 'Updated message from Vuex!');
+};
+
+// Access the user state and isAuthenticated getter from the store
+const { user } = toRefs(store.state);
+const isAuthenticated = computed(() => store.getters.isAuthenticated);
+
+// console.log("test"+user.name);
+
 import { 
     initAccordions, 
     initCarousels, 
@@ -30,7 +52,80 @@ onMounted(() => {
 })
 
 const props = defineProps({
+  auth: Object,
+    leadsCount: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
+  contactsCount: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
+  dealsCount: {
+    type: Number, // Define the type as String
+    default: '',  // Provide an empty string as the default value
+  },
+  accountsCount: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
+  percentageChange: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
+  percentageChangeDeals: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
+  percentageChangeLeads: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
+  dealsThisWeek: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
+  accountsThisMonth: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
+  leadsThisWeek: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
+  conversionRate: {
+    type: Number, // Define the type as String
+    default: 0,  // Provide an empty string as the default value
+  },
   accounts: {
+    type: Array,
+    default: () => [],
+  },
+  productTargets: {
+    type: Array,
+    default: () => [],
+  },
+  dealsPerMonth: {
+    type: Array,
+    default: () => [],
+  },
+  dealsLast7Days: {
+    type: Array,
+    default: () => [],
+  },
+  leadsLast7Days: {
+    type: Array,
+    default: () => [],
+  },
+  accountsLast7Days: {
+    type: Array,
+    default: () => [],
+  },
+  accountsLeadsLast7Days: {
+    type: Array,
+    default: () => [],
+  },
+  months: {
     type: Array,
     default: () => [],
   },
@@ -45,1380 +140,1128 @@ const props = defineProps({
   contacts: {
     type: Array,
     default: () => [],
+  },  
+  productNamesPieChart: {
+    type: Array,
+    default: () => [],
+  },
+  totalSoldPieChart: {
+    type: Array,
+    default: () => [],
+  },
+  palettePieChart: {
+    type: Array,
+    default: () => [],
   },
   
 });
 
-import { Link } from '@inertiajs/vue3';
+
+// Access the Pinia store
+const userStore = useUserStore();
+
+// Initialize the Pinia store with Inertia data
+userStore.setUser(props.auth.user);
+
+const chartOptions = ref({
+  chart: {
+    height: "100%",
+    maxWidth: "100%",
+    type: "area",
+    fontFamily: "Inter, sans-serif",
+    dropShadow: {
+      enabled: false,
+    },
+    toolbar: {
+      show: false,
+    },
+  },
+  tooltip: {
+    enabled: true,
+    x: {
+      show: false,
+    },
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      opacityFrom: 0.55,
+      opacityTo: 0,
+      shade: "#EC1F27",
+      gradientToColors: ["#EC1F27"],
+    },
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    width: 6,
+  },
+  margin: {
+      top: 30,  // Add margin space to the top to prevent cutting off the stroke
+      bottom: 30,  // Add margin space to the bottom
+    },
+  grid: {
+    show: false,
+    strokeDashArray: 4,
+    padding: {
+      left: 20,
+      right: 20,
+      top: 20, // Add space for the stroke at the top
+      bottom: 20, // Add space for the stroke at the bottom
+    },
+  },
+  series: [
+    {
+      name: "Deals",
+      data: [], // Placeholder for `dealsPerMonth`
+      color: "#EC1F27",
+    },
+  ],
+  xaxis: {
+    categories: props.months,
+    labels: {
+      show: true,
+    },
+    axisBorder: {
+      show: false,
+    },
+    axisTicks: {
+      show: false,
+    },
+  },
+  yaxis: {
+    min: -0.1, 
+    max: Math.max(...props.dealsPerMonth) + 1, 
+    show: false,
+  },
+});
+
+// Update chartOptions.series.data with dealsPerMonth
+watch(
+  () => props.dealsPerMonth, // Watching the prop
+  (newValue) => {
+    chartOptions.value.series[0].data = newValue; // Update chart data
+  },
+  { immediate: true } // Run immediately on mount
+);
+
+
+
+
+
+
+// Chart options
+const chartOptionsLeads = {
+  chart: {
+    type: "bar",
+    height: "320px",
+    fontFamily: "Inter, sans-serif",
+    toolbar: {
+      show: false,
+    },
+  },
+  colors: ["#1A56DB", "#FDBA8C"],
+  plotOptions: {
+    bar: {
+      horizontal: false,
+      columnWidth: "70%",
+      borderRadiusApplication: "end",
+      borderRadius: 8,
+    },
+  },
+  tooltip: {
+    shared: true,
+    intersect: false,
+    style: {
+      fontFamily: "Inter, sans-serif",
+    },
+  },
+  states: {
+    hover: {
+      filter: {
+        type: "darken",
+        value: 1,
+      },
+    },
+  },
+  stroke: {
+    show: true,
+    width: 0,
+    colors: ["transparent"],
+  },
+  grid: {
+    show: false,
+    strokeDashArray: 4,
+    padding: {
+      left: 2,
+      right: 2,
+      top: -14,
+    },
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  legend: {
+    show: false,
+  },
+  xaxis: {
+    floating: false,
+    labels: {
+      show: true,
+      style: {
+        fontFamily: "Inter, sans-serif",
+        cssClass: "text-xs font-normal fill-gray-500 dark:fill-gray-400",
+      },
+    },
+    axisBorder: {
+      show: false,
+    },
+    axisTicks: {
+      show: false,
+    },
+  },
+  yaxis: {
+    show: false,
+  },
+  fill: {
+    opacity: 1,
+  },
+};
+
+console.log('leads');
+console.log(props.leadsLast7Days);
+console.log('leads');
+
+// Chart series data
+const chartSeries = [
+  {
+    name: "Leads",
+    color: "#C71A20",
+    data: props.leadsLast7Days
+  },
+  {
+    name: "Accounts",
+    color: "#05C3FB",
+    data: props.accountsLeadsLast7Days,
+  },
+];
+
+if(document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
+  const chart = new ApexCharts(document.getElementById("column-chart"), options);
+  chart.render();
+}
+
+// Pie chart options
+const chartOptionsPie = {
+  chart: {
+    type: "pie",
+    height: "320px",
+    fontFamily: "Inter, sans-serif",
+  },
+  labels: props.productNamesPieChart,
+  legend: {
+    // show: false, // Disables the legend
+    position: "bottom",
+    labels: {
+      colors: ["#000"], // Adjust for light/dark themes
+      useSeriesColors: false,
+    },
+    fontFamily: "Inter, sans-serif",
+  },
+  tooltip: {
+    style: {
+      fontFamily: "Inter, sans-serif",
+    },
+  },
+  dataLabels: {
+    enabled: false,
+    formatter: function (val) {
+        return Math.round(val); // Rounds to the nearest whole number
+    },
+    style: {
+      fontFamily: "Inter, sans-serif",
+      fontSize: "14px",
+      colors: ["#fff"], // Adjust for themes
+    },
+    borderWidth: 0 // Removes border shadows if they exist
+  },
+  fill: {
+    colors: props.palettePieChart, // Pie chart slice colors
+  },
+};
+
+// Pie chart series data
+const chartSeriesPie = props.totalSoldPieChart; // Represents values for each label
+
+
+const chartOptionsDealsWeek = {
+  chart: {
+    type: "bar",
+    toolbar: { show: false },
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: "50%",
+      borderRadiusApplication: "end",
+      borderRadius: 2,
+
+    },
+  },
+  colors: ["#C71A20"],
+
+
+  xaxis: {
+    show: false, // Disable x-axis
+    labels: {
+      show: false // Hide x-axis labels (numbers)
+    },
+    lines: {
+      show: false // Hide the line under the x-axis
+    },
+  },
+  yaxis: {
+    show: false // Disable y-axis
+  },
+  grid: {
+    show: false // Disable grid lines
+  },
+  dataLabels: {
+    enabled: false // Disable data labels
+  },
+  tooltip: {
+    enabled: false // Disable tooltips
+  },
+  legend: {
+    show: false // Disable the legend
+  },
+  title: {
+    text: undefined // Disable chart title
+  },
+  fill: {
+    opacity: 1 // Set fill opacity (keep bars visible)
+  },
+  stroke: {
+    show: false // Disable stroke around bars
+  }
+};
+
+const chartSeriesDealsWeek = [
+  {
+    name: "Quantity",
+    data: props.dealsLast7Days,
+  },
+];
+
+
+// Register VueApexCharts component
+VueApexCharts;
+
+
 </script>
 <template>
-<div class="antialiased bg-gray-50 dark:bg-gray-900">
-    <nav class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
-      <div class="flex flex-wrap justify-between items-center">
-        <div class="flex justify-start items-center">
-          <button
-            data-drawer-target="drawer-navigation"
-            data-drawer-toggle="drawer-navigation"
-            aria-controls="drawer-navigation"
-            class="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 dark:focus:bg-gray-700 focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            <svg
-              aria-hidden="true"
-              class="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            <svg
-              aria-hidden="true"
-              class="hidden w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            <span class="sr-only">Toggle sidebar</span>
-          </button>
-          <a href="https://flowbite.com" class="flex items-center justify-between mr-4">
-            <img
-              src="https://flowbite.s3.amazonaws.com/logo.svg"
-              class="mr-3 h-8"
-              alt="Flowbite Logo"
-            />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-          </a>
-          <form action="#" method="GET" class="hidden md:block md:pl-2">
-            <label for="topbar-search" class="sr-only">Search</label>
-            <div class="relative md:w-64 md:w-96">
-              <div
-                class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
-              >
-                <svg
-                  class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  ></path>
-                </svg>
-              </div>
-              <input
-                type="text"
-                name="email"
-                id="topbar-search"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
-                focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 
-                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Search"
-              />
-            </div>
-          </form>
-        </div>
-        <div class="flex items-center lg:order-2">
-          <button
-            type="button"
-            data-drawer-toggle="drawer-navigation"
-            aria-controls="drawer-navigation"
-            class="p-2 mr-1 text-gray-500 rounded-lg md:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-          >
-            <span class="sr-only">Toggle search</span>
-            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path clip-rule="evenodd" fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"></path>
-            </svg>
-          </button>
-          <!-- Notifications -->
-          <button
-            type="button"
-            data-dropdown-toggle="notification-dropdown"
-            class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-          >
-            <span class="sr-only">View notifications</span>
-            <!-- Bell icon -->
-            <svg
-              aria-hidden="true"
-              class="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
-              ></path>
-            </svg>
-          </button>
-          <!-- Dropdown menu -->
-          <div
-            class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"
-            id="notification-dropdown"
-          >
-            <div
-              class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300"
-            >
-              Notifications
-            </div>
-            <div>
-              <a
-                href="#"
-                class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-              >
-                <div class="flex-shrink-0">
-                  <img
-                    class="w-11 h-11 rounded-full"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
-                    alt="Bonnie Green avatar"
-                  />
-                  <div
-                    class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 rounded-full border border-white bg-primary-700 dark:border-gray-700"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="w-3 h-3 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"
-                      ></path>
-                      <path
-                        d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="pl-3 w-full">
-                  <div
-                    class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                  >
-                    New message from
-                    <span class="font-semibold text-gray-900 dark:text-white"
-                      >Bonnie Green</span
-                    >: "Hey, what's up? All set for the presentation?"
-                  </div>
-                  <div
-                    class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                  >
-                    a few moments ago
-                  </div>
-                </div>
-              </a>
-              <a
-                href="#"
-                class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-              >
-                <div class="flex-shrink-0">
-                  <img
-                    class="w-11 h-11 rounded-full"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                    alt="Jese Leos avatar"
-                  />
-                  <div
-                    class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-gray-900 rounded-full border border-white dark:border-gray-700"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="w-3 h-3 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="pl-3 w-full">
-                  <div
-                    class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                  >
-                    <span class="font-semibold text-gray-900 dark:text-white"
-                      >Jese leos</span
-                    >
-                    and
-                    <span class="font-medium text-gray-900 dark:text-white"
-                      >5 others</span
-                    >
-                    started following you.
-                  </div>
-                  <div
-                    class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                  >
-                    10 minutes ago
-                  </div>
-                </div>
-              </a>
-              <a
-                href="#"
-                class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-              >
-                <div class="flex-shrink-0">
-                  <img
-                    class="w-11 h-11 rounded-full"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
-                    alt="Joseph McFall avatar"
-                  />
-                  <div
-                    class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-red-600 rounded-full border border-white dark:border-gray-700"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="w-3 h-3 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="pl-3 w-full">
-                  <div
-                    class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                  >
-                    <span class="font-semibold text-gray-900 dark:text-white"
-                      >Joseph Mcfall</span
-                    >
-                    and
-                    <span class="font-medium text-gray-900 dark:text-white"
-                      >141 others</span
-                    >
-                    love your story. See it and view more stories.
-                  </div>
-                  <div
-                    class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                  >
-                    44 minutes ago
-                  </div>
-                </div>
-              </a>
-              <a
-                href="#"
-                class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-              >
-                <div class="flex-shrink-0">
-                  <img
-                    class="w-11 h-11 rounded-full"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png"
-                    alt="Roberta Casas image"
-                  />
-                  <div
-                    class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-green-400 rounded-full border border-white dark:border-gray-700"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="w-3 h-3 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="pl-3 w-full">
-                  <div
-                    class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                  >
-                    <span class="font-semibold text-gray-900 dark:text-white"
-                      >Leslie Livingston</span
-                    >
-                    mentioned you in a comment:
-                    <span
-                      class="font-medium text-primary-600 dark:text-primary-500"
-                      >@bonnie.green</span
-                    >
-                    what do you say?
-                  </div>
-                  <div
-                    class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                  >
-                    1 hour ago
-                  </div>
-                </div>
-              </a>
-              <a
-                href="#"
-                class="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-600"
-              >
-                <div class="flex-shrink-0">
-                  <img
-                    class="w-11 h-11 rounded-full"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/robert-brown.png"
-                    alt="Robert image"
-                  />
-                  <div
-                    class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-purple-500 rounded-full border border-white dark:border-gray-700"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="w-3 h-3 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="pl-3 w-full">
-                  <div
-                    class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                  >
-                    <span class="font-semibold text-gray-900 dark:text-white"
-                      >Robert Brown</span
-                    >
-                    posted a new video: Glassmorphism - learn how to implement
-                    the new design trend.
-                  </div>
-                  <div
-                    class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                  >
-                    3 hours ago
-                  </div>
-                </div>
-              </a>
-            </div>
-            <a
-              href="#"
-              class="block py-2 text-md font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-600 dark:text-white dark:hover:underline"
-            >
-              <div class="inline-flex items-center">
-                <svg
-                  aria-hidden="true"
-                  class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                  <path
-                    fill-rule="evenodd"
-                    d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                View all
-              </div>
-            </a>
-          </div>
-          <!-- Apps -->
-          <button
-            type="button"
-            data-dropdown-toggle="apps-dropdown"
-            class="p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-          >
-            <span class="sr-only">View notifications</span>
-            <!-- Icon -->
-            <svg
-              class="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-              ></path>
-            </svg>
-          </button>
-          <!-- Dropdown menu -->
-          <div
-            class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
-            id="apps-dropdown"
-          >
-            <div
-              class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300"
-            >
-              Apps
-            </div>
-            <div class="grid grid-cols-3 gap-4 p-4">
-              <a
-                href="#"
-                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <div class="text-sm text-gray-900 dark:text-white">Sales</div>
-              </a>
-              <a
-                href="#"
-                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
-                  ></path>
-                </svg>
-                <div class="text-sm text-gray-900 dark:text-white">Users</div>
-              </a>
-              <a
-                href="#"
-                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V5z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <div class="text-sm text-gray-900 dark:text-white">Inbox</div>
-              </a>
-              <a
-                href="#"
-                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <div class="text-sm text-gray-900 dark:text-white">
-                  Profile
-                </div>
-              </a>
-              <a
-                href="#"
-                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <div class="text-sm text-gray-900 dark:text-white">
-                  Settings
-                </div>
-              </a>
-              <a
-                href="#"
-                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path>
-                  <path
-                    fill-rule="evenodd"
-                    d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <div class="text-sm text-gray-900 dark:text-white">
-                  Products
-                </div>
-              </a>
-              <a
-                href="#"
-                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"
-                  ></path>
-                  <path
-                    fill-rule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <div class="text-sm text-gray-900 dark:text-white">
-                  Pricing
-                </div>
-              </a>
-              <a
-                href="#"
-                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <div class="text-sm text-gray-900 dark:text-white">
-                  Billing
-                </div>
-              </a>
-              <a
-                href="#"
-                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-1 w-7 h-7 text-gray-400 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                  ></path>
-                </svg>
-                <div class="text-sm text-gray-900 dark:text-white">
-                  Logout
-                </div>
-              </a>
-            </div>
-          </div>
-          <button
-            type="button"
-            class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-            id="user-menu-button"
-            aria-expanded="false"
-            data-dropdown-toggle="dropdown"
-          >
-            <span class="sr-only">Open user menu</span>
-            <img
-              class="w-8 h-8 rounded-full"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
-              alt="user photo"
-            />
-          </button>
-          <!-- Dropdown menu -->
-          <div
-            class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
-            id="dropdown"
-          >
-            <div class="py-3 px-4">
-              <span
-                class="block text-sm font-semibold text-gray-900 dark:text-white"
-                >Neil Sims</span
-              >
-              <span
-                class="block text-sm text-gray-900 truncate dark:text-white"
-                >name@flowbite.com</span
-              >
-            </div>
-            <ul
-              class="py-1 text-gray-700 dark:text-gray-300"
-              aria-labelledby="dropdown"
-            >
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
-                  >My profile</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white"
-                  >Account settings</a
-                >
-              </li>
-            </ul>
-            <ul
-              class="py-1 text-gray-700 dark:text-gray-300"
-              aria-labelledby="dropdown"
-            >
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  ><svg
-                    class="mr-2 w-5 h-5 text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  My likes</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  ><svg
-                    class="mr-2 w-5 h-5 text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"
-                    ></path>
-                  </svg>
-                  Collections</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex justify-between items-center py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                >
-                  <span class="flex items-center">
-                    <svg
-                      aria-hidden="true"
-                      class="mr-2 w-5 h-5 text-primary-600 dark:text-primary-500"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    Pro version
-                  </span>
-                  <svg
-                    aria-hidden="true"
-                    class="w-5 h-5 text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </a>
-              </li>
-            </ul>
-            <ul
-              class="py-1 text-gray-700 dark:text-gray-300"
-              aria-labelledby="dropdown"
-            >
-              <li>
-                <a
-                  href="#"
-                  class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Sign out</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
 
-    <!-- Sidebar -->
+<SidebarNew/>
 
-    <aside
-      class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
-      aria-label="Sidenav"
-      id="drawer-navigation"
-    >
-      <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
-        <form action="#" method="GET" class="md:hidden mb-2">
-          <label for="sidebar-search" class="sr-only">Search</label>
-          <div class="relative">
-            <div
-              class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
-            >
-              <svg
-                class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                ></path>
+  
+  
+  <div class="p-4 sm:ml-64 bg-defaultbackground-50 dark:bg-gray-900">
+     <div class="p-4 border-gray-200 border-dashed rounded-lg
+      dark:border-gray-700 mt-14">
+
+  <!-- <div>
+    <h1>{{ message }}</h1>
+    <button @click="changeMessage">Change Message</button>
+  </div> -->
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+
+            <div class=" w-full bg-white rounded-lg shadow dark:bg-gray-800">
+  <div class="flex justify-between p-4 md:p-6 pb-0 ">
+    <div class="mx-auto">
+      <h5 class="text-center leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{ dealsCount }}</h5>
+      <p class="text-center font-normal text-gray-500 dark:text-gray-400">Total Payments</p>
+    </div>
+    <!-- <div
+      class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+      23%
+      <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+      </svg>
+    </div> -->
+  </div>
+
+</div>
+
+<!-- <div class=" w-full bg-white rounded-lg shadow dark:bg-gray-800">
+  <div class="flex justify-between p-4 md:p-6 pb-0 ">
+    <div class="mx-auto">
+      <h5 class="text-center leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{ leadsCount }}</h5>
+      <p class="text-center font-normal text-gray-500 dark:text-gray-400">Total Leads</p>
+    </div>
+   
+  </div>
+
+</div> -->
+
+<div class=" w-full bg-white rounded-lg shadow dark:bg-gray-800">
+  <div class="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
+    <div class="mx-auto">
+      <h5 class="text-center leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{ accountsCount }}</h5>
+      <p class="text-center font-normal text-gray-500 dark:text-gray-400">Total Accounts</p>
+    </div>
+    <!-- <div
+      class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+      23%
+      <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+      </svg>
+    </div> -->
+  </div>
+
+</div>
+
+<!-- <div class=" w-full bg-white rounded-lg shadow dark:bg-gray-800">
+  <div class="flex justify-between p-4 md:p-6 pb-0 md:pb-0">
+    <div class="mx-auto">
+      <h5 class="text-center leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{ contactsCount }}</h5>
+      <p class="text-center font-normal text-gray-500 dark:text-gray-400">Total Contacts</p>
+    </div>
+
+  </div>
+
+</div> -->
+
+
+
+
+
+
+
+
+
+
+           
+
+
+                
+
+           
+        </div> 
+        <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+           <p class="text-2xl text-gray-400 dark:text-gray-500">
+              <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
               </svg>
-            </div>
-            <input
-              type="text"
-              name="search"
-              id="sidebar-search"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="Search"
-            />
-          </div>
-        </form>
-        <ul class="space-y-2">
-          <li>
-            <a
-              href="#"
-              class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-              <svg
-                aria-hidden="true"
-                class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-              </svg>
-              <span class="ml-3">Overview</span>
-            </a>
-          </li>
-          <li>
-            <button
-              type="button"
-              class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-              aria-controls="dropdown-pages"
-              data-collapse-toggle="dropdown-pages"
-            >
-              <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span class="flex-1 ml-3 text-left whitespace-nowrap"
-                >Pages</span
-              >
-              <svg
-                aria-hidden="true"
-                class="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </button>
-            <ul id="dropdown-pages" class="hidden py-2 space-y-2">
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Settings</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Kanban</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Calendar</a
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <button
-              type="button"
-              class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-              aria-controls="dropdown-sales"
-              data-collapse-toggle="dropdown-sales"
-            >
-              <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span class="flex-1 ml-3 text-left whitespace-nowrap"
-                >Sales</span
-              >
-              <svg
-                aria-hidden="true"
-                class="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </button>
-            <ul id="dropdown-sales" class="hidden py-2 space-y-2">
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Products</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Billing</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Invoice</a
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-              <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"
-                ></path>
-                <path
-                  d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"
-                ></path>
-              </svg>
-              <span class="flex-1 ml-3 whitespace-nowrap">Messages</span>
-              <span
-                class="inline-flex justify-center items-center w-5 h-5 text-xs font-semibold rounded-full text-primary-800 bg-primary-100 dark:bg-primary-200 dark:text-primary-800"
-              >
-                4
-              </span>
-            </a>
-          </li>
-          <li>
-            <button
-              type="button"
-              class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-              aria-controls="dropdown-authentication"
-              data-collapse-toggle="dropdown-authentication"
-            >
-              <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span class="flex-1 ml-3 text-left whitespace-nowrap"
-                >Authentication</span
-              >
-              <svg
-                aria-hidden="true"
-                class="w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-            </button>
-            <ul id="dropdown-authentication" class="hidden py-2 space-y-2">
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Sign In</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Sign Up</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                  >Forgot Password</a
-                >
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <ul
-          class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700"
-        >
-          <li>
-            <a
-              href="#"
-              class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
-            >
-              <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
-                <path
-                  fill-rule="evenodd"
-                  d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span class="ml-3">Docs</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
-            >
-              <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"
-                ></path>
-              </svg>
-              <span class="ml-3">Components</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
-            >
-              <svg
-                aria-hidden="true"
-                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C15.802 8.249 16 9.1 16 10zm-5.165 3.913l1.58 1.58A5.98 5.98 0 0110 16a5.976 5.976 0 01-2.516-.552l1.562-1.562a4.006 4.006 0 001.789.027zm-4.677-2.796a4.002 4.002 0 01-.041-2.08l-.08.08-1.53-1.533A5.98 5.98 0 004 10c0 .954.223 1.856.619 2.657l1.54-1.54zm1.088-6.45A5.974 5.974 0 0110 4c.954 0 1.856.223 2.657.619l-1.54 1.54a4.002 4.002 0 00-2.346.033L7.246 4.668zM12 10a2 2 0 11-4 0 2 2 0 014 0z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
-              <span class="ml-3">Help</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div
-        class="hidden absolute bottom-0 left-0 justify-center p-4 space-x-4 w-full lg:flex bg-white dark:bg-gray-800 z-20"
-      >
-        <a
-          href="#"
-          class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-600"
-        >
-          <svg
-            aria-hidden="true"
-            class="w-6 h-6"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z"
-            ></path>
-          </svg>
-        </a>
-        <a
-          href="#"
-          data-tooltip-target="tooltip-settings"
-          class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600"
-        >
-          <svg
-            aria-hidden="true"
-            class="w-6 h-6"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-        </a>
-        <div
-          id="tooltip-settings"
-          role="tooltip"
-          class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip"
-        >
-          Settings page
-          <div class="tooltip-arrow" data-popper-arrow></div>
-        </div>
-        <button
-          type="button"
-          data-dropdown-toggle="language-dropdown"
-          class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:hover:text-white dark:text-gray-400 hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600"
-        >
-          <svg
-            aria-hidden="true"
-            class="h-5 w-5 rounded-full mt-0.5"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 3900 3900"
-          >
-            <path fill="#b22234" d="M0 0h7410v3900H0z" />
-            <path
-              d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0"
-              stroke="#fff"
-              stroke-width="300"
-            />
-            <path fill="#3c3b6e" d="M0 0h2964v2100H0z" />
-            <g fill="#fff">
-              <g id="d">
-                <g id="c">
-                  <g id="e">
-                    <g id="b">
-                      <path
-                        id="a"
-                        d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z"
-                      />
-                      <use xlink:href="#a" y="420" />
-                      <use xlink:href="#a" y="840" />
-                      <use xlink:href="#a" y="1260" />
-                    </g>
-                    <use xlink:href="#a" y="1680" />
-                  </g>
-                  <use xlink:href="#b" x="247" y="210" />
-                </g>
-                <use xlink:href="#c" x="494" />
-              </g>
-              <use xlink:href="#d" x="988" />
-              <use xlink:href="#c" x="1976" />
-              <use xlink:href="#e" x="2470" />
-            </g>
-          </svg>
-        </button>
-        <!-- Dropdown -->
-        <div
-          class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
-          id="language-dropdown"
-        >
-          <ul class="py-1" role="none">
+           </p>
+        </div> -->
+
+
+        <div class=" w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6 mb-4">
+  <div class="flex justify-between">
+    <div>
+      <!-- <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">{{ dealsCount }}</h5> -->
+      <p class="text-base font-normal text-gray-500 dark:text-gray-400">Payments</p>
+      <!-- today -->
+    </div>
+    <div v-if="percentageChange > 0 || percentageChange == 0"
+      class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
+      {{ Math.abs(percentageChange) }}%
+      <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+      </svg> 
+    </div>
+    <div v-if="percentageChange < 0 "
+      class="flex items-center px-2.5 py-0.5 text-base font-semibold text-red-500 dark:text-red-500 text-center">
+      {{ Math.abs(percentageChange) }}%
+      <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+      </svg> 
+    </div>
+  </div>
+  <!-- <div id="area-chart"></div> -->
+  <div>
+    <!-- This div will hold the chart -->
+    <apexchart type="area" height="300px" :options="chartOptions" :series="chartOptions.series" />
+  </div>
+  <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+    <div class="flex justify-between items-center pt-5">
+      <!-- Button -->
+       <!-- data-dropdown-toggle="lastDaysdropdown"
+        data-dropdown-placement="bottom" -->
+      <button
+        id="dropdownDefaultButton"
+        
+        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+        type="button">
+        Last 12 Months
+        <!-- <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+        </svg> -->
+      </button>
+      <!-- Dropdown menu -->
+      <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
             <li>
-              <a
-                href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
-                role="menuitem"
-              >
-                <div class="inline-flex items-center">
-                  <svg
-                    aria-hidden="true"
-                    class="h-3.5 w-3.5 rounded-full mr-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    id="flag-icon-css-us"
-                    viewBox="0 0 512 512"
-                  >
-                    <g fill-rule="evenodd">
-                      <g stroke-width="1pt">
-                        <path
-                          fill="#bd3d44"
-                          d="M0 0h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
-                          transform="scale(3.9385)"
-                        />
-                        <path
-                          fill="#fff"
-                          d="M0 10h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0zm0 20h247v10H0z"
-                          transform="scale(3.9385)"
-                        />
-                      </g>
-                      <path
-                        fill="#192f5d"
-                        d="M0 0h98.8v70H0z"
-                        transform="scale(3.9385)"
-                      />
-                      <path
-                        fill="#fff"
-                        d="M8.2 3l1 2.8H12L9.7 7.5l.9 2.7-2.4-1.7L6 10.2l.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7L74 8.5l-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 7.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 24.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 21.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 38.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 35.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 52.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 49.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm-74.1 7l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7H65zm16.4 0l1 2.8H86l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm-74 7l.8 2.8h3l-2.4 1.7.9 2.7-2.4-1.7L6 66.2l.9-2.7-2.4-1.7h3zm16.4 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8H45l-2.4 1.7 1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9zm16.4 0l1 2.8h2.8l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h3zm16.5 0l.9 2.8h2.9l-2.3 1.7.9 2.7-2.4-1.7-2.3 1.7.9-2.7-2.4-1.7h2.9zm16.5 0l.9 2.8h2.9L92 63.5l1 2.7-2.4-1.7-2.4 1.7 1-2.7-2.4-1.7h2.9z"
-                        transform="scale(3.9385)"
-                      />
-                    </g>
-                  </svg>
-                  English (US)
-                </div>
-              </a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
             </li>
             <li>
-              <a
-                href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-600"
-                role="menuitem"
-              >
-                <div class="inline-flex items-center">
-                  <svg
-                    aria-hidden="true"
-                    class="h-3.5 w-3.5 rounded-full mr-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    id="flag-icon-css-de"
-                    viewBox="0 0 512 512"
-                  >
-                    <path fill="#ffce00" d="M0 341.3h512V512H0z" />
-                    <path d="M0 0h512v170.7H0z" />
-                    <path fill="#d00" d="M0 170.7h512v170.6H0z" />
-                  </svg>
-                  Deutsch
-                </div>
-              </a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
             </li>
             <li>
-              <a
-                href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-600"
-                role="menuitem"
-              >
-                <div class="inline-flex items-center">
-                  <svg
-                    aria-hidden="true"
-                    class="h-3.5 w-3.5 rounded-full mr-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    id="flag-icon-css-it"
-                    viewBox="0 0 512 512"
-                  >
-                    <g fill-rule="evenodd" stroke-width="1pt">
-                      <path fill="#fff" d="M0 0h512v512H0z" />
-                      <path fill="#009246" d="M0 0h170.7v512H0z" />
-                      <path fill="#ce2b37" d="M341.3 0H512v512H341.3z" />
-                    </g>
-                  </svg>
-                  Italiano
-                </div>
-              </a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
             </li>
             <li>
-              <a
-                href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:text-gray-300 dark:hover:bg-gray-600"
-                role="menuitem"
-              >
-                <div class="inline-flex items-center">
-                  <svg
-                    aria-hidden="true"
-                    class="h-3.5 w-3.5 rounded-full mr-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    id="flag-icon-css-cn"
-                    viewBox="0 0 512 512"
-                  >
-                    <defs>
-                      <path
-                        id="a"
-                        fill="#ffde00"
-                        d="M1-.3L-.7.8 0-1 .6.8-1-.3z"
-                      />
-                    </defs>
-                    <path fill="#de2910" d="M0 0h512v512H0z" />
-                    <use
-                      width="30"
-                      height="20"
-                      transform="matrix(76.8 0 0 76.8 128 128)"
-                      xlink:href="#a"
-                    />
-                    <use
-                      width="30"
-                      height="20"
-                      transform="rotate(-121 142.6 -47) scale(25.5827)"
-                      xlink:href="#a"
-                    />
-                    <use
-                      width="30"
-                      height="20"
-                      transform="rotate(-98.1 198 -82) scale(25.6)"
-                      xlink:href="#a"
-                    />
-                    <use
-                      width="30"
-                      height="20"
-                      transform="rotate(-74 272.4 -114) scale(25.6137)"
-                      xlink:href="#a"
-                    />
-                    <use
-                      width="30"
-                      height="20"
-                      transform="matrix(16 -19.968 19.968 16 256 230.4)"
-                      xlink:href="#a"
-                    />
-                  </svg>
-                  中文 (繁體)
-                </div>
-              </a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
+            </li>
+            <li>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
             </li>
           </ul>
+      </div>
+      <Link
+      :href="route('deals')" 
+        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+        Payments
+        <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+        </svg>
+      </Link>
+    </div>
+  </div>
+</div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+
+          <div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+  <div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700">
+    <div class="flex items-center">
+      <div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center me-3">
+        <svg class="w-6 h-6 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 19">
+          <path d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/>
+          <path d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z"/>
+        </svg>
+      </div>
+      <div>
+        <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-1">{{ leadsThisWeek }}</h5>
+        <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Leads generated this week</p>
+      </div>
+    </div>
+    <div>
+      <span v-if="percentageChange > 0 || percentageChange == 0" class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
+        <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
+        </svg>
+        {{ Math.abs(percentageChangeLeads) }} %
+      </span>
+      <span v-else class="bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-red-900 dark:text-red-300">
+  <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1v12m0 0l4-4m-4 4l-4-4"/>
+  </svg>
+  {{ Math.abs(percentageChangeLeads) }} %
+</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2">
+    <dl class="flex items-center">
+        <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">Leads Converted:</dt>
+        <dd class="text-gray-900 text-sm dark:text-white font-semibold">{{ accountsThisMonth }}</dd>
+    </dl>
+    <dl class="flex items-center justify-end">
+        <dt class="text-gray-500 dark:text-gray-400 text-sm font-normal me-1">Conversion rate:</dt>
+        <dd class="text-gray-900 text-sm dark:text-white font-semibold">{{conversionRate}}%</dd>
+    </dl>
+  </div>
+
+  <div id="column-chart"></div>
+  <div style="max-height:320px;">
+  <apexchart 
+      type="bar" 
+      :options="chartOptionsLeads" 
+      :series="chartSeries" 
+      height="320px"
+    />
+    </div>
+    
+    <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+      <div class="flex justify-between items-center pt-5">
+        <!-- Button -->
+        <!-- id="dropdownDefaultButton"
+          data-dropdown-toggle="lastDaysdropdown"
+          data-dropdown-placement="bottom" -->
+        <button
+         
+          class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+          type="button">
+          Last 7 days
+          <!-- <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+          </svg> -->
+        </button>
+
+
+  
+        <!-- Dropdown menu -->
+        <!-- <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
+              </li>
+            </ul>
+        </div> -->
+        <Link
+          :href="route('leads')"
+          class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+          Leads
+          <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+        </Link>
+      </div>
+    </div>
+</div>
+
+
+<div class=" w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+
+<div class="flex justify-between pb-4 mb-4 border-b border-gray-200 dark:border-gray-700 items-start w-full">
+    <div class="flex-col items-center">
+      <div class="flex items-center mb-1">
+          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Products Sold</h5>
+          <svg data-popover-target="chart-info" data-popover-placement="bottom" class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z"/>
+          </svg>
+          <div data-popover id="chart-info" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+              <div class="p-3 space-y-2">
+                  <h3 class="font-semibold text-gray-900 dark:text-white">Activity growth - Incremental</h3>
+                  <p>Report helps navigate cumulative growth of community activities. Ideally, the chart should have a growing trend, as stagnating chart signifies a significant decrease of community activity.</p>
+                  <h3 class="font-semibold text-gray-900 dark:text-white">Calculation</h3>
+                  <p>For each date bucket, the all-time volume of activities is calculated. This means that activities in period n contain all activities up to period n, plus the activities generated by your community in period.</p>
+                  <a href="#" class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline">Read more <svg class="w-2 h-2 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+            </svg></a>
+          </div>
+          <div data-popper-arrow></div>
+      </div>
+    </div>
+    <button id="dateRangeButton" data-dropdown-toggle="dateRangeDropdown" data-dropdown-ignore-click-outside-class="datepicker" type="button" class="inline-flex items-center text-blue-700 dark:text-blue-600 font-medium hover:underline">This Month <svg class="w-3 h-3 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+      </svg>
+    </button>
+    <div id="dateRangeDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 lg:w-96 dark:bg-gray-700 dark:divide-gray-600">
+        <div class="p-3" aria-labelledby="dateRangeButton">
+          <div date-rangepicker datepicker-autohide class="flex items-center">
+              <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                    </svg>
+                </div>
+                <input name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Start date">
+              </div>
+              <span class="mx-2 text-gray-500 dark:text-gray-400">to</span>
+              <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                    </svg>
+                </div>
+                <input name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="End date">
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="flex justify-end items-center">
+    <button id="widgetDropdownButton" data-dropdown-toggle="widgetDropdown" data-dropdown-placement="bottom" type="button"  class="inline-flex items-center justify-center text-gray-500 w-8 h-8 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm"><svg class="w-3.5 h-3.5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+        <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+      </svg><span class="sr-only">Open dropdown</span>
+    </button>
+    <div id="widgetDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="widgetDropdownButton">
+          <li>
+            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279"/>
+              </svg>Edit widget
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+                <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+              </svg>Download data
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m5.953 7.467 6.094-2.612m.096 8.114L5.857 9.676m.305-1.192a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0ZM17 3.84a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Zm0 10.322a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Z"/>
+              </svg>Add to repository
+            </a>
+          </li>
+          <li>
+            <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg class="w-3 h-3 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
+              </svg>Delete widget
+            </a>
+          </li>
+        </ul>
+  </div>
+</div>
+</div>
+
+
+
+<!-- Line Chart -->
+<div class="py-6" id="pie-chart"></div>
+<div style="max-height:320px;">
+<apexchart 
+      type="pie" 
+      :options="chartOptionsPie" 
+      :series="chartSeriesPie" 
+      height="320px"
+      
+    />
+    </div>
+
+    <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
+      <div class="flex justify-between items-center pt-5">
+        <!-- Button -->
+        <!-- id="dropdownDefaultButton"
+          data-dropdown-toggle="lastDaysdropdown"
+          data-dropdown-placement="bottom" -->
+        <button
+         
+          class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+          type="button">
+          This Month
+          <!-- <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+          </svg> -->
+        </button>
+
+
+  
+        <!-- Dropdown menu -->
+        <!-- <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
+              </li>
+              <li>
+                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
+              </li>
+            </ul>
+        </div> -->
+        <Link
+          :href="route('products')"
+          class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
+          Products 
+          <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+        </Link>
+      </div>
+    </div>
+</div>
+
+<div class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="w-full">
+          <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Deals this week</h3>
+          <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">{{ dealsThisWeek }}</span>
+          <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
+            <span v-if="percentageChangeDeals >= 0" class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path clip-rule="evenodd" fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"></path>
+            </svg>
+            {{ Math.abs(percentageChangeDeals) }}% 
+          </span>
+
+          <span v-else class="flex items-center mr-1.5 text-sm text-red-500 dark:text-red-400">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path clip-rule="evenodd" fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"></path>
+            </svg>
+            {{ Math.abs(percentageChangeDeals) }}% 
+          </span>
+
+            Since last week
+          </p>
+        </div>
+        <div class="w-full" id="new-products-chart" style="min-height: 155px;">
+          <div id="apexcharts27ioayty" class="apexcharts-canvas apexcharts27ioayty apexcharts-theme-light" style="width: 215px; height: 140px;">
+            <!-- <svg id="SvgjsSvg1488" width="215" height="140" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG1490" class="apexcharts-inner apexcharts-graphical" transform="translate(12, 30)"><defs id="SvgjsDefs1489"><linearGradient id="SvgjsLinearGradient1494" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1495" stop-opacity="0.4" stop-color="rgba(216,227,240,0.4)" offset="0"></stop><stop id="SvgjsStop1496" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop><stop id="SvgjsStop1497" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop></linearGradient><clipPath id="gridRectMask27ioayty"><rect id="SvgjsRect1499" width="202" height="83" x="-4.5" y="-2.5" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMask27ioayty"></clipPath><clipPath id="nonForecastMask27ioayty"></clipPath><clipPath id="gridRectMarkerMask27ioayty"><rect id="SvgjsRect1500" width="197" height="82" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><rect id="SvgjsRect1498" width="24.814285714285717" height="78" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke-dasharray="3" fill="url(#SvgjsLinearGradient1494)" class="apexcharts-xcrosshairs" y2="78" filter="none" fill-opacity="0.9"></rect><g id="SvgjsG1519" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1520" class="apexcharts-xaxis-texts-g" transform="translate(0, 4)"></g></g><g id="SvgjsG1529" class="apexcharts-grid"><g id="SvgjsG1530" class="apexcharts-gridlines-horizontal" style="display: none;"><line id="SvgjsLine1532" x1="0" y1="0" x2="193" y2="0" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1533" x1="0" y1="19.5" x2="193" y2="19.5" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1534" x1="0" y1="39" x2="193" y2="39" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1535" x1="0" y1="58.5" x2="193" y2="58.5" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1536" x1="0" y1="78" x2="193" y2="78" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line></g><g id="SvgjsG1531" class="apexcharts-gridlines-vertical" style="display: none;"></g><line id="SvgjsLine1538" x1="0" y1="78" x2="193" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line><line id="SvgjsLine1537" x1="0" y1="1" x2="0" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line></g><g id="SvgjsG1501" class="apexcharts-bar-series apexcharts-plot-series"><g id="SvgjsG1502" class="apexcharts-series" rel="1" seriesName="Quantity" data:realIndex="0"><path id="SvgjsPath1506" d="M 1.3785714285714281 78L 1.3785714285714281 14.700000000000003Q 1.3785714285714281 11.700000000000003 4.378571428571428 11.700000000000003L 18.192857142857143 11.700000000000003Q 21.192857142857143 11.700000000000003 21.192857142857143 14.700000000000003L 21.192857142857143 14.700000000000003L 21.192857142857143 78L 21.192857142857143 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask27ioayty)" pathTo="M 1.3785714285714281 78L 1.3785714285714281 14.700000000000003Q 1.3785714285714281 11.700000000000003 4.378571428571428 11.700000000000003L 18.192857142857143 11.700000000000003Q 21.192857142857143 11.700000000000003 21.192857142857143 14.700000000000003L 21.192857142857143 14.700000000000003L 21.192857142857143 78L 21.192857142857143 78z" pathFrom="M 1.3785714285714281 78L 1.3785714285714281 78L 21.192857142857143 78L 21.192857142857143 78L 21.192857142857143 78L 21.192857142857143 78L 21.192857142857143 78L 1.3785714285714281 78" cy="11.700000000000003" cx="26.450000000000003" j="0" val="170" barHeight="66.3" barWidth="24.814285714285717"></path><path id="SvgjsPath1508" d="M 28.950000000000003 78L 28.950000000000003 10.800000000000011Q 28.950000000000003 7.800000000000011 31.950000000000003 7.800000000000011L 45.76428571428572 7.800000000000011Q 48.76428571428572 7.800000000000011 48.76428571428572 10.800000000000011L 48.76428571428572 10.800000000000011L 48.76428571428572 78L 48.76428571428572 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask27ioayty)" pathTo="M 28.950000000000003 78L 28.950000000000003 10.800000000000011Q 28.950000000000003 7.800000000000011 31.950000000000003 7.800000000000011L 45.76428571428572 7.800000000000011Q 48.76428571428572 7.800000000000011 48.76428571428572 10.800000000000011L 48.76428571428572 10.800000000000011L 48.76428571428572 78L 48.76428571428572 78z" pathFrom="M 28.950000000000003 78L 28.950000000000003 78L 48.76428571428572 78L 48.76428571428572 78L 48.76428571428572 78L 48.76428571428572 78L 48.76428571428572 78L 28.950000000000003 78" cy="7.800000000000011" cx="54.02142857142857" j="1" val="180" barHeight="70.19999999999999" barWidth="24.814285714285717"></path><path id="SvgjsPath1510" d="M 56.52142857142857 78L 56.52142857142857 17.040000000000006Q 56.52142857142857 14.040000000000006 59.52142857142857 14.040000000000006L 73.33571428571429 14.040000000000006Q 76.33571428571429 14.040000000000006 76.33571428571429 17.040000000000006L 76.33571428571429 17.040000000000006L 76.33571428571429 78L 76.33571428571429 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask27ioayty)" pathTo="M 56.52142857142857 78L 56.52142857142857 17.040000000000006Q 56.52142857142857 14.040000000000006 59.52142857142857 14.040000000000006L 73.33571428571429 14.040000000000006Q 76.33571428571429 14.040000000000006 76.33571428571429 17.040000000000006L 76.33571428571429 17.040000000000006L 76.33571428571429 78L 76.33571428571429 78z" pathFrom="M 56.52142857142857 78L 56.52142857142857 78L 76.33571428571429 78L 76.33571428571429 78L 76.33571428571429 78L 76.33571428571429 78L 76.33571428571429 78L 56.52142857142857 78" cy="14.040000000000006" cx="81.59285714285714" j="2" val="164" barHeight="63.959999999999994" barWidth="24.814285714285717"></path><path id="SvgjsPath1512" d="M 84.09285714285714 78L 84.09285714285714 24.450000000000003Q 84.09285714285714 21.450000000000003 87.09285714285714 21.450000000000003L 100.90714285714286 21.450000000000003Q 103.90714285714286 21.450000000000003 103.90714285714286 24.450000000000003L 103.90714285714286 24.450000000000003L 103.90714285714286 78L 103.90714285714286 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask27ioayty)" pathTo="M 84.09285714285714 78L 84.09285714285714 24.450000000000003Q 84.09285714285714 21.450000000000003 87.09285714285714 21.450000000000003L 100.90714285714286 21.450000000000003Q 103.90714285714286 21.450000000000003 103.90714285714286 24.450000000000003L 103.90714285714286 24.450000000000003L 103.90714285714286 78L 103.90714285714286 78z" pathFrom="M 84.09285714285714 78L 84.09285714285714 78L 103.90714285714286 78L 103.90714285714286 78L 103.90714285714286 78L 103.90714285714286 78L 103.90714285714286 78L 84.09285714285714 78" cy="21.450000000000003" cx="109.16428571428571" j="3" val="145" barHeight="56.55" barWidth="24.814285714285717"></path><path id="SvgjsPath1514" d="M 111.66428571428571 78L 111.66428571428571 5.340000000000003Q 111.66428571428571 2.3400000000000034 114.66428571428571 2.3400000000000034L 128.47857142857143 2.3400000000000034Q 131.47857142857143 2.3400000000000034 131.47857142857143 5.340000000000003L 131.47857142857143 5.340000000000003L 131.47857142857143 78L 131.47857142857143 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask27ioayty)" pathTo="M 111.66428571428571 78L 111.66428571428571 5.340000000000003Q 111.66428571428571 2.3400000000000034 114.66428571428571 2.3400000000000034L 128.47857142857143 2.3400000000000034Q 131.47857142857143 2.3400000000000034 131.47857142857143 5.340000000000003L 131.47857142857143 5.340000000000003L 131.47857142857143 78L 131.47857142857143 78z" pathFrom="M 111.66428571428571 78L 111.66428571428571 78L 131.47857142857143 78L 131.47857142857143 78L 131.47857142857143 78L 131.47857142857143 78L 131.47857142857143 78L 111.66428571428571 78" cy="2.3400000000000034" cx="136.7357142857143" j="4" val="194" barHeight="75.66" barWidth="24.814285714285717"></path><path id="SvgjsPath1516" d="M 139.2357142857143 78L 139.2357142857143 14.700000000000003Q 139.2357142857143 11.700000000000003 142.2357142857143 11.700000000000003L 156.05 11.700000000000003Q 159.05 11.700000000000003 159.05 14.700000000000003L 159.05 14.700000000000003L 159.05 78L 159.05 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask27ioayty)" pathTo="M 139.2357142857143 78L 139.2357142857143 14.700000000000003Q 139.2357142857143 11.700000000000003 142.2357142857143 11.700000000000003L 156.05 11.700000000000003Q 159.05 11.700000000000003 159.05 14.700000000000003L 159.05 14.700000000000003L 159.05 78L 159.05 78z" pathFrom="M 139.2357142857143 78L 139.2357142857143 78L 159.05 78L 159.05 78L 159.05 78L 159.05 78L 159.05 78L 139.2357142857143 78" cy="11.700000000000003" cx="164.30714285714288" j="5" val="170" barHeight="66.3" barWidth="24.814285714285717"></path><path id="SvgjsPath1518" d="M 166.80714285714288 78L 166.80714285714288 20.550000000000004Q 166.80714285714288 17.550000000000004 169.80714285714288 17.550000000000004L 183.6214285714286 17.550000000000004Q 186.6214285714286 17.550000000000004 186.6214285714286 20.550000000000004L 186.6214285714286 20.550000000000004L 186.6214285714286 78L 186.6214285714286 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke="transparent" stroke-opacity="1" stroke-linecap="round" stroke-width="5" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMask27ioayty)" pathTo="M 166.80714285714288 78L 166.80714285714288 20.550000000000004Q 166.80714285714288 17.550000000000004 169.80714285714288 17.550000000000004L 183.6214285714286 17.550000000000004Q 186.6214285714286 17.550000000000004 186.6214285714286 20.550000000000004L 186.6214285714286 20.550000000000004L 186.6214285714286 78L 186.6214285714286 78z" pathFrom="M 166.80714285714288 78L 166.80714285714288 78L 186.6214285714286 78L 186.6214285714286 78L 186.6214285714286 78L 186.6214285714286 78L 186.6214285714286 78L 166.80714285714288 78" cy="17.550000000000004" cx="191.87857142857146" j="6" val="155" barHeight="60.449999999999996" barWidth="24.814285714285717"></path><g id="SvgjsG1504" class="apexcharts-bar-goals-markers" style="pointer-events: none"><g id="SvgjsG1505" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1507" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1509" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1511" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1513" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1515" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1517" className="apexcharts-bar-goals-groups"></g></g></g><g id="SvgjsG1503" class="apexcharts-datalabels" data:realIndex="0"></g></g><line id="SvgjsLine1539" x1="0" y1="0" x2="193" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1540" x1="0" y1="0" x2="193" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1541" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1542" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG1543" class="apexcharts-point-annotations"></g></g><g id="SvgjsG1528" class="apexcharts-yaxis" rel="0" transform="translate(-18, 0)"></g><g id="SvgjsG1491" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend" style="max-height: 70px;"></div><div class="apexcharts-tooltip apexcharts-theme-light"><div class="apexcharts-tooltip-title" style="font-family: Inter, sans-serif; font-size: 14px;"></div><div class="apexcharts-tooltip-series-group" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(26, 86, 219);"></span><div class="apexcharts-tooltip-text" style="font-family: Inter, sans-serif; font-size: 14px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div> -->
+            <apexchart
+        :options="chartOptionsDealsWeek"
+        :series="chartSeriesDealsWeek"
+        type="bar"
+        height="155"
+      ></apexchart>
+            <div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light">
+              <div class="apexcharts-yaxistooltip-text"></div>
         </div>
       </div>
-    </aside>
+      </div>
+      </div>
+      <!-- <div class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="w-full">
+          <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Users</h3>
+          <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">2,340</span>
+          <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
+            <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path clip-rule="evenodd" fill-rule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"></path>
+              </svg>
+              3,4% 
+            </span>
+            Since last month
+          </p>
+        </div>
+        <div class="w-full" id="week-signups-chart" style="min-height: 155px;"><div id="apexchartsa49wjz84" class="apexcharts-canvas apexchartsa49wjz84 apexcharts-theme-light" style="width: 215px; height: 140px;"><svg id="SvgjsSvg1634" width="215" height="140" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG1636" class="apexcharts-inner apexcharts-graphical" transform="translate(12, 30)"><defs id="SvgjsDefs1635"><linearGradient id="SvgjsLinearGradient1640" x1="0" y1="0" x2="0" y2="1"><stop id="SvgjsStop1641" stop-opacity="0.4" stop-color="rgba(216,227,240,0.4)" offset="0"></stop><stop id="SvgjsStop1642" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop><stop id="SvgjsStop1643" stop-opacity="0.5" stop-color="rgba(190,209,230,0.5)" offset="1"></stop></linearGradient><clipPath id="gridRectMaska49wjz84"><rect id="SvgjsRect1645" width="197" height="78" x="-2" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="forecastMaska49wjz84"></clipPath><clipPath id="nonForecastMaska49wjz84"></clipPath><clipPath id="gridRectMarkerMaska49wjz84"><rect id="SvgjsRect1646" width="197" height="82" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><rect id="SvgjsRect1644" width="6.892857142857143" height="78" x="0" y="0" rx="0" ry="0" opacity="1" stroke-width="0" stroke-dasharray="3" fill="url(#SvgjsLinearGradient1640)" class="apexcharts-xcrosshairs" y2="78" filter="none" fill-opacity="0.9"></rect><g id="SvgjsG1672" class="apexcharts-xaxis" transform="translate(0, 0)"><g id="SvgjsG1673" class="apexcharts-xaxis-texts-g" transform="translate(0, 4)"></g></g><g id="SvgjsG1682" class="apexcharts-grid"><g id="SvgjsG1683" class="apexcharts-gridlines-horizontal" style="display: none;"><line id="SvgjsLine1685" x1="0" y1="0" x2="193" y2="0" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1686" x1="0" y1="15.6" x2="193" y2="15.6" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1687" x1="0" y1="31.2" x2="193" y2="31.2" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1688" x1="0" y1="46.8" x2="193" y2="46.8" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1689" x1="0" y1="62.4" x2="193" y2="62.4" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line><line id="SvgjsLine1690" x1="0" y1="78" x2="193" y2="78" stroke="#e0e0e0" stroke-dasharray="0" stroke-linecap="butt" class="apexcharts-gridline"></line></g><g id="SvgjsG1684" class="apexcharts-gridlines-vertical" style="display: none;"></g><line id="SvgjsLine1692" x1="0" y1="78" x2="193" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line><line id="SvgjsLine1691" x1="0" y1="1" x2="0" y2="78" stroke="transparent" stroke-dasharray="0" stroke-linecap="butt"></line></g><g id="SvgjsG1647" class="apexcharts-bar-series apexcharts-plot-series"><g id="SvgjsG1648" class="apexcharts-series" rel="1" seriesName="Users" data:realIndex="0"><rect id="SvgjsRect1651" width="6.892857142857143" height="78" x="10.339285714285715" y="0" rx="3" ry="3" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#E5E7EB" class="apexcharts-backgroundBar"></rect><path id="SvgjsPath1653" d="M 10.339285714285715 78L 10.339285714285715 46.315999999999995Q 10.339285714285715 43.315999999999995 13.339285714285715 43.315999999999995L 14.232142857142858 43.315999999999995Q 17.232142857142858 43.315999999999995 17.232142857142858 46.315999999999995L 17.232142857142858 46.315999999999995L 17.232142857142858 78L 17.232142857142858 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMaska49wjz84)" pathTo="M 10.339285714285715 78L 10.339285714285715 46.315999999999995Q 10.339285714285715 43.315999999999995 13.339285714285715 43.315999999999995L 14.232142857142858 43.315999999999995Q 17.232142857142858 43.315999999999995 17.232142857142858 46.315999999999995L 17.232142857142858 46.315999999999995L 17.232142857142858 78L 17.232142857142858 78z" pathFrom="M 10.339285714285715 78L 10.339285714285715 78L 17.232142857142858 78L 17.232142857142858 78L 17.232142857142858 78L 17.232142857142858 78L 17.232142857142858 78L 10.339285714285715 78" cy="43.315999999999995" cx="37.91071428571429" j="0" val="1334" barHeight="34.684000000000005" barWidth="6.892857142857143"></path><rect id="SvgjsRect1654" width="6.892857142857143" height="78" x="37.91071428571429" y="0" rx="3" ry="3" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#E5E7EB" class="apexcharts-backgroundBar"></rect><path id="SvgjsPath1656" d="M 37.91071428571429 78L 37.91071428571429 17.689999999999998Q 37.91071428571429 14.689999999999998 40.91071428571429 14.689999999999998L 41.80357142857144 14.689999999999998Q 44.80357142857144 14.689999999999998 44.80357142857144 17.689999999999998L 44.80357142857144 17.689999999999998L 44.80357142857144 78L 44.80357142857144 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMaska49wjz84)" pathTo="M 37.91071428571429 78L 37.91071428571429 17.689999999999998Q 37.91071428571429 14.689999999999998 40.91071428571429 14.689999999999998L 41.80357142857144 14.689999999999998Q 44.80357142857144 14.689999999999998 44.80357142857144 17.689999999999998L 44.80357142857144 17.689999999999998L 44.80357142857144 78L 44.80357142857144 78z" pathFrom="M 37.91071428571429 78L 37.91071428571429 78L 44.80357142857144 78L 44.80357142857144 78L 44.80357142857144 78L 44.80357142857144 78L 44.80357142857144 78L 37.91071428571429 78" cy="14.689999999999998" cx="65.48214285714286" j="1" val="2435" barHeight="63.31" barWidth="6.892857142857143"></path><rect id="SvgjsRect1657" width="6.892857142857143" height="78" x="65.48214285714286" y="0" rx="3" ry="3" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#E5E7EB" class="apexcharts-backgroundBar"></rect><path id="SvgjsPath1659" d="M 65.48214285714286 78L 65.48214285714286 35.422Q 65.48214285714286 32.422 68.48214285714286 32.422L 69.375 32.422Q 72.375 32.422 72.375 35.422L 72.375 35.422L 72.375 78L 72.375 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMaska49wjz84)" pathTo="M 65.48214285714286 78L 65.48214285714286 35.422Q 65.48214285714286 32.422 68.48214285714286 32.422L 69.375 32.422Q 72.375 32.422 72.375 35.422L 72.375 35.422L 72.375 78L 72.375 78z" pathFrom="M 65.48214285714286 78L 65.48214285714286 78L 72.375 78L 72.375 78L 72.375 78L 72.375 78L 72.375 78L 65.48214285714286 78" cy="32.422" cx="93.05357142857143" j="2" val="1753" barHeight="45.578" barWidth="6.892857142857143"></path><rect id="SvgjsRect1660" width="6.892857142857143" height="78" x="93.05357142857143" y="0" rx="3" ry="3" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#E5E7EB" class="apexcharts-backgroundBar"></rect><path id="SvgjsPath1662" d="M 93.05357142857143 78L 93.05357142857143 46.472Q 93.05357142857143 43.472 96.05357142857143 43.472L 96.94642857142857 43.472Q 99.94642857142857 43.472 99.94642857142857 46.472L 99.94642857142857 46.472L 99.94642857142857 78L 99.94642857142857 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMaska49wjz84)" pathTo="M 93.05357142857143 78L 93.05357142857143 46.472Q 93.05357142857143 43.472 96.05357142857143 43.472L 96.94642857142857 43.472Q 99.94642857142857 43.472 99.94642857142857 46.472L 99.94642857142857 46.472L 99.94642857142857 78L 99.94642857142857 78z" pathFrom="M 93.05357142857143 78L 93.05357142857143 78L 99.94642857142857 78L 99.94642857142857 78L 99.94642857142857 78L 99.94642857142857 78L 99.94642857142857 78L 93.05357142857143 78" cy="43.472" cx="120.625" j="3" val="1328" barHeight="34.528" barWidth="6.892857142857143"></path><rect id="SvgjsRect1663" width="6.892857142857143" height="78" x="120.625" y="0" rx="3" ry="3" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#E5E7EB" class="apexcharts-backgroundBar"></rect><path id="SvgjsPath1665" d="M 120.625 78L 120.625 50.97Q 120.625 47.97 123.625 47.97L 124.51785714285714 47.97Q 127.51785714285714 47.97 127.51785714285714 50.97L 127.51785714285714 50.97L 127.51785714285714 78L 127.51785714285714 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMaska49wjz84)" pathTo="M 120.625 78L 120.625 50.97Q 120.625 47.97 123.625 47.97L 124.51785714285714 47.97Q 127.51785714285714 47.97 127.51785714285714 50.97L 127.51785714285714 50.97L 127.51785714285714 78L 127.51785714285714 78z" pathFrom="M 120.625 78L 120.625 78L 127.51785714285714 78L 127.51785714285714 78L 127.51785714285714 78L 127.51785714285714 78L 127.51785714285714 78L 120.625 78" cy="47.97" cx="148.19642857142858" j="4" val="1155" barHeight="30.03" barWidth="6.892857142857143"></path><rect id="SvgjsRect1666" width="6.892857142857143" height="78" x="148.19642857142858" y="0" rx="3" ry="3" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#E5E7EB" class="apexcharts-backgroundBar"></rect><path id="SvgjsPath1668" d="M 148.19642857142858 78L 148.19642857142858 38.568Q 148.19642857142858 35.568 151.19642857142858 35.568L 152.08928571428572 35.568Q 155.08928571428572 35.568 155.08928571428572 38.568L 155.08928571428572 38.568L 155.08928571428572 78L 155.08928571428572 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMaska49wjz84)" pathTo="M 148.19642857142858 78L 148.19642857142858 38.568Q 148.19642857142858 35.568 151.19642857142858 35.568L 152.08928571428572 35.568Q 155.08928571428572 35.568 155.08928571428572 38.568L 155.08928571428572 38.568L 155.08928571428572 78L 155.08928571428572 78z" pathFrom="M 148.19642857142858 78L 148.19642857142858 78L 155.08928571428572 78L 155.08928571428572 78L 155.08928571428572 78L 155.08928571428572 78L 155.08928571428572 78L 148.19642857142858 78" cy="35.568" cx="175.76785714285717" j="5" val="1632" barHeight="42.432" barWidth="6.892857142857143"></path><rect id="SvgjsRect1669" width="6.892857142857143" height="78" x="175.76785714285717" y="0" rx="3" ry="3" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#E5E7EB" class="apexcharts-backgroundBar"></rect><path id="SvgjsPath1671" d="M 175.76785714285717 78L 175.76785714285717 46.263999999999996Q 175.76785714285717 43.263999999999996 178.76785714285717 43.263999999999996L 179.6607142857143 43.263999999999996Q 182.6607142857143 43.263999999999996 182.6607142857143 46.263999999999996L 182.6607142857143 46.263999999999996L 182.6607142857143 78L 182.6607142857143 78z" fill="rgba(26,86,219,1)" fill-opacity="1" stroke-opacity="1" stroke-linecap="round" stroke-width="0" stroke-dasharray="0" class="apexcharts-bar-area" index="0" clip-path="url(#gridRectMaska49wjz84)" pathTo="M 175.76785714285717 78L 175.76785714285717 46.263999999999996Q 175.76785714285717 43.263999999999996 178.76785714285717 43.263999999999996L 179.6607142857143 43.263999999999996Q 182.6607142857143 43.263999999999996 182.6607142857143 46.263999999999996L 182.6607142857143 46.263999999999996L 182.6607142857143 78L 182.6607142857143 78z" pathFrom="M 175.76785714285717 78L 175.76785714285717 78L 182.6607142857143 78L 182.6607142857143 78L 182.6607142857143 78L 182.6607142857143 78L 182.6607142857143 78L 175.76785714285717 78" cy="43.263999999999996" cx="203.33928571428575" j="6" val="1336" barHeight="34.736000000000004" barWidth="6.892857142857143"></path><g id="SvgjsG1650" class="apexcharts-bar-goals-markers" style="pointer-events: none"><g id="SvgjsG1652" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1655" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1658" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1661" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1664" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1667" className="apexcharts-bar-goals-groups"></g><g id="SvgjsG1670" className="apexcharts-bar-goals-groups"></g></g></g><g id="SvgjsG1649" class="apexcharts-datalabels" data:realIndex="0"></g></g><line id="SvgjsLine1693" x1="0" y1="0" x2="193" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1694" x1="0" y1="0" x2="193" y2="0" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" class="apexcharts-ycrosshairs-hidden"></line><g id="SvgjsG1695" class="apexcharts-yaxis-annotations"></g><g id="SvgjsG1696" class="apexcharts-xaxis-annotations"></g><g id="SvgjsG1697" class="apexcharts-point-annotations"></g></g><g id="SvgjsG1681" class="apexcharts-yaxis" rel="0" transform="translate(-18, 0)"></g><g id="SvgjsG1637" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend" style="max-height: 70px;"></div><div class="apexcharts-tooltip apexcharts-theme-light"><div class="apexcharts-tooltip-title" style="font-family: Inter, sans-serif; font-size: 14px;"></div><div class="apexcharts-tooltip-series-group" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(26, 86, 219);"></span><div class="apexcharts-tooltip-text" style="font-family: Inter, sans-serif; font-size: 14px;"><div class="apexcharts-tooltip-y-group"><span class="apexcharts-tooltip-text-y-label"></span><span class="apexcharts-tooltip-text-y-value"></span></div><div class="apexcharts-tooltip-goals-group"><span class="apexcharts-tooltip-text-goals-label"></span><span class="apexcharts-tooltip-text-goals-value"></span></div><div class="apexcharts-tooltip-z-group"><span class="apexcharts-tooltip-text-z-label"></span><span class="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div class="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light"><div class="apexcharts-yaxistooltip-text"></div></div></div></div>
+      </div> -->
+      <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="w-full">
+          <h3 class="mb-2 text-base font-normal text-gray-500 dark:text-gray-400">Top Product Targets</h3>
+          <div class="flex items-center mb-2" v-for="(target, index) in productTargets" :key="index">
+            <div class="w-1/4 text-sm font-medium dark:text-white">{{ target.name }} </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+              <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" :style="{ width: Math.min(target.percentage_achieved, 100) + '%' }"></div>
+            </div>
+          </div>
+          <!-- <div class="flex items-center mb-2">
+            <div class="w-16 text-sm font-medium dark:text-white">KSh </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+              <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" style="width: 15%"></div>
+            </div>
+          </div> -->
+          <!-- <div class="flex items-center mb-2">
+            <div class="w-16 text-sm font-medium dark:text-white">Calls</div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+              <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" style="width: 60%"></div>
+            </div>
+          </div>
+          <div class="flex items-center mb-2">
+            <div class="w-16 text-sm font-medium dark:text-white">Visits</div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+              <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500" style="width: 30%"></div>
+            </div>
+          </div> -->
+        </div>
+        <div id="traffic-channels-chart" class="w-full"></div>
+      </div>
+          
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4 bg-white dark:bg-gray-800" 
+        >
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400
+    bg-white dark:bg-gray-800">
+        <caption class=" pl-6 pt-3 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="text-align:left;font-weight:bold;">Recent Accounts</caption>
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Customer Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Phone
+                </th>
+               
+       
+            </tr>
+        </thead>
+        <tbody>
 
-    <main class="p-4 md:ml-64 h-auto pt-20">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <div
-          class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"
-        ></div>
-      </div>
-      <div
-        class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-      ></div>
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-      </div>
-      <div
-        class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"
-      ></div>
-      <div class="grid grid-cols-2 gap-4">
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-        <div
-          class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"
-        ></div>
-      </div>
-    </main>
+            <tr class="bg-white dark:bg-gray-800" v-for="(account, index) in accounts" :key="index">
+                <th scope="row" 
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >{{ account.id }}</th>
+                <td  class="px-6 py-4">{{ account.name }}</td>
+                <td  class="px-6 py-4">{{account.phone }}</td>
+                <!-- <td>{{  }}</td> -->
+                <!-- <td>{{ account.address }}</td> -->
+                
+                    </tr>
+
+                    <tr v-if="accounts.length==0">
+                <td  class="px-6 py-4 " colspan="3" style="text-align:center">No accounts at the moment</td>
+                
+            </tr>
+
+            
+            
+            <!-- <tr class="bg-white dark:bg-gray-800">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Magic Mouse 2
+                </th>
+                <td class="px-6 py-4">
+                    Black
+                </td>
+                <td class="px-6 py-4">
+                    Accessories
+                </td>
+                
+
+                
+            </tr> -->
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4 bg-white dark:bg-gray-800" >
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" >
+        <caption class=" pl-6 pt-3 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="text-align:left;font-weight:bold;">Recent Deals</caption>
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Product Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Account
+                </th>
+                </tr>
+
+      
+        </thead>
+        <tbody>
+
+            <tr class="bg-white dark:bg-gray-800" v-for="(deal, index) in deals" :key="index">
+                <th scope="row" 
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >{{ deal.id }}</th>
+                <td  class="px-6 py-4">{{ deal.product.name }}</td>
+                <td  class="px-6 py-4">{{ deal.account.name }}</td>
+       
+            </tr>
+
+            <tr v-if="deals.length==0">
+                <td  class="px-6 py-4 " colspan="3" style="text-align:center">No deals at the moment</td>
+                
+            </tr>
+            
+            
+            <!-- <tr class="bg-white dark:bg-gray-800">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Magic Mouse 2
+                </th>
+                <td class="px-6 py-4">
+                    Black
+                </td>
+                <td class="px-6 py-4">
+                    Accessories
+                </td>
+                <td class="px-6 py-4">
+                    $99
+                </td>
+                
+            </tr> -->
+        </tbody>
+    </table>
+</div>
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4 bg-white dark:bg-gray-800"
+ >
+    
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <caption class=" pl-6 pt-3 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="text-align:left;font-weight:bold;">Recent Visits</caption>
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Id
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Customer
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Location
+                </th>
+                </tr>
+
+      
+        </thead>
+        <tbody>
+
+            <tr class="bg-white dark:bg-gray-800" v-for="(visit, index) in visits" :key="visit">
+                <th scope="row" 
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >{{ visit.id }}</th>
+                <td  class="px-6 py-4">{{ visit.account.name }}</td>
+                <td  class="px-6 py-4">{{ visit.location.name }}</td>
+       
+            </tr>
+
+            <tr v-if="visits.length==0">
+                <td  class="px-6 py-4 " colspan="3" style="text-align:center">No visits at the moment</td>
+                
+            </tr>
+            
+            
+            <!-- <tr class="bg-white dark:bg-gray-800">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Magic Mouse 2
+                </th>
+                <td class="px-6 py-4">
+                    Black
+                </td>
+                <td class="px-6 py-4">
+                    Accessories
+                </td>
+                <td class="px-6 py-4">
+                    $99
+                </td>
+                
+            </tr> -->
+        </tbody>
+    </table>
+</div>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg   gap-4 mb-4 bg-white dark:bg-gray-800" >
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <caption class=" pl-6 pt-3 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" style="text-align:left;font-weight:bold;">Recent Contacts</caption>
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    ID
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Contact
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Account
+                </th>
+                </tr>
+
+      
+        </thead>
+        <tbody>
+
+            <tr class="bg-white dark:bg-gray-800" v-for="(contact, index) in contacts" :key="index">
+                <th scope="row" 
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >{{ contact.id }}</th>
+                <td  class="px-6 py-4">{{ contact.name }}</td>
+                <td  class="px-6 py-4">{{ contact.account.name }}</td>
+       
+            </tr>
+
+            <tr v-if="contacts.length==0">
+                <td  class="px-6 py-4" colspan="3" style="text-align:center">No contacts at the moment</td>
+                
+            </tr>
+            
+            
+            <!-- <tr class="bg-white dark:bg-gray-800">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Magic Mouse 2
+                </th>
+                <td class="px-6 py-4">
+                    Black
+                </td>
+                <td class="px-6 py-4">
+                    Accessories
+               ] </td>
+                <td class="px-6 py-4">
+                    $99
+                </td>
+                
+            </tr> -->
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+    <div class="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-2">
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <!-- <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+           <p class="text-2xl text-gray-400 dark:text-gray-500">
+              <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+              </svg>
+           </p>
+        </div> -->
+        <!-- <div class="grid grid-cols-2 gap-4">
+           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+              <p class="text-2xl text-gray-400 dark:text-gray-500">
+                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                 </svg>
+              </p>
+           </div>
+           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+              <p class="text-2xl text-gray-400 dark:text-gray-500">
+                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                 </svg>
+              </p>
+           </div>
+           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+              <p class="text-2xl text-gray-400 dark:text-gray-500">
+                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                 </svg>
+              </p>
+           </div>
+           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+              <p class="text-2xl text-gray-400 dark:text-gray-500">
+                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                 </svg>
+              </p>
+           </div>
+        </div> -->
+     </div>
   </div>
-  </template>
+</template>
